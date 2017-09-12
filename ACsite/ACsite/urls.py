@@ -26,7 +26,7 @@ from ac_site.views import index
 # name:     urlパターンに名前をつける
 
 urlpatterns = [
-    url(r'^$', index),  # ac_site/view.pyのindex関数にリダイレクト（import文から）
-    url(r'^ac_site/', include('ac_site.urls')), # ac_site/なら/ac_site/urls.pyを参照する
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', index),  # https://hoge.com の後が空欄(^最初から $最後まで)だった場合、ac_site/viewsのindexという名前の関数にリダイレクト（import文から）
+    url(r'^ac_site/', include('ac_site.urls')), # urlの後がac_site/なら/ac_site/urls.pyを参照する
+    url(r'^admin/', include(admin.site.urls)), 
 ]
