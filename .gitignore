@@ -1,1 +1,7 @@
+.*
+!.gitignore
 appengine_config.py
+app.yaml
+ACsite/ACsite/settings.py
+ACsite/ac_site/settings.py
+cred/*
