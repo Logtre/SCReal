@@ -239,3 +239,32 @@ class Publsh_table(models.Model):
     website = models.DateTimeField('date published')
     air = models.DateTimeField('date published')
     rating = models.DateTimeField('date published')
+
+
+class Company_table(models.Model):
+    '''会社テーブル'''
+    comp_id = models.IntegerField(default=0)
+    name = models.CharField(max_length=30)
+    address = models.CharField(max_length=30)
+    phone = models.CharField(max_length=15)
+    ceo = models.CharField(max_length=30)
+    gmap = models.CharField(max_length=300)
+    url = models.CharField(max_length=30)
+
+
+class Member_table(models.Model):
+    '''メンバーテーブル'''
+    member_id = models.IntegerField(default=0)
+    name = models.CharField(max_length=30)
+    comment = models.CharField(max_length=60)
+    position = models.CharField(max_length=15)
+    member_flg = models.IntegerField(default=0)
+    twitter_url = models.CharField(max_length=100)
+    facebook_url = models.CharField(max_length=100)
+    linkedin_url = models.CharField(max_length=100)
+
+
+class MemberFlg_table(models.Model):
+    '''メンバーフラグテーブル'''
+    member_flg = models.IntegerField(default=0)
+    role = models.CharField(max_length=60)

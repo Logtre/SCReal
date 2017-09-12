@@ -744,30 +744,32 @@
                                     <span class="kkicon icon-chevron-right"></span>
                                 </a>
                                 <div class="team">
-                                    <div class="text-center">
-                                        <img src="/assets/img/image1.JPG" alt="Ava1" class="round-ava" />
-                                        <h3>田口 翔一</h3>
-                                        <p>ITコンサルタント, Pythonエンジニア</p>
-                                        <div class="mt-10">
-                                            <span class="badge badge-third badge-square text-uppercase">
-                                                代表取締役CEO
-                                            </span>
+                                    {% for m in member_info %}
+                                        <div class="text-center">
+                                            <img src="/assets/img/image1.JPG" alt="Ava1" class="round-ava" />
+                                            <h3>{{ m.name }}</h3>
+                                            <p>{{ m.comment }}</p>
+                                            <div class="mt-10">
+                                                <span class="badge badge-third badge-square text-uppercase">
+                                                    {{ m.position }}
+                                                </span>
+                                            </div>
+                                            <div class="mt-15">
+                                                <a href="{{ m.twitter_url }}" class="button-team-twitter">
+                                                    <i class="fa fa-twitter"></i>
+                                                </a>
+                                                <a href="{{ m.facebook_url }}" class="button-team-facebook">
+                                                    <i class="fa fa-facebook"></i>
+                                                </a>
+                                                <a href="{{ m.linkedin_url }}" class="kkicon-linkedin">
+                                                    <i class="fa fa-linkedin"></i>
+                                                </a>
+                                                <!--<a href="#" class="button-team-gplus">
+                                                    <i class="fa fa-google-plus"></i>
+                                                </a>-->
+                                            </div>
                                         </div>
-                                        <div class="mt-15">
-                                            <a href="https://twitter.com/log_trader" class="button-team-twitter">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                            <a href="https://www.facebook.com/shohichi.taguchi" class="button-team-facebook">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-                                            <a href="https://www.linkedin.com/in/shoichi-taguchi-7702749b/" class="kkicon-linkedin">
-                                                <i class="fa fa-linkedin"></i>
-                                            </a>
-                                            <!--<a href="#" class="button-team-gplus">
-                                                <i class="fa fa-google-plus"></i>
-                                            </a>-->
-                                        </div>
-                                    </div>
+                                    {% endfor %}
                                     <!--<div class="text-center">
                                         <img src="assets/img/tmp/ava2.jpg" alt="Ava1" class="round-ava">
                                         <h3>Julia Alan</h3>
@@ -821,25 +823,27 @@
                         </div>
                     </div>
 
-                    <div class="content-block">
-                        <div class="content-wew">
-                            <h3 class="header-2"><span>アクセス</span></h3>
-                            東京都 港区 東麻布 1-7-3 第二渡邉ビル 7F
+                    {% for comp in company_info %}
+                        <div class="content-block">
+                            <div class="content-wew">
+                                <h3 class="header-2"><span>アクセス</span></h3>
+                                {{ comp.address }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="ggmap" >
-                      <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3241.7856984965265!2d139.7435944!3d35.6576512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sja!2sjp!4v1504944273102" width=100% height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
-                    </div>
-                    <!--<iframe src="https://www.google.co.jp/maps/@35.6576512,139.7435944,17z/data=!3m1!4b1!4m2!7m1!2e1" width="100%" height="250" frameborder="0" style="border:0"></iframe>-->
-                    <div class="content-block">
-                        <div class="content-wew">
-                            <p>
-                                Quisque lorem tortor fringilla sed, vestibulum id, eleifend justo vel bibendum sapien massa ac turpis faucibus orci luctus non, consectetuer lobortis quis, varius in, purus. Integer ultrices posuere cubilia Curae.
-                            </p>
-                            <a href="ac_site/contact.html" class="button button-primary button-fill">お問い合わせ</a>
+                        <div class="ggmap" >
+                          <iframe src="{{ comp.gmap }}" width=100% height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
                         </div>
-                    </div>
-
+                        <!--<iframe src="https://www.google.co.jp/maps/@35.6576512,139.7435944,17z/data=!3m1!4b1!4m2!7m1!2e1" width="100%" height="250" frameborder="0" style="border:0"></iframe>-->
+                        <div class="content-block">
+                            <div class="content-wew">
+                                <p>
+                                    Quisque lorem tortor fringilla sed, vestibulum id, eleifend justo vel bibendum sapien massa ac turpis faucibus orci luctus non, consectetuer lobortis quis, varius in, purus. Integer ultrices posuere cubilia Curae.
+                                </p>
+                                <a href="ac_site/contact.html" class="button button-primary button-fill">お問い合わせ</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    
                     <div class="content-block content-light">
                         <div class="content-wew">
                             <h3 class="header-2"><span>ソーシャルメディア</span></h3>
