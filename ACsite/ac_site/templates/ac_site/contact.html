@@ -21,63 +21,63 @@
             <div class="page-content">
 
                 <div class="content-block-title">アクセス</div>
+                {% for comp in company_info %}
+                  <iframe src="{{ comp.gmap }}" width="100%" height="250" frameborder="0" style="border:0"></iframe>
+                  <div class="content-block content-light mt-0 mb-10 contact-type-list">
+                      <div class="content-wew">
+                          <h2 class="text-center">
+                              {{ comp.name}}
+                          </h2>
+                          <div class="text-center contact-adress">
+                              <small>{{ comp.address }}</small>
+                          </div>
 
-                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3241.7856984965265!2d139.7435944!3d35.6576512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sja!2sjp!4v1504944273102" width="100%" height="250" frameborder="0" style="border:0"></iframe>
-                <div class="content-block content-light mt-0 mb-10 contact-type-list">
-                    <div class="content-wew">
-                        <h2 class="text-center">
-                            ログトレ株式会社
-                        </h2>
-                        <div class="text-center contact-adress">
-                            <small>東京都港区東麻布1-7-3 第二渡邊ビル7F</small>
-                        </div>
+                          <hr class="dark align-center">
 
-                        <hr class="dark align-center">
+                          <div class="row mb-20">
+                              <div class="col-20 text-center contact-icon">
+                                  <span class="icon-phone"></span>
+                              </div>
+                              <div class="col-80">
+                                  <div class="contact-label text-uppercase">
+                                      代表番号
+                                  </div>
+                                  <div class="contact-text">
+                                       {{ comp.phone }}
+                                  </div>
+                              </div>
+                          </div>
 
-                        <div class="row mb-20">
-                            <div class="col-20 text-center contact-icon">
-                                <span class="icon-phone"></span>
-                            </div>
-                            <div class="col-80">
-                                <div class="contact-label text-uppercase">
-                                    代表番号
-                                </div>
-                                <div class="contact-text">
-                                     050 5309 7463
-                                </div>
-                            </div>
-                        </div>
+                          <!--<div class="row mb-20">
+                              <div class="col-20 text-center contact-icon">
+                                  <span class="icon-telephone"></span>
+                              </div>
+                              <div class="col-80">
+                                  <div class="contact-label text-uppercase">
+                                      Work
+                                  </div>
+                                  <div class="contact-text">
+                                      +1 (409) 988 7877
+                                  </div>
+                              </div>
+                          </div>-->
 
-                        <!--<div class="row mb-20">
-                            <div class="col-20 text-center contact-icon">
-                                <span class="icon-telephone"></span>
-                            </div>
-                            <div class="col-80">
-                                <div class="contact-label text-uppercase">
-                                    Work
-                                </div>
-                                <div class="contact-text">
-                                    +1 (409) 988 7877
-                                </div>
-                            </div>
-                        </div>-->
-
-                        <div class="row mb-20">
-                        <div class="col-20 text-center contact-icon">
-                            <span class="icon-at-sign"></span>
-                        </div>
-                        <div class="col-80">
-                            <div class="contact-label text-uppercase">
-                                メール
-                            </div>
-                            <div class="contact-text">
-                                info@logtre.com
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-
+                          <div class="row mb-20">
+                          <div class="col-20 text-center contact-icon">
+                              <span class="icon-at-sign"></span>
+                          </div>
+                          <div class="col-80">
+                              <div class="contact-label text-uppercase">
+                                  メール
+                              </div>
+                              <div class="contact-text">
+                                  info@logtre.com
+                              </div>
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+                {% endfor %}
                 <div class="content-block-title mt-10">ソーシャルメディア</div>
                 <div class="content-block content-light mb-10 contact-type-list">
                     <div class="content-wew">

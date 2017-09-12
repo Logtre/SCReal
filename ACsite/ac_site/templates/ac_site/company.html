@@ -54,51 +54,53 @@
 
                         <h3>会社概要</h3>
 
-                        <div class="accordion-item">
-                            <div class="accordion-item-toggle">
-                                社名
-                            </div>
-                            <div class="accordion-item-content">
-                                <a href="http://wwww.logtre.com">ログトレ株式会社</a>
-                            </div>
-                        </div>
+                        {% for comp in company_info %}
+                          <div class="accordion-item">
+                              <div class="accordion-item-toggle">
+                                  社名
+                              </div>
+                              <div class="accordion-item-content">
+                                  <a href="{{ company_info.url }}">{{ comp.name }}</a>
+                              </div>
+                          </div>
 
-                        <div class="accordion-item">
-                            <div class="accordion-item-toggle">
-                                所在地及び代表番号
-                            </div>
-                            <div class="accordion-item-content">
-                                東京都港区東麻布1-7-3 第二渡邊ビル7F<br/>
-                                050-5309-7463
-                            </div>
-                        </div>
+                          <div class="accordion-item">
+                              <div class="accordion-item-toggle">
+                                  所在地及び代表番号
+                              </div>
+                              <div class="accordion-item-content">
+                                  {{ comp.address }}<br/>
+                                  {{ comp.phone }}
+                              </div>
+                          </div>
 
-                        <div class="accordion-item">
-                            <div class="accordion-item-toggle">
-                                設立日
-                            </div>
-                            <div class="accordion-item-content">
-                                2016年8月
-                            </div>
-                        </div>
+                          <div class="accordion-item">
+                              <div class="accordion-item-toggle">
+                                  設立日
+                              </div>
+                              <div class="accordion-item-content">
+                                  2016年9月
+                              </div>
+                          </div>
 
-                        <div class="accordion-item">
-                            <div class="accordion-item-toggle">
-                                資本金
-                            </div>
-                            <div class="accordion-item-content">
-                                300万円
-                            </div>
-                        </div>
+                          <div class="accordion-item">
+                              <div class="accordion-item-toggle">
+                                  資本金
+                              </div>
+                              <div class="accordion-item-content">
+                                  300万円
+                              </div>
+                          </div>
 
-                        <div class="accordion-item">
-                            <div class="accordion-item-toggle">
-                                代表者
-                            </div>
-                            <div class="accordion-item-content">
-                                田口 翔一
-                            </div>
-                        </div>
+                          <div class="accordion-item">
+                              <div class="accordion-item-toggle">
+                                  代表者
+                              </div>
+                              <div class="accordion-item-content">
+                                  {{ comp.ceo }}
+                              </div>
+                          </div>
+                        {% endfor %}
 
                     </div>
                 </div>
