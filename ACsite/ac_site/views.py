@@ -1,4 +1,6 @@
 # -*- coding:utf-8 -*-
+from django.views.generic import TemplateView
+
 from django.http import Http404
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -8,90 +10,92 @@ import datetime
 
 from .models import Pref_table, Company_table, Member_table, Air_table
 
+class TopView(TemplateView):
+    template_name = "index.html"
 
-def index(request):
-    # HttpResponse()
-    # 使い方：
-    # 文字列を渡す：webページに文字列を表示させる
-    # イテレータ（=yield）を渡す：イテレータの内容を保持する
-    # ヘッダーフィールドをつける：response = HttpResponse()
-    #                        response[20] = 120 など
-
-    company_info = Company_table.objects.order_by('-comp_id')[:1]
-    member_info = Member_table.objects.order_by('member_id')[:1]
-    context = {
-        'company_info': company_info,
-        'member_info': member_info,
-    }
-    # render(arg1, arg2, arg3)
-    # arg1: requestオブジェクト
-    # arg2: テンプレート名
-    # arg3: オプション辞書（= DB変数と.pyの変数の紐付け）
-    return render(request, 'ac_site/index.html', context)
+    def get(self, request, **kwargs):
+        company_info = Company_table.objects.order_by('-comp_id')[:1]
+        member_info = Member_table.objects.order_by('member_id')[:1]
+        context = {
+            'company_info': company_info,
+            'member_info': member_info,
+        }
+        return self.render_to_response(context)
 
 
-def company(request):
-    '''会社情報を取得する（静的）'''
-    company_info = Company_table.objects.order_by('-comp_id')[:1]
-    context = {
-        'company_info': company_info,
-    }
-    return render(request, 'ac_site/company.html', context)
+class CompanyView(TemplateView):
+    '''会社一覧'''
+    template_name = "companies.html"
+
+    def get(self, request, **kwargs):
+        company_info = Company_table.objects.order_by('-comp_id')[:1]
+        context = {
+            'company_info': company_info,
+        }
+        return self.render_to_response(context)
+
+class CompanyShowView(TemplateView):
+    '''会社詳細'''
+    template_name = "company_show.html"
+
+    def get(self, request, **kwargs):
+        company_info = Company_table.objects.order_by('-comp_id')[:1]
+        context = {
+            'company_info': company_info,
+        }
+        return self.render_to_response(context)
 
 
-def contact(request):
+class ContactView(TemplateView):
     '''お問い合わせ時に表示する会社情報を取得する（静的）'''
-    company_info = Company_table.objects.order_by('-comp_id')[:1]
-    context = {
-        'company_info': company_info,
-    }
-    return render(request, 'ac_site/contact.html', context)
+    template_name = "contact.html"
+
+    def get(self, request, **kwargs):
+        company_info = Company_table.objects.order_by('-comp_id')[:1]
+        context = {
+            'company_info': company_info,
+        }
+        return self.render_to_response(context)
 
 
-#def login(request):
-#    '''ログイン情報を取得する（静的）'''
-#    context = 0 # 仮置きで変数を定義
-#    return render(request, 'ac_site/login.html', context)
-
-
-#def minnpaku_news(request):
-#    '''民泊日記情報を取得する（静的）'''
-#    context = 0 # 仮置きで変数を定義
-#    return render(request, 'ac_site/minnpaku_news.html', context)
-
-
-#def news_release(request):
-#    '''ニュースリリース情報を取得する（静的）'''
-#    context = 0 # 仮置きで変数を定義
-#    return render(request, 'ac_site/news_release.html', context)
-
-
-def rating(request):
+class RatingView(TemplateView):
     '''Airテーブルよりレーティング情報を取得する'''
-    pref_id = int(request.GET.get('pf_id', None))
-    print(">>>DEBUG>>> pf_id is: %d" % pref_id)
-    Pref_info = Pref_table.objects.filter(pf_id=pref_id)
-    Air_info = Air_table.objects.filter(pf_id=pref_id)
-    context = {
-        'Air_info': Air_info,
-        'Pref_info': Pref_info,
-    }
-    return render(request, 'ac_site/rating.html', context)
+    template_name = "rating.html"
+
+    def get(self, request, **kwargs):
+        pref_id = int(request.GET.get('pf_id', None))
+        print(">>>DEBUG>>> pf_id is: %d" % pref_id)
+        Pref_info = Pref_table.objects.filter(pf_id=pref_id)
+        Air_info = Air_table.objects.filter(pf_id=pref_id)
+        context = {
+            'Air_info': Air_info,
+            'Pref_info': Pref_info,
+        }
+        return self.render_to_response(context)
 
 
-def prefs(request):
+class PrefectureView(TemplateView):
     '''prefテーブルより都道府県一覧を取得する'''
-    latest_pref_list = Pref_table.objects.order_by('pf_id')[0:47]
-    context = {
-        'latest_pref_list': latest_pref_list,
-    }
-    return render(request, 'ac_site/prefs.html', context)
+    template_name = "prefectures.html"
+
+    def get(self, request, **kwargs):
+        latest_pref_list = Pref_table.objects.order_by('pf_id')[0:47]
+        context = {
+            'latest_pref_list': latest_pref_list,
+        }
+        return self.render_to_response(context)
 
 
-#def registration(request):
-#    '''サインイン情報を取得する（静的）'''
-#    context = 0 # 仮置きで変数を定義
-#    return render(request, 'ac_site/registration.html', context)
+class PrefectureShowView(TemplateView):
+    '''都道府県の詳細'''
+    template_name = "prefecture_show.html"
+
+    def get(self, request, **kwargs):
+        prefecture = Pref_table.objects.get(id=self.kwargs['prefecture_id'])
+        context = {
+            'prefecture': prefecture,
+        }
+        return self.render_to_response(context)
 
 
 def current_datetime(request):

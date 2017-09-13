@@ -1,0 +1,68 @@
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="left">
+            <a href="#" class="link icon-only open-panel">
+                <span class="kkicon icon-menu"></span>
+            </a>
+        </div>
+        <div class="center sliding">地域一覧</div>
+        <div class="right">
+            <!--<a href="#" class="link icon-only open-panel" data-panel="right">
+                <span class="kkicon icon-alarm"></span>
+            </a>-->
+        </div>
+    </div>
+</div>
+
+<div class="view another-view">
+    <!-- Pages -->
+    <div class="pages">
+        <div class="page no-toolbar" data-page="features">
+            <div class="page-content">
+
+                <div class="list-block media-list">
+                    <ul>
+
+                        <!--<li>
+                            <a href="#" data-popup=".popup-splash" class="open-popup item-link item-content">
+                                <div class="item-media">
+                                    <div class="card-header no-border item-content-icon item-content-icon-slider"></div>
+                                </div>
+                                <div class="item-inner">
+                                    <div class="item-title-row">
+                                        <div class="item-title">
+                                            App update info
+                                        </div>
+                                    </div>
+                                    <div class="item-subtitle">
+                                        Cool app update slider!
+                                    </div>
+                                </div>
+                            </a>
+                        </li>-->
+                        {% for pref in latest_pref_list %}
+                            <li>
+                                <a href="{% url 'ac_site:prefecture_show' prefecture_id=pref.id %}" class="item-link item-content">
+                                    <div class="item-media">
+                                        <div class="card-header no-border item-content-icon item-content-icon-gallery"></div>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title-row">
+                                            <div class="item-title">
+                                                {{ pref.pref }}
+                                            </div>
+                                        </div>
+                                        <div class="item-subtitle">
+                                            <!--3 columns layout-->
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

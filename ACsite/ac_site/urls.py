@@ -2,32 +2,25 @@
 from django.conf.urls import url
 
 from . import views
+from .views import (
+    TopView,
+    CompanyView,
+    CompanyShowView,
+    ContactView,
+    PrefectureView,
+    PrefectureShowView,
+    RatingView
+)
 
 app_name = 'ac_site'
 urlpatterns = [
-    # ex: /ac_site/ or / (/はACsiteのurlsで定義)
-    url(r'^$', views.index, name='index'),  # view.pyのindex関数を呼ぶ
-    # ex: /ac_site/index.html
-    url(r'^index.html$', views.index, name='index'),
-    # ex: /ac_site/company
-    url(r'^company.html$', views.company, name='company'),
-    # ex: /ac_site/contact
-    url(r'^contact.html$', views.contact, name='contact'),
-    # ex: /ac_site/login.html
-    #url(r'^login.html$', views.login, name='login'),
-    # ex: /ac_site/minnpaku_news.html
-    #url(r'^minnpaku_news.html$', views.minnpaku_news, name='minnpaku_news'),
-    # ex: /ac_site/news_release.html
-    #url(r'^news_release.html$', views.news_release, name='news_release'),
-    # ex: /ac_site/prefs.html
-    url(r'^prefs.html$', views.prefs, name='prefs'), # view.pyのpref関数を呼ぶ
-    # ex: /ac_site/prefs/11000/rating.html
-    url(r'^rating.html', views.rating, name='rating'),
-    # ex: /ac_site/sign_up.html
-    #url(r'^registration.html$', views.registration, name='sign_up'),
-
-
-
+    url(r'^$', TopView.as_view(), name='index'),
+    url(r'^companies$', CompanyView.as_view(), name='companies'),
+    url(r'^companies/(?P<company_id>[0-9]+)/$', CompanyShowView.as_view(), name='company_show'),
+    url(r'^contacts$', ContactView.as_view(), name='contact'),
+    url(r'^prefectures$', PrefectureView.as_view(), name='prefectures'),
+    url(r'^prefectures/(?P<prefecture_id>[0-9]+)/$', PrefectureShowView.as_view(), name='prefecture_show'),
+    url(r'^ratings', RatingView.as_view(), name='rating'),
 
     # ex: /ac_site/5/
     url(r'^(?P<question_id>[0-9]+)/$', views.detail, name='detail'),

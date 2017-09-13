@@ -17,7 +17,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from ac_site.views import index
+from ac_site.views import TopView
 
 # url(regex, view, kwargs=None, name=None)
 # regex:    URLから引数に該当する文字列を探す。ヒットしたら処理開始
@@ -26,7 +26,7 @@ from ac_site.views import index
 # name:     urlパターンに名前をつける
 
 urlpatterns = [
-    url(r'^$', index),  # https://hoge.com の後が空欄(^最初から $最後まで)だった場合、ac_site/viewsのindexという名前の関数にリダイレクト（import文から）
+    url(r'^$', TopView.as_view()),  # https://hoge.com の後が空欄(^最初から $最後まで)だった場合、ac_site/viewsのindexという名前の関数にリダイレクト（import文から）
     url(r'^ac_site/', include('ac_site.urls')), # urlの後がac_site/なら/ac_site/urls.pyを参照する
     url(r'^admin/', include(admin.site.urls)), 
 ]
