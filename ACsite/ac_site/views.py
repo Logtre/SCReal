@@ -6,7 +6,7 @@ from django.template import loader
 
 import datetime
 
-from .models import Pref_table, Company_table, Member_table
+from .models import Pref_table, Company_table, Member_table, Air_table
 
 
 def index(request):
@@ -64,6 +64,19 @@ def contact(request):
 #    '''ニュースリリース情報を取得する（静的）'''
 #    context = 0 # 仮置きで変数を定義
 #    return render(request, 'ac_site/news_release.html', context)
+
+
+def rating(request):
+    '''Airテーブルよりレーティング情報を取得する'''
+    pref_id = int(request.GET.get('pf_id', None))
+    print(">>>DEBUG>>> pf_id is: %d" % pref_id)
+    Pref_info = Pref_table.objects.filter(pf_id=pref_id)
+    Air_info = Air_table.objects.filter(pf_id=pref_id)
+    context = {
+        'Air_info': Air_info,
+        'Pref_info': Pref_info,
+    }
+    return render(request, 'ac_site/rating.html', context)
 
 
 def prefs(request):
