@@ -21,6 +21,8 @@ urlpatterns = [
     #url(r'^news_release.html$', views.news_release, name='news_release'),
     # ex: /ac_site/prefs.html
     url(r'^prefs.html$', views.prefs, name='prefs'), # view.pyのpref関数を呼ぶ
+    # ex: /ac_site/prefs/11000/rating.html
+    url(r'^rating.html', views.rating, name='rating'),
     # ex: /ac_site/sign_up.html
     #url(r'^registration.html$', views.registration, name='sign_up'),
 

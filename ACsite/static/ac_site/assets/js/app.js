@@ -267,7 +267,7 @@ $$(document).on('pageInit', function (e) {
         conversationStarted = true;
     });
 
-    videoInit();
+    //videoInit();
 });
 
 $(document).ready(function() {
@@ -341,8 +341,8 @@ $(document).ready(function() {
     });
 
     setTimeout(function() {
-        videoInit();
-        teamSlider();
+        //videoInit();
+        //teamSlider();
     }, 100);
 });
 
