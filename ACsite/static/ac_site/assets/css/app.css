@@ -6079,6 +6079,7 @@ html:not(.watch-active-state) .list-block .item-link:active {
   color: #ffffff;
   font-family: 'robotolight', sans-serif;
   text-transform: uppercase;
+  z-index: 500000; /* 追加 */
 }
 .navbar:after {
   background: #30583B;
@@ -6115,12 +6116,12 @@ html:not(.watch-active-state) .list-block .item-link:active {
 .navbar-anim-on-scroll,
 .navbar.navbar-clear {
   transition: all 400ms;
-  background: transparent;
+  /*background: transparent;*/
   color: #ffffff;
 }
 .navbar-anim-on-scroll:after,
 .navbar.navbar-clear:after {
-  background: transparent;
+  /*background: transparent;*/
 }
 .navbar-anim-on-scroll .kkicon,
 .navbar.navbar-clear .kkicon {
@@ -7376,7 +7377,11 @@ article img {
 .team .owl-item > div > p {
   margin: 0;
 }
-
+.team .text-center > img {
+  width: 100px;
+  border-radius: 2px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+}
 /* =========================================== */
 /*    10. GALLERY                              */
 /* =========================================== */

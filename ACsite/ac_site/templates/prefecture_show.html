@@ -1,1 +1,243 @@
-<h1>{{ prefecture.pref }}</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/img/favicons/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-TileImage" content="/assets/img/favicons/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>SCReal</title>
+
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/bower_components/framework7/dist/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="/bower_components/swipebox/src/css/swipebox.css">
+    <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.theme.css">
+    <link rel="stylesheet" href="/assets/css/app.css">
+
+    <!-- for LOCAL SETTING  START --
+    <link rel="stylesheet" href="/static/ac_site/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/ac_site/bower_components/framework7/dist/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="/static/ac_site/bower_components/swipebox/src/css/swipebox.css">
+    <link rel="stylesheet" href="/static/ac_site/bower_components/owl-carousel/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="/static/ac_site/bower_components/owl-carousel/owl-carousel/owl.theme.css">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/bower_components/font-awesome/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/bower_components/framework7/dist/css/framework7.ios.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/bower_components/swipebox/src/css/swipebox.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/bower_components/owl-carousel/owl-carousel/owl.carousel.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/bower_components/owl-carousel/owl-carousel/owl.theme.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/assets/css/app.css' %}" />
+    <!-- for LOCAL SETTING  END -->
+    <!-- <link rel="stylesheet" href="assets/themes/green/style.css" id="theme-style">-->
+</head>
+<!--<body onload="hidePreloader()">
+
+<div class="statusbar-overlay"></div>
+<div class="panel-overlay"></div>-->
+
+<!-- Views -->
+<div class="views">
+    <div class="view view-main">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="left">
+                    <a href="#" class="link icon-only open-panel">
+                        <span class="kkicon icon-menu"></span>
+                    </a>
+                </div>
+                <div class="center sliding">{{ prefecture.pref }} レーティング情報</div>
+                <div class="right">
+                    <a href="#" class="link icon-only open-panel" data-panel="right">
+                        <span class="kkicon icon-alarm"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="pages navbar-fixed toolbar-fixed">
+            <div data-page="charts" class="page">
+
+                <div class="page-content">
+                    <div class="content-wew">
+
+                        <!--<div class="content-block-title">
+                            Line Chart
+                        </div>
+
+                        <div class="chart-row">
+                            <div>
+                                <canvas class="line-chart-content" width="300" height="150"></canvas>
+                            </div>
+                        </div>-->
+
+                        <!--<div class="content-block-title">
+                            Bar Chart
+                        </div>
+
+                        <div class="chart-row">
+                            <div>
+                                <canvas class="bar-chart-content" width="300" height="150"></canvas>
+                            </div>
+                        </div>-->
+
+                        <!--<div class="content-block-title">
+                            Pie Chart
+                        </div>
+
+                        <div class="chart-row">
+                            <div>
+                                <canvas class="pie-chart-content" width="300" height="150"></canvas>
+                            </div>
+                        </div>-->
+
+                        <!--<div class="content-block-title">
+                            Doughnut Chart
+                        </div>
+
+                        <div class="chart-row">
+                            <div>
+                                <canvas class="doughnut-chart-content" width="300" height="150"></canvas>
+                            </div>
+                        </div>-->
+
+                        <div class="content-block-title">
+                            Radar Chart
+                        </div>
+
+                        <div class="chart-row">
+                            <div>
+                                <canvas class="radar-chart-content" width="300" height="150"></canvas>
+                            </div>
+                        </div>
+
+                        <!--<div class="content-block-title">
+                            Polar Chart
+                        </div>
+
+                        <div class="chart-row">
+                            <div>
+                                <canvas class="polar-chart-content" width="300" height="150"></canvas>
+                            </div>
+                        </div>-->
+
+                        <!--<div class="content-block mb-15">
+                            <h3>Secondary color tabs</h3>
+
+                            <div class="buttons-row">
+                                <a href="#tab1" class="tab-link active button button-secondary">Tab 1</a>
+                                <a href="#tab2" class="tab-link button button-secondary">Tab 2</a>
+                                <a href="#tab3" class="tab-link button button-secondary">Tab 3</a>
+                            </div>
+                        </div>
+
+                        <div class="tabs">
+                            <div id="tab1" class="tab active">
+                                <div class="content-block mt-15">
+                                    <p>This is tab 1 content</p>
+                                    <p>Duis ac nibh ac quam quam sagittis tortor. Cum sociis natoque penatibus et neque. Etiam dolor. Vivamus consectetuer adipiscing elit. Nunc vehicula. Integer condimentum sed, luctus diam. </p>
+                                </div>
+                            </div>
+
+                            <div id="tab2" class="tab">
+                                <div class="content-block mt-15">
+                                    <p>This is tab 2 content</p>
+                                    <p>Fusce gravida, eros magna dolor, dictum sed, ullamcorper et, nonummy faucibus condimentum lorem id rutrum consectetuer lectus. Fusce ullamcorper libero vel blandit non, placerat nisl auctor quis.</p>
+                                </div>
+                            </div>
+
+                            <div id="tab3" class="tab">
+                                <div class="content-block mt-15">
+                                    <p>This is tab 3 content</p>
+                                    <p>Pellentesque porta et, mollis tincidunt, orci ac ipsum. Integer tincidunt est pede, luctus ut, gravida massa tellus, fringilla faucibus, dolor nonummy eget, dui. Suspendisse potenti. Cras suscipit, velit eleifend vel, adipiscing posuere cubilia Curae, Mauris mi libero, accumsan imperdiet, risus ante ipsum primis in dui. Morbi sollicitudin.</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="content-block mb-15">
+                            <h3>Primary color tabs</h3>
+
+                            <div class="buttons-row">
+                                <a href="#tab1-1" class="tab-link active button button-primary">Tab 1</a>
+                                <a href="#tab2-1" class="tab-link button button-primary">Tab 2</a>
+                            </div>
+                        </div>
+
+                        <div class="tabs">
+                            <div id="tab1-1" class="tab active">
+                                <div class="content-block mt-15">
+                                    <p>This is tab 1 content</p>
+                                    <p>Duis ac nibh ac quam quam sagittis tortor. Cum sociis natoque penatibus et neque. Etiam dolor. Vivamus consectetuer adipiscing elit. Nunc vehicula. Integer condimentum sed, luctus diam. </p>
+                                </div>
+                            </div>
+
+                            <div id="tab2-1" class="tab">
+                                <div class="content-block mt-15">
+                                    <p>This is tab 2 content</p>
+                                    <p>Fusce gravida, eros magna dolor, dictum sed, ullamcorper et, nonummy faucibus condimentum lorem id rutrum consectetuer lectus. Fusce ullamcorper libero vel blandit non, placerat nisl auctor quis.</p>
+                                </div>
+                            </div>
+                        </div>-->
+
+
+                        <div class="content-block mb-15">
+                            <h3>Animated tabs</h3>
+
+                            <div class="buttons-row">
+                                <a href="#tab1-2" class="tab-link active button button-primary">Tab 1</a>
+                                <a href="#tab2-2" class="tab-link button button-primary">Tab 2</a>
+                                <a href="#tab3-2" class="tab-link button button-primary">Tab 3</a>
+                            </div>
+                        </div>
+
+                        <div class="tabs-animated-wrap">
+                        <div class="tabs">
+                            <div id="tab1-2" class="tab active">
+                                <div class="content-block mt-15">
+                                    <p>This is tab 1 content</p>
+                                    <p>Duis ac nibh ac quam quam sagittis tortor. Cum sociis natoque penatibus et neque. Etiam dolor. Vivamus consectetuer adipiscing elit. Nunc vehicula. Integer condimentum sed, luctus diam. </p>
+                                </div>
+                            </div>
+
+                            <div id="tab2-2" class="tab">
+                                <div class="content-block mt-15">
+                                    <p>This is tab 2 content</p>
+                                    <p>Fusce gravida, eros magna dolor, dictum sed, ullamcorper et, nonummy faucibus condimentum lorem id rutrum consectetuer lectus. Fusce ullamcorper libero vel blandit non, placerat nisl auctor quis.</p>
+                                </div>
+                            </div>
+
+                            <div id="tab3-2" class="tab">
+                                <div class="content-block mt-15">
+                                    <p>This is tab 3 content</p>
+                                    <p>Pellentesque porta et, mollis tincidunt, orci ac ipsum. Integer tincidunt est pede, luctus ut, gravida massa tellus, fringilla faucibus, dolor nonummy eget, dui. Suspendisse potenti. Cras suscipit, velit eleifend vel, adipiscing posuere cubilia Curae, Mauris mi libero, accumsan imperdiet, risus ante ipsum primis in dui. Morbi sollicitudin.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
