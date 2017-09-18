@@ -91,7 +91,7 @@ class PrefectureShowView(TemplateView):
     template_name = "prefecture_show.html"
 
     def get(self, request, **kwargs):
-        prefecture = Pref_table.objects.get(id=self.kwargs['prefecture_id'])
+        prefecture = Pref_table.objects.get(pf_id=self.kwargs['prefecture_id'])
         context = {
             'prefecture': prefecture,
         }
