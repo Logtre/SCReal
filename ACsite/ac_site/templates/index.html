@@ -56,6 +56,67 @@
 <div class="panel-overlay"></div>
 
 <!-- Left panel -->
+<nav class="left-panel-global">
+    <ul class="left-panel-gnav">
+        <li class="divider">
+            メニュー
+        </li>
+        <li>
+            <a href="{% url 'ac_site:index' %}" class="item-link close-panel item-content">
+                <div class="item-media">
+                    <i class="fa fa-home"></i>
+                </div>
+                <div class="item-inner">
+                    <div class="item-title">ホーム</div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'ac_site:prefectures' %}" class="item-link close-panel item-content">
+                <div class="item-media">
+                    <i class="fa fa-area-chart"></i>
+                </div>
+                <div class="item-inner">
+                    <div class="item-title">民泊レーティング</div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="ac_site/news_release.html" class="item-link close-panel item-content">
+                <div class="item-media">
+                    <i class="fa fa-newspaper-o"></i>
+                </div>
+                <div class="item-inner">
+                    <div class="item-title">みんなの民泊日記</div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="ac_site/contact.html" class="item-link close-panel item-content">
+                <div class="item-media">
+                    <i class="fa fa-envelope-o"></i>
+                </div>
+                <div class="item-inner">
+                    <div class="item-title">お問い合わせ</div>
+                </div>
+            </a>
+        </li>
+        <li class="divider">
+            ソーシャルメディア
+        </li>
+        <li>
+            <a href="twitter.html" class="item-link close-panel item-content">
+                <div class="item-media">
+                    <i class="fa fa-twitter"></i>
+                </div>
+                <div class="item-inner">
+                    <div class="item-title">Twitter</div>
+                </div>
+            </a>
+        </li>
+    </ul>
+</nav>
+
 <div class="panel panel-left panel-reveal">
     <div class="logo-box">
         <div class="row">
@@ -621,9 +682,16 @@
         <div class="navbar navbar-clear anim-navbar">
             <div class="navbar-inner">
                 <div class="left">
-                    <a href="#" class="link icon-only open-panel">
+                    <!--<a href="#" class="link icon-only open-panel">
                         <span class="kkicon icon-menu"></span>
-                    </a>
+                    </a>-->
+                    <div class="left-panel-gnav-btn">
+                        <div class="left-panel-icon-animation">
+                            <span class="top"></span>
+                            <span class="middle"></span>
+                            <span class="bottom"></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="center sliding">
                     <span class="anim-logo-small" style="opacity: 0">SCReal</span>
@@ -1002,6 +1070,8 @@
 <script type="text/javascript" src="/bower_components/vide/dist/jquery.vide.min.js"></script>
 
 <script type="text/javascript" src="/assets/js/jflickrfeed.min.js"></script>
+<script type="text/javascript" src="/assets/js/app2.js"></script>
+<script type="text/javascript" src="/assets/js/left-menu.js"></script>
 <!--<script type="text/javascript" src="/assets/js/min/app.js"></script>-->
 <!--<script type="text/javascript" src="/assets/js/animations.js"></script>-->
 

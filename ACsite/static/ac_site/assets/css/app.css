@@ -5003,6 +5003,8 @@ strong {
 
 .left {
   float: left !important;
+  height: 44px;
+  width: 44px;
 }
 
 .padding-0 {
@@ -7855,4 +7857,132 @@ top: 0;
 left: 0;
 width: 100%;
 height: 100%;
+}
+
+/* =========================================== */
+/*    17. for LEFT navi                        */
+/* =========================================== */
+
+/*nabi開閉部分*/
+
+.left-panel-gnav li {
+  border-bottom: 1px solid #333;
+}
+
+.left-panel-gnav li a {
+  display: block;
+  text-decoration: none;
+  /* (44-16)/2=14px */
+  padding: .875rem 1rem;
+  color: #ffffff;
+}
+
+.left-panel-gnav {
+  list-style-type: none;
+  background: #30583B;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: fixed;
+  left: 0;
+  top: 30px;
+  z-index: 6000;
+  visibility: hidden;
+  -webkit-transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  -o-transform: translateX(-100%);
+  transform: translateX(-100%);
+  webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: .5s .1s cubic-bezier(0, 0, .2, 0);
+  -moz-transition: .5s .1s cubic-bezier(0, 0, .2, 0);
+  transition: .5s .1s cubic-bezier(0, 0, .2, 0);
+}
+
+.left-panel-gnav.on {
+  visibility: visible;
+  -webkit-transform: translateX(0%);
+  -moz-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  -o-transform: translateX(0%);
+  transform: translateX(0%);
+}
+
+/*ハンバーガーボタン*/
+.left-panel-icon-animation {
+width: 44px;
+height: 44px;
+display: block;
+cursor: pointer;
+float: right;
+position: absolute;
+right: 0;
+text-align: center;
+top: 0;
+}
+
+.left-panel-icon-animation span {
+width: 22px;
+height: 2px;
+display: block;
+background: #fff;
+position: absolute;
+left: 50%;
+top: 50%;
+margin-left: -25px;
+-webkit-transition: all 0.3s;
+transition: all 0.3s;
+-webkit-transform: rotate(0deg);
+-ms-transform: rotate(0deg);
+transform: rotate(0deg);
+}
+
+.left-panel-icon-animation .top {
+-webkit-transform: translateY(-13px);
+-ms-transform: translateY(-13px);
+transform: translateY(-8px);
+}
+
+.left-panel-icon-animation .bottom {
+-webkit-transform: translateY(13px);
+-ms-transform: translateY(13px);
+transform: translateY(8px);
+}
+
+.view-main.on {
+  opacity: 1;
+  webkit-transition-delay: 0;
+  -moz-transition-delay: 0;
+  transition-delay: 0;
+  visibility: visible;
+}
+
+.is-open .middle {
+  background: rgba(51, 51, 51, 0);
+}
+
+.is-open .top {
+  -webkit-transform: rotate(-45deg) translateY(0px);
+  -ms-transform: rotate(-45deg) translateY(0px);
+  transform: rotate(-45deg) translateY(0px);
+}
+
+.is-open .bottom {
+  -webkit-transform: rotate(45deg) translateY(0px);
+  -ms-transform: rotate(45deg) translateY(0px);
+  transform: rotate(45deg) translateY(0px);
+}
+
+/* =========================================== */
+/*    18. for Prefecture list                  */
+/* =========================================== */
+
+.list-block {
+  margin: 66px 0;
 }
