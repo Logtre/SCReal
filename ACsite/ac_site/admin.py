@@ -8,7 +8,7 @@ from ac_site.models import Prefecture, Company_table, Member_table
 class Pref_tableAdmin(admin.ModelAdmin):
     '''Prefectureを編集する'''
     # リストを表示する
-    list_display = ('pf_id', 'prefecture',)
+    list_display = ('prefecture_id', 'prefecture',)
 admin.site.register(Prefecture, Pref_tableAdmin)
 
 
