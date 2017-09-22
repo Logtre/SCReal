@@ -8,7 +8,7 @@ from django.template import loader
 
 import datetime
 
-from .models import Pref_table, Company_table, Member_table, Air_table
+from .models import Prefecture, Company_table, Member_table, RegionSummary
 
 class TopView(TemplateView):
     template_name = "index.html"
@@ -58,28 +58,28 @@ class ContactView(TemplateView):
         return self.render_to_response(context)
 
 
-class RatingView(TemplateView):
-    '''Airテーブルよりレーティング情報を取得する'''
-    template_name = "rating.html"
-
-    def get(self, request, **kwargs):
-        pref_id = int(request.GET.get('pf_id', None))
-        print(">>>DEBUG>>> pf_id is: %d" % pref_id)
-        Pref_info = Pref_table.objects.filter(pf_id=pref_id)
-        Air_info = Air_table.objects.filter(pf_id=pref_id)
-        context = {
-            'Air_info': Air_info,
-            'Pref_info': Pref_info,
-        }
-        return self.render_to_response(context)
+#class RatingView(TemplateView):
+#    '''Airテーブルよりレーティング情報を取得する'''
+#    template_name = "rating.html"
+#
+#    def get(self, request, **kwargs):
+#        pref_id = int(request.GET.get('pf_id', None))
+#        print(">>>DEBUG>>> pf_id is: %d" % pref_id)
+#        Pref_info = Prefecture.objects.filter(pf_id=pref_id)
+#        Air_info = RegionSummary.objects.filter(pf_id=pref_id)
+#        context = {
+#            'Air_info': Air_info,
+#            'Pref_info': Pref_info,
+#        }
+#        return self.render_to_response(context)
 
 
 class PrefectureView(TemplateView):
-    '''prefテーブルより都道府県一覧を取得する'''
+    '''prefectureテーブルより都道府県一覧を取得する'''
     template_name = "prefectures.html"
 
     def get(self, request, **kwargs):
-        latest_pref_list = Pref_table.objects.order_by('pf_id')[0:47]
+        latest_pref_list = Prefecture.objects.order_by('pf_id')[0:47]
         context = {
             'latest_pref_list': latest_pref_list,
         }
@@ -91,7 +91,7 @@ class PrefectureShowView(TemplateView):
     template_name = "prefecture_show.html"
 
     def get(self, request, **kwargs):
-        prefecture = Pref_table.objects.get(pf_id=self.kwargs['prefecture_id'])
+        prefecture = Prefecture.objects.get(pf_id=self.kwargs['prefecture_id'])
         context = {
             'prefecture': prefecture,
         }

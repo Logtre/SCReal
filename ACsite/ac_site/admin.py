@@ -1,15 +1,15 @@
 # -*- coding:utf-8 -*-
 from django.contrib import admin
-from ac_site.models import Pref_table, Company_table, Member_table
+from ac_site.models import Prefecture, Company_table, Member_table
 
 # Register your models here.
 # admin.site.register(Pref_table)
 
 class Pref_tableAdmin(admin.ModelAdmin):
-    '''pref_tableを編集する'''
+    '''Prefectureを編集する'''
     # リストを表示する
-    list_display = ('pf_id', 'pref',)
-admin.site.register(Pref_table, Pref_tableAdmin)
+    list_display = ('pf_id', 'prefecture',)
+admin.site.register(Prefecture, Pref_tableAdmin)
 
 
 class Company_tableAdmin(admin.ModelAdmin):
