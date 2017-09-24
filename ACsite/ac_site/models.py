@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 from django.db import models
 from datetime import datetime
-from django.utils.timezone import now
+from django.utils import timezone
 # Create your models here.
 
 
@@ -89,6 +89,8 @@ class WebSite(models.Model):
 class RegionSummary(models.Model):
     '''Airb情報テーブルサマリー'''
     region_id = models.IntegerField(default=0)
+    prefecture_id = models.IntegerField(default=0)
+    city_id = models.IntegerField(default=0, null=True)
     total_listing = models.IntegerField(default=0, null=True)
     publish_count = models.IntegerField(default=0, null=True)
     suspend_count = models.IntegerField(default=0, null=True)
@@ -99,45 +101,56 @@ class RegionSummary(models.Model):
     region_summary_id = models.IntegerField(default=0)
 
 
-class SummarySizeBreakdown(models.Model):
-    '''Airb情報（物件サイズ別情報）テーブル'''
+class SummaryCapacityBreakdown(models.Model):
+    '''Airb情報（収容人数別詳細）テーブル'''
     region_summary_id = models.IntegerField(default=0)
-    room_size = models.CharField(max_length=10, null=True)
+    capacity_type = models.CharField(max_length=10, null=True)
     listing_count = models.IntegerField(default=0, null=True)
-    monthly_sales = models.IntegerField(default=0, null=True)
-    created_at = models.DateTimeField(default=datetime.utcnow())
+    average_salses = models.IntegerField(default=0, null=True)
+    average_rental_fee = models.IntegerField(default=0, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
 
 class SummaryArticleBreakdown(models.Model):
-    '''Airb情報（部屋タイプ別詳細）テーブル'''
+    '''Airb情報（物件タイプ別詳細）テーブル'''
     region_summary_id = models.IntegerField(default=0)
     article_type = models.CharField(max_length=10, null=True)
     listing_count = models.IntegerField(default=0, null=True)
-    created_at = models.DateTimeField(default=datetime.utcnow())
+    created_at = models.DateTimeField(default=timezone.now)
+
+
+class SummarySizeBreakdown(models.Model):
+    '''Airb情報（部屋タイプ別情報）テーブル'''
+    region_summary_id = models.IntegerField(default=0)
+    room_size = models.CharField(max_length=10, null=True)
+    listing_count = models.IntegerField(default=0, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
 
 class SummaryLanguageBreakdown(models.Model):
     '''Airb情報（言語別詳細）テーブル'''
     region_summary_id = models.IntegerField(default=0)
-    dutch = models.IntegerField(default=0, null=True)
-    germany = models.IntegerField(default=0, null=True)
-    thai = models.IntegerField(default=0, null=True)
-    italian = models.IntegerField(default=0, null=True)
-    french = models.IntegerField(default=0, null=True)
-    korean = models.IntegerField(default=0, null=True)
-    chinese = models.IntegerField(default=0, null=True)
-    spanish = models.IntegerField(default=0, null=True)
-    english = models.IntegerField(default=0, null=True)
-    japanese = models.IntegerField(default=0, null=True)
+    language_type = models.CharField(max_length=10, null=True)
+    listing_count = models.IntegerField(default=0, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
+#    dutch = models.IntegerField(default=0, null=True)
+#    germany = models.IntegerField(default=0, null=True)
+#    thai = models.IntegerField(default=0, null=True)
+#    italian = models.IntegerField(default=0, null=True)
+#    french = models.IntegerField(default=0, null=True)
+#    korean = models.IntegerField(default=0, null=True)
+#    chinese = models.IntegerField(default=0, null=True)
+#    spanish = models.IntegerField(default=0, null=True)
+#    english = models.IntegerField(default=0, null=True)
+#    japanese = models.IntegerField(default=0, null=True)
 
 
-class ListingTrend(models.Model):
-    '''リスティング登録数推移テーブル'''
-    region_summary_id = models.IntegerField(default=0)
-    total_listing = models.IntegerField(default=0, null=True)
-    publish_count = models.IntegerField(default=0, null=True)
-    suspend_count = models.IntegerField(default=0, null=True)
-    created_at = models.DateTimeField(default=datetime.utcnow())
+#class ListingTrend(models.Model):
+#    '''リスティング登録数推移テーブル'''
+#    region_summary_id = models.IntegerField(default=0)
+#    total_listing = models.IntegerField(default=0, null=True)
+#    suspend_count = models.IntegerField(default=0, null=True)
+#    created_at = models.DateTimeField(default=timezone.now)
 
 
 class Region(models.Model):
