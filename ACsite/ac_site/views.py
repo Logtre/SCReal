@@ -58,20 +58,20 @@ class ContactView(TemplateView):
         return self.render_to_response(context)
 
 
-#class RatingView(TemplateView):
-#    '''Airテーブルよりレーティング情報を取得する'''
-#    template_name = "rating.html"
-#
-#    def get(self, request, **kwargs):
-#        pref_id = int(request.GET.get('pf_id', None))
-#        print(">>>DEBUG>>> pf_id is: %d" % pref_id)
-#        Pref_info = Prefecture.objects.filter(pf_id=pref_id)
-#        Air_info = RegionSummary.objects.filter(pf_id=pref_id)
-#        context = {
-#            'Air_info': Air_info,
-#            'Pref_info': Pref_info,
-#        }
-#        return self.render_to_response(context)
+class RatingView(TemplateView):
+    '''Airテーブルよりレーティング情報を取得する'''
+    template_name = "rating.html"
+
+    def get(self, request, **kwargs):
+        pref_id = int(request.GET.get('prefecture_id', None))
+        print(">>>DEBUG>>> prefecture_id is: %d" % prefecture_id)
+        Pref_info = Prefecture.objects.filter(prefecture_id=prefecture_id)
+        Air_info = RegionSummary.objects.filter(prefecture_id=prefecture_id)
+        context = {
+            'Air_info': Air_info,
+            'Pref_info': Pref_info,
+        }
+        return self.render_to_response(context)
 
 
 class PrefectureView(TemplateView):
@@ -79,9 +79,9 @@ class PrefectureView(TemplateView):
     template_name = "prefectures.html"
 
     def get(self, request, **kwargs):
-        latest_pref_list = Prefecture.objects.order_by('pf_id')[0:47]
+        latest_prefecture_list = Prefecture.objects.order_by('prefecture_id')[0:47]
         context = {
-            'latest_pref_list': latest_pref_list,
+            'latest_prefecture_list': latest_prefecture_list,
         }
         return self.render_to_response(context)
 
@@ -91,7 +91,7 @@ class PrefectureShowView(TemplateView):
     template_name = "prefecture_show.html"
 
     def get(self, request, **kwargs):
-        prefecture = Prefecture.objects.get(pf_id=self.kwargs['prefecture_id'])
+        prefecture = Prefecture.objects.get(prefecture_id=self.kwargs['prefecture_id'])
         context = {
             'prefecture': prefecture,
         }

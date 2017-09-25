@@ -106,7 +106,7 @@ class SummaryCapacityBreakdown(models.Model):
     region_summary_id = models.IntegerField(default=0)
     capacity_type = models.CharField(max_length=10, null=True)
     listing_count = models.IntegerField(default=0, null=True)
-    average_salses = models.IntegerField(default=0, null=True)
+    average_sales = models.IntegerField(default=0, null=True)
     average_rental_fee = models.IntegerField(default=0, null=True)
     created_at = models.DateTimeField(default=timezone.now)
 
