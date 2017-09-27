@@ -10,6 +10,7 @@ import datetime
 
 from .models import Prefecture, Company_table, Member_table, RegionSummary
 
+
 class TopView(TemplateView):
     template_name = "index.html"
 
@@ -33,6 +34,7 @@ class CompanyView(TemplateView):
             'company_info': company_info,
         }
         return self.render_to_response(context)
+
 
 class CompanyShowView(TemplateView):
     '''会社詳細'''
@@ -63,13 +65,12 @@ class RatingView(TemplateView):
     template_name = "rating.html"
 
     def get(self, request, **kwargs):
-        pref_id = int(request.GET.get('prefecture_id', None))
-        print(">>>DEBUG>>> prefecture_id is: %d" % prefecture_id)
-        Pref_info = Prefecture.objects.filter(prefecture_id=prefecture_id)
-        Air_info = RegionSummary.objects.filter(prefecture_id=prefecture_id)
+        #pref = int(request.GET.get('prefecture_id', None))
+        #print(">>>DEBUG>>> prefecture_id is: %d" % prefecture_id)
+        region_info = RegionSummary.objects.filter(prefecture_id_rgs=self.kwargs['rating_id'], region_id__endswith='000').select_related().all()
+        print(region_info.query)
         context = {
-            'Air_info': Air_info,
-            'Pref_info': Pref_info,
+            'region_info': region_info,
         }
         return self.render_to_response(context)
 
@@ -79,9 +80,13 @@ class PrefectureView(TemplateView):
     template_name = "prefectures.html"
 
     def get(self, request, **kwargs):
-        latest_prefecture_list = Prefecture.objects.order_by('prefecture_id')[0:47]
+        latest_prefecture_list = Prefecture.objects.order_by('prefecture_id_pref').all()
+        #region_list = RegionSummary.objects.filter(region_id__endswith=000).order_by('region_id')
+        print(latest_prefecture_list.query)
+        #print(region_list.query)
         context = {
             'latest_prefecture_list': latest_prefecture_list,
+            #'region_list': region_list,
         }
         return self.render_to_response(context)
 
@@ -91,8 +96,13 @@ class PrefectureShowView(TemplateView):
     template_name = "prefecture_show.html"
 
     def get(self, request, **kwargs):
+        region = Region.objects.get(prefecture_id=self.kwargs['prefecture_id'])
         prefecture = Prefecture.objects.get(prefecture_id=self.kwargs['prefecture_id'])
+        print(region.query)
+        print(prefecture.query)
+        #region = RegionSummary.objects.select_related('region_summary_id').get(prefecture_id_rgs=self.kwargs['prefecture_id_pref'], region_id__endswith=000)
         context = {
+            'region': region,
             'prefecture': prefecture,
         }
         return self.render_to_response(context)

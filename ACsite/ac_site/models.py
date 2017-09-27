@@ -4,24 +4,33 @@ from datetime import datetime
 from django.utils import timezone
 # Create your models here.
 
+class Region(models.Model):
+    '''地域情報テーブル'''
+    prefecture_id = models.IntegerField(default=0, unique=True)
+    city_id = models.IntegerField(default=0, unique=True)
+
 
 class Prefecture(models.Model):
     '''都道府県テーブル'''
-    prefecture_id = models.IntegerField(default=0)
+    #prefecture_id_pref = models.IntegerField(default=0)
+    prefecture_id_pref = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_pref', to_field='prefecture_id', related_name='prefecture_id_pref', on_delete=models.CASCADE)
     prefecture = models.CharField(max_length=10)
 
 
 class City(models.Model):
     '''市町村テーブル'''
-    city_id = models.IntegerField(default=0)
+    city_id_city = models.IntegerField(default=0)
+    #city_id = models.ForeignKey(Region) phase2以降に対応
     city = models.CharField(max_length=30)
 
 
 class PriceofLand(models.Model):
     '''地価テーブル'''
     priceofland_id = models.IntegerField(default=0)
-    prefecture_id = models.IntegerField(default=0)
-    city_id = models.IntegerField(default=0, null=True)
+    #prefecture_id_pol = models.IntegerField(default=0)
+    prefecture_id_pol = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_pol', to_field='prefecture_id', related_name='prefecture_id_pol', on_delete=models.CASCADE)
+    city_id_pol = models.IntegerField(default=0, null=True)
+    #city_id_pol = models.ForeignKey(City) phase2以降に対応
     properties = models.IntegerField(default=0, null=True)
     average_price = models.IntegerField(default=0, null=True)
     upper_price = models.IntegerField(default=0, null=True)
@@ -31,8 +40,10 @@ class PriceofLand(models.Model):
 class TourResource(models.Model):
     '''観光資源テーブル'''
     scr_id = models.IntegerField(default=0)
-    prefecture_id = models.IntegerField(default=0)
-    city_id = models.IntegerField(default=0, null=True)
+    #prefecture_id_scr = models.IntegerField(default=0)
+    prefecture_id_scr = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_scr', to_field='prefecture_id', related_name='prefecture_id_scr', on_delete=models.CASCADE)
+    city_id_scr = models.IntegerField(default=0, null=True)
+    #city_id = models.ForeignKey(City) phase2以降に対応
     scr_type1 = models.CharField(max_length=20, null=True)
     scr_type2 = models.CharField(max_length=20, null=True)
     scr_name = models.CharField(max_length=50, null=True)
@@ -43,7 +54,8 @@ class TourResource(models.Model):
 class ForeignGuest(models.Model):
     '''外国人旅行客テーブル'''
     num_of_foreign_id = models.IntegerField(default=0)
-    prefecture_id = models.IntegerField(default=0)
+    #prefecture_id_frg = models.IntegerField(default=0)
+    prefecture_id_frg = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_frg', to_field='prefecture_id', related_name='prefecture_id_frg', on_delete=models.CASCADE)
     year = models.IntegerField(default=0)
     number_of_guest = models.IntegerField(default=0, null=True)
 
@@ -51,7 +63,8 @@ class ForeignGuest(models.Model):
 class ForeignGuestM(models.Model):
     '''月次外国人旅行客テーブル'''
     num_of_foreign_month_id = models.IntegerField(default=0)
-    prefecture_id = models.IntegerField(default=0)
+    #prefecture_id_frgm = models.IntegerField(default=0)
+    prefecture_id_frgm = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_frgm', to_field='prefecture_id', related_name='prefecture_id_frgm', on_delete=models.CASCADE)
     year = models.IntegerField(default=0)
     month = models.IntegerField(default=0)
     number_of_guest = models.IntegerField(default=0, null=True)
@@ -60,7 +73,8 @@ class ForeignGuestM(models.Model):
 class Consumption(models.Model):
     '''消費単価テーブル'''
     csm_id = models.IntegerField(default=0)
-    prefecture_id = models.IntegerField(default=0)
+    #prefecture_id_csm = models.IntegerField(default=0)
+    prefecture_id_csm = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_csm', to_field='prefecture_id', related_name='prefecture_id_csm', on_delete=models.CASCADE)
     num_of_answers = models.IntegerField(default=0, null=True)
     consumption = models.IntegerField(default=0, null=True)
 
@@ -68,7 +82,8 @@ class Consumption(models.Model):
 class HotelType(models.Model):
     '''宿泊施設テーブル'''
     hotel_id = models.IntegerField(default=0)
-    prefecture_id = models.IntegerField(default=0)
+    #prefecture_id_htl = models.IntegerField(default=0)
+    prefecture_id_htl = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_htl', to_field='prefecture_id', related_name='prefecture_id_htl', on_delete=models.CASCADE)
     hotel = models.IntegerField(default=0, null=True)
     ryokan = models.IntegerField(default=0, null=True)
     condominium = models.IntegerField(default=0, null=True)
@@ -81,16 +96,19 @@ class HotelType(models.Model):
 class WebSite(models.Model):
     '''サイトテーブル'''
     web_id = models.IntegerField(default=0)
-    prefecture_id = models.IntegerField(default=0)
-    city_id = models.IntegerField(default=0, null=True)
+    #prefecture_id_web = models.IntegerField(default=0)
+    prefecture_id_web = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_web', to_field='prefecture_id', related_name='prefecture_id_web', on_delete=models.CASCADE)
+    city_id_web = models.IntegerField(default=0, null=True)
     website = models.IntegerField(default=0, null=True)
 
 
 class RegionSummary(models.Model):
     '''Airb情報テーブルサマリー'''
-    region_id = models.IntegerField(default=0)
-    prefecture_id = models.IntegerField(default=0)
-    city_id = models.IntegerField(default=0, null=True)
+    region_id = models.IntegerField(default=0, unique=True)
+    #prefecture_id_rgs = models.IntegerField(default=0)
+    prefecture_id_rgs = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_rgs', to_field='prefecture_id', related_name='prefecture_id_rgs', on_delete=models.CASCADE)
+    city_id_rgs = models.IntegerField(default=0, null=True)
+    #city_id_rgs = models.ForeignKey(City) phase2以降に対応
     total_listing = models.IntegerField(default=0, null=True)
     publish_count = models.IntegerField(default=0, null=True)
     suspend_count = models.IntegerField(default=0, null=True)
@@ -98,12 +116,13 @@ class RegionSummary(models.Model):
     non_reviewed_count = models.IntegerField(default=0, null=True)
     average_price = models.IntegerField(default=0, null=True)
     monthly_sales = models.IntegerField(default=0, null=True)
-    region_summary_id = models.IntegerField(default=0)
+    #region_summary_id = models.IntegerField(default=0)
 
 
 class SummaryCapacityBreakdown(models.Model):
     '''Airb情報（収容人数別詳細）テーブル'''
-    region_summary_id = models.IntegerField(default=0)
+    #region_summary_id_cap = models.IntegerField(default=0)
+    region_summary_id_cap = models.ForeignKey('RegionSummary', blank=True, null=True, db_column='region_summary_id_cap', to_field='region_id', related_name='region_summary_id_cap', on_delete=models.CASCADE)
     capacity_type = models.CharField(max_length=10, null=True)
     listing_count = models.IntegerField(default=0, null=True)
     average_sales = models.IntegerField(default=0, null=True)
@@ -113,7 +132,8 @@ class SummaryCapacityBreakdown(models.Model):
 
 class SummaryArticleBreakdown(models.Model):
     '''Airb情報（物件タイプ別詳細）テーブル'''
-    region_summary_id = models.IntegerField(default=0)
+    #region_summary_id_artcl = models.IntegerField(default=0)
+    region_summary_id_artcl = models.ForeignKey('RegionSummary', blank=True, null=True, db_column='region_summary_id_artcl', to_field='region_id', related_name='region_summary_id_artcl', on_delete=models.CASCADE)
     article_type = models.CharField(max_length=10, null=True)
     listing_count = models.IntegerField(default=0, null=True)
     created_at = models.DateTimeField(default=timezone.now)
@@ -121,7 +141,8 @@ class SummaryArticleBreakdown(models.Model):
 
 class SummarySizeBreakdown(models.Model):
     '''Airb情報（部屋タイプ別情報）テーブル'''
-    region_summary_id = models.IntegerField(default=0)
+    #region_summary_id_size = models.IntegerField(default=0)
+    region_summary_id_size = models.ForeignKey('RegionSummary', blank=True, null=True, db_column='region_summary_id_size', to_field='region_id', related_name='region_summary_id_size', on_delete=models.CASCADE)
     room_size = models.CharField(max_length=10, null=True)
     listing_count = models.IntegerField(default=0, null=True)
     created_at = models.DateTimeField(default=timezone.now)
@@ -129,7 +150,8 @@ class SummarySizeBreakdown(models.Model):
 
 class SummaryLanguageBreakdown(models.Model):
     '''Airb情報（言語別詳細）テーブル'''
-    region_summary_id = models.IntegerField(default=0)
+    #region_summary_id_lang = models.IntegerField(default=0)
+    region_summary_id_lang = models.ForeignKey('RegionSummary', blank=True, null=True, db_column='region_summary_id_lang', to_field='region_id', related_name='region_summary_id_lang', on_delete=models.CASCADE)
     language_type = models.CharField(max_length=10, null=True)
     listing_count = models.IntegerField(default=0, null=True)
     created_at = models.DateTimeField(default=timezone.now)
@@ -151,12 +173,6 @@ class SummaryLanguageBreakdown(models.Model):
 #    total_listing = models.IntegerField(default=0, null=True)
 #    suspend_count = models.IntegerField(default=0, null=True)
 #    created_at = models.DateTimeField(default=timezone.now)
-
-
-class Region(models.Model):
-    '''ID紐付け用中間テーブル'''
-    prefecture_id = models.IntegerField(default=0)
-    city_id = models.IntegerField(default=0)
 
 
 class Company_table(models.Model):

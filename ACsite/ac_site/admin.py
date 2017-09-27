@@ -2,6 +2,7 @@
 from django.contrib import admin
 from ac_site.models import Prefecture, Company_table, Member_table
 
+
 # Register your models here.
 #admin.site.register(Prefecture)
 admin.autodiscover()
