@@ -8,8 +8,8 @@ from django.template import loader
 
 import datetime
 
-#from .models import Prefecture, Company_table, Member_table, RegionSummary, Region
-from .models import Region, Prefecture, City, PriceofLand, TourResource, ForeignGuest, ForeignGuestM, Consumption, HotelType, WebSite, RegionSummary, SummaryArticleBreakdown, SummaryCapacityBreakdown, SummaryLanguageBreakdown, SummarySizeBreakdown, Company_table, Member_table, MemberFlg_table
+from .models import Company_table, Member_table
+#from .models import Region, Prefecture, City, PriceofLand, TourResource, ForeignGuest, ForeignGuestM, Consumption, HotelType, WebSite, RegionSummary, SummaryArticleBreakdown, SummaryCapacityBreakdown, SummaryLanguageBreakdown, SummarySizeBreakdown, Company_table, Member_table, MemberFlg_table
 
 class TopView(TemplateView):
     template_name = "index.html"
@@ -59,7 +59,7 @@ class ContactView(TemplateView):
         }
         return self.render_to_response(context)
 
-
+"""
 class RatingView(TemplateView):
     '''Airテーブルよりレーティング情報を取得する'''
     template_name = "rating.html"
@@ -97,6 +97,7 @@ class PrefectureShowView(TemplateView):
             objects.filterコマンド ----> クエリセットを返す
             外部キーの逆引きはオブジェクトにしか使えないので注意
         '''
+        # ミクロ情報の取得
         # RegionSummary + Prefecture
         region_info = RegionSummary.objects.select_related('prefecture_id_rgs').all().get(region_id=self.kwargs['region_id'])
         # SummaryArticleBreakdownの最新レコード
@@ -107,16 +108,22 @@ class PrefectureShowView(TemplateView):
         sum_lang = region_info.region_summary_id_lang.select_related().all().order_by('-created_at')[:1]
         # SummarySizeBreakdownの最新レコード
         sum_size = region_info.region_summary_id_size.select_related().all().order_by('-created_at')[:1]
+
+        # マクロ情報
+        # Prefecture + Consumption + HotelType + Website
+        prefecture_info = Prefecture.objects.select_related('pref_id_consumption', 'pref_id_hoteltype', 'pref_id_website').all().get(prefecture_id_pref=region_info.prefecture_id_rgs.prefecture_id_pref)
         # PriceofLand
-        priceofland_info = PriceofLand.objects.select_related().all().filter(prefecture_id_pol=region_info.prefecture_id_rgs.prefecture_id_pref)
+        priceofland_info = prefecture_info.prefecture_id_pol.select_related().all()
         # TourResource
-        tourresource_info = TourResource.objects.select_related().all().filter(prefecture_id_scr=region_info.prefecture_id_rgs.prefecture_id_pref)
-        #prefecture_info = Prefecture.objects.select_related().all().filter(prefecture_id_pref=region_info.prefecture_id_rgs.prefecture_id_pref)
+        tourresource_info = prefecture_info.prefecture_id_scr.select_related().all()
+        # ForeignGuest
+        foreignguest_info = prefecture_info.prefecture_id_frg.select_related().all()
 
         #print(region_info)
         #print(sum_artcl.query)
-        print(priceofland_info.query)
+        #print(priceofland_info.query)
         print(tourresource_info.query)
+        print(priceofland_info.query)
         context = {
             'region_info': region_info,
             'sum_artcl': sum_artcl,
@@ -125,7 +132,7 @@ class PrefectureShowView(TemplateView):
             'sum_size': sum_size,
         }
         return self.render_to_response(context)
-
+"""
 
 def current_datetime(request):
     '''現在時刻を表示する'''

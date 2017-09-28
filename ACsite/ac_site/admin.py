@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 from django.contrib import admin
-from ac_site.models import Prefecture, Company_table, Member_table
+#from ac_site.models import Prefecture, Company_table, Member_table
+from ac_site.models import Company_table, Member_table
 
 
 # Register your models here.
@@ -8,11 +9,11 @@ from ac_site.models import Prefecture, Company_table, Member_table
 admin.autodiscover()
 
 
-class PrefectureAdmin(admin.ModelAdmin):
-    '''Prefectureを編集する'''
-    # リストを表示する
-    list_display = ('prefecture_id', 'prefecture',)
-    admin.site.register(Prefecture)
+#class PrefectureAdmin(admin.ModelAdmin):
+#    '''Prefectureを編集する'''
+#    # リストを表示する
+#    list_display = ('prefecture_id', 'prefecture',)
+#    admin.site.register(Prefecture)
 
 
 class Company_tableAdmin(admin.ModelAdmin):
