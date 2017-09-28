@@ -8,8 +8,8 @@ from django.template import loader
 
 import datetime
 
-from .models import Prefecture, Company_table, Member_table, RegionSummary
-
+#from .models import Prefecture, Company_table, Member_table, RegionSummary, Region
+from .models import Region, Prefecture, City, PriceofLand, TourResource, ForeignGuest, ForeignGuestM, Consumption, HotelType, WebSite, RegionSummary, SummaryArticleBreakdown, SummaryCapacityBreakdown, SummaryLanguageBreakdown, SummarySizeBreakdown, Company_table, Member_table, MemberFlg_table
 
 class TopView(TemplateView):
     template_name = "index.html"
@@ -80,13 +80,10 @@ class PrefectureView(TemplateView):
     template_name = "prefectures.html"
 
     def get(self, request, **kwargs):
-        latest_prefecture_list = Prefecture.objects.order_by('prefecture_id_pref').all()
-        #region_list = RegionSummary.objects.filter(region_id__endswith=000).order_by('region_id')
-        print(latest_prefecture_list.query)
-        #print(region_list.query)
+        latest_region_list = RegionSummary.objects.select_related('prefecture_id_rgs').all().filter(region_id__endswith=000).order_by('prefecture_id_rgs')
+        print(latest_region_list.query)
         context = {
-            'latest_prefecture_list': latest_prefecture_list,
-            #'region_list': region_list,
+            'latest_region_list': latest_region_list,
         }
         return self.render_to_response(context)
 
@@ -96,14 +93,36 @@ class PrefectureShowView(TemplateView):
     template_name = "prefecture_show.html"
 
     def get(self, request, **kwargs):
-        region = Region.objects.get(prefecture_id=self.kwargs['prefecture_id'])
-        prefecture = Prefecture.objects.get(prefecture_id=self.kwargs['prefecture_id'])
-        print(region.query)
-        print(prefecture.query)
-        #region = RegionSummary.objects.select_related('region_summary_id').get(prefecture_id_rgs=self.kwargs['prefecture_id_pref'], region_id__endswith=000)
+        ''' objects.getコマンド ----> オブジェクトを返す
+            objects.filterコマンド ----> クエリセットを返す
+            外部キーの逆引きはオブジェクトにしか使えないので注意
+        '''
+        # RegionSummary + Prefecture
+        region_info = RegionSummary.objects.select_related('prefecture_id_rgs').all().get(region_id=self.kwargs['region_id'])
+        # SummaryArticleBreakdownの最新レコード
+        sum_artcl = region_info.region_summary_id_artcl.select_related().all().order_by('-created_at')[:1]
+        # SummaryCapacityBreakdownの最新レコード
+        sum_cap = region_info.region_summary_id_cap.select_related().all().order_by('-created_at')[:1]
+        # SummaryLanguageBreakdownの最新レコード
+        sum_lang = region_info.region_summary_id_lang.select_related().all().order_by('-created_at')[:1]
+        # SummarySizeBreakdownの最新レコード
+        sum_size = region_info.region_summary_id_size.select_related().all().order_by('-created_at')[:1]
+        # PriceofLand
+        priceofland_info = PriceofLand.objects.select_related().all().filter(prefecture_id_pol=region_info.prefecture_id_rgs.prefecture_id_pref)
+        # TourResource
+        tourresource_info = TourResource.objects.select_related().all().filter(prefecture_id_scr=region_info.prefecture_id_rgs.prefecture_id_pref)
+        #prefecture_info = Prefecture.objects.select_related().all().filter(prefecture_id_pref=region_info.prefecture_id_rgs.prefecture_id_pref)
+
+        #print(region_info)
+        #print(sum_artcl.query)
+        print(priceofland_info.query)
+        print(tourresource_info.query)
         context = {
-            'region': region,
-            'prefecture': prefecture,
+            'region_info': region_info,
+            'sum_artcl': sum_artcl,
+            'sum_cap': sum_cap,
+            'sum_lang': sum_lang,
+            'sum_size': sum_size,
         }
         return self.render_to_response(context)
 

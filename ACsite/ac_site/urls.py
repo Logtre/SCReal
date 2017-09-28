@@ -19,7 +19,7 @@ urlpatterns = [
     url(r'^companies/(?P<company_id>[0-9]+)/$', CompanyShowView.as_view(), name='company_show'),
     url(r'^contacts$', ContactView.as_view(), name='contact'),
     url(r'^prefectures$', PrefectureView.as_view(), name='prefectures'),
-    url(r'^prefectures/(?P<prefecture_id>[0-9]+)/$', PrefectureShowView.as_view(), name='prefecture_show'),
+    url(r'^prefectures/(?P<region_id>[0-9]+)/$', PrefectureShowView.as_view(), name='prefecture_show'),
     url(r'^ratings', RatingView.as_view(), name='rating'),
 
     # ex: /ac_site/5/

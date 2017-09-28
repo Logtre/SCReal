@@ -6,15 +6,25 @@ from django.utils import timezone
 
 class Region(models.Model):
     '''地域情報テーブル'''
-    prefecture_id = models.IntegerField(default=0, unique=True)
-    city_id = models.IntegerField(default=0, unique=True)
+    #prefecture_id = models.IntegerField(default=0, unique=True)
+    #city_id = models.IntegerField(default=0, unique=True)
+    prefecture_id = models.OneToOneField('Prefecture', blank=True, null=True, db_column='prefecture_id', to_field='prefecture_id_pref', related_name='prefecture_id', on_delete=models.CASCADE, unique=True)
+    city_id = models.IntegerField(default=0, unique=True) # city_idへのリンクはphase2以降に対応
 
 
 class Prefecture(models.Model):
     '''都道府県テーブル'''
-    #prefecture_id_pref = models.IntegerField(default=0)
-    prefecture_id_pref = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_pref', to_field='prefecture_id', related_name='prefecture_id_pref', on_delete=models.CASCADE)
+    prefecture_id_pref = models.IntegerField(default=0, unique=True)
+    #prefecture_id_pref = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_pref', to_field='prefecture_id', related_name='prefecture_id_pref', on_delete=models.CASCADE)
     prefecture = models.CharField(max_length=10)
+    #priceofland = models.ForeignKey('PriceofLand', blank=True, null=True, db_column='priceofland', to_field='prefecture_id_pol', related_name='priceofland', on_delete=models.CASCADE)
+    #tourresource = models.ForeignKey('TourResource', blank=True, null=True, db_column='tourresource', to_field='prefecture_id_scr', related_name='tourresource', on_delete=models.CASCADE)
+    #foreignguest = models.ForeignKey('ForeignGuest', blank=True, null=True, db_column='foreignguest', to_field='prefecture_id_frg', related_name='foreignguest', on_delete=models.CASCADE)
+    #foreignguestm = models.ForeignKey('ForeignGuestM', blank=True, null=True, db_column='foreignguestm', to_field='prefecture_id_pref', related_name='foreignguestm', on_delete=models.CASCADE)
+    pref_id_cosumption = models.ForeignKey('Consumption', blank=True, null=True, db_column='pref_id_consumption', to_field='prefecture_id_csm', related_name='pref_id_consumption', on_delete=models.CASCADE)
+    pref_id_hoteltype = models.ForeignKey('HotelType', blank=True, null=True, db_column='pref_id_hoteltype', to_field='prefecture_id_htl', related_name='pref_id_hoteltype', on_delete=models.CASCADE)
+    pref_id_website = models.ForeignKey('WebSite', blank=True, null=True, db_column='pref_id_website', to_field='prefecture_id_web', related_name='pref_id_website', on_delete=models.CASCADE)
+    #regionsum = models.ForeignKey('RegionSummary', blank=True, null=True, db_column='regionsum', to_field='prefecture_id_rgs', related_name='regionsum', on_delete=models.CASCADE)
 
 
 class City(models.Model):
@@ -28,7 +38,8 @@ class PriceofLand(models.Model):
     '''地価テーブル'''
     priceofland_id = models.IntegerField(default=0)
     #prefecture_id_pol = models.IntegerField(default=0)
-    prefecture_id_pol = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_pol', to_field='prefecture_id', related_name='prefecture_id_pol', on_delete=models.CASCADE)
+    #prefecture_id_pol = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_pol', to_field='prefecture_id', related_name='prefecture_id_pol', on_delete=models.CASCADE)
+    prefecture_id_pol = models.ForeignKey('Prefecture', blank=True, null=True, db_column='prefecture_id_pol', to_field='prefecture_id_pref', related_name='prefecture_id_pol', on_delete=models.CASCADE)
     city_id_pol = models.IntegerField(default=0, null=True)
     #city_id_pol = models.ForeignKey(City) phase2以降に対応
     properties = models.IntegerField(default=0, null=True)
@@ -41,7 +52,8 @@ class TourResource(models.Model):
     '''観光資源テーブル'''
     scr_id = models.IntegerField(default=0)
     #prefecture_id_scr = models.IntegerField(default=0)
-    prefecture_id_scr = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_scr', to_field='prefecture_id', related_name='prefecture_id_scr', on_delete=models.CASCADE)
+    #prefecture_id_scr = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_scr', to_field='prefecture_id', related_name='prefecture_id_scr', on_delete=models.CASCADE)
+    prefecture_id_scr = models.ForeignKey('Prefecture', blank=True, null=True, db_column='prefecture_id_scr', to_field='prefecture_id_pref', related_name='prefecture_id_scr', on_delete=models.CASCADE)
     city_id_scr = models.IntegerField(default=0, null=True)
     #city_id = models.ForeignKey(City) phase2以降に対応
     scr_type1 = models.CharField(max_length=20, null=True)
@@ -55,7 +67,8 @@ class ForeignGuest(models.Model):
     '''外国人旅行客テーブル'''
     num_of_foreign_id = models.IntegerField(default=0)
     #prefecture_id_frg = models.IntegerField(default=0)
-    prefecture_id_frg = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_frg', to_field='prefecture_id', related_name='prefecture_id_frg', on_delete=models.CASCADE)
+    #prefecture_id_frg = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_frg', to_field='prefecture_id', related_name='prefecture_id_frg', on_delete=models.CASCADE)
+    prefecture_id_frg = models.ForeignKey('Prefecture', blank=True, null=True, db_column='prefecture_id_frg', to_field='prefecture_id_pref', related_name='prefecture_id_frg', on_delete=models.CASCADE)
     year = models.IntegerField(default=0)
     number_of_guest = models.IntegerField(default=0, null=True)
 
@@ -64,7 +77,8 @@ class ForeignGuestM(models.Model):
     '''月次外国人旅行客テーブル'''
     num_of_foreign_month_id = models.IntegerField(default=0)
     #prefecture_id_frgm = models.IntegerField(default=0)
-    prefecture_id_frgm = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_frgm', to_field='prefecture_id', related_name='prefecture_id_frgm', on_delete=models.CASCADE)
+    #prefecture_id_frgm = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_frgm', to_field='prefecture_id', related_name='prefecture_id_frgm', on_delete=models.CASCADE)
+    prefecture_id_frgm = models.ForeignKey('Prefecture', blank=True, null=True, db_column='prefecture_id_frgm', to_field='prefecture_id_pref', related_name='prefecture_id_frgm', on_delete=models.CASCADE)
     year = models.IntegerField(default=0)
     month = models.IntegerField(default=0)
     number_of_guest = models.IntegerField(default=0, null=True)
@@ -74,7 +88,9 @@ class Consumption(models.Model):
     '''消費単価テーブル'''
     csm_id = models.IntegerField(default=0)
     #prefecture_id_csm = models.IntegerField(default=0)
-    prefecture_id_csm = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_csm', to_field='prefecture_id', related_name='prefecture_id_csm', on_delete=models.CASCADE)
+    #prefecture_id_csm = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_csm', to_field='prefecture_id', related_name='prefecture_id_csm', on_delete=models.CASCADE)
+    #prefecture_id_csm = models.ForeignKey('Prefecture', blank=True, null=True, db_column='prefecture_id_csm', to_field='prefecture_id_pref', related_name='prefecture_id_csm', on_delete=models.CASCADE, unique=True)
+    prefecture_id_csm = models.OneToOneField('Prefecture', blank=True, null=True, db_column='prefecture_id_csm', to_field='prefecture_id_pref', related_name='prefecture_id_csm', on_delete=models.CASCADE)
     num_of_answers = models.IntegerField(default=0, null=True)
     consumption = models.IntegerField(default=0, null=True)
 
@@ -83,7 +99,9 @@ class HotelType(models.Model):
     '''宿泊施設テーブル'''
     hotel_id = models.IntegerField(default=0)
     #prefecture_id_htl = models.IntegerField(default=0)
-    prefecture_id_htl = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_htl', to_field='prefecture_id', related_name='prefecture_id_htl', on_delete=models.CASCADE)
+    #prefecture_id_htl = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_htl', to_field='prefecture_id', related_name='prefecture_id_htl', on_delete=models.CASCADE)
+    #prefecture_id_htl = models.ForeignKey('Prefecture', blank=True, null=True, db_column='prefecture_id_htl', to_field='prefecture_id_pref', related_name='prefecture_id_htl', on_delete=models.CASCADE, unique=True)
+    prefecture_id_htl = models.OneToOneField('Prefecture', blank=True, null=True, db_column='prefecture_id_htl', to_field='prefecture_id_pref', related_name='prefecture_id_htl', on_delete=models.CASCADE)
     hotel = models.IntegerField(default=0, null=True)
     ryokan = models.IntegerField(default=0, null=True)
     condominium = models.IntegerField(default=0, null=True)
@@ -97,7 +115,9 @@ class WebSite(models.Model):
     '''サイトテーブル'''
     web_id = models.IntegerField(default=0)
     #prefecture_id_web = models.IntegerField(default=0)
-    prefecture_id_web = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_web', to_field='prefecture_id', related_name='prefecture_id_web', on_delete=models.CASCADE)
+    #prefecture_id_web = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_web', to_field='prefecture_id', related_name='prefecture_id_web', on_delete=models.CASCADE)
+    #prefecture_id_web = models.ForeignKey('Prefecture', blank=True, null=True, db_column='prefecture_id_web', to_field='prefecture_id_pref', related_name='prefecture_id_web', on_delete=models.CASCADE, unique=True)
+    prefecture_id_web = models.OneToOneField('Prefecture', blank=True, null=True, db_column='prefecture_id_web', to_field='prefecture_id_pref', related_name='prefecture_id_web', on_delete=models.CASCADE)
     city_id_web = models.IntegerField(default=0, null=True)
     website = models.IntegerField(default=0, null=True)
 
@@ -106,7 +126,8 @@ class RegionSummary(models.Model):
     '''Airb情報テーブルサマリー'''
     region_id = models.IntegerField(default=0, unique=True)
     #prefecture_id_rgs = models.IntegerField(default=0)
-    prefecture_id_rgs = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_rgs', to_field='prefecture_id', related_name='prefecture_id_rgs', on_delete=models.CASCADE)
+    #prefecture_id_rgs = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_rgs', to_field='prefecture_id', related_name='prefecture_id_rgs', on_delete=models.CASCADE)
+    prefecture_id_rgs = models.ForeignKey('Prefecture', blank=True, null=True, db_column='prefecture_id_rgs', to_field='prefecture_id_pref', related_name='prefecture_id_rgs', on_delete=models.CASCADE)
     city_id_rgs = models.IntegerField(default=0, null=True)
     #city_id_rgs = models.ForeignKey(City) phase2以降に対応
     total_listing = models.IntegerField(default=0, null=True)
