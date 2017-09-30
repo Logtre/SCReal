@@ -8,8 +8,8 @@ from django.template import loader
 
 import datetime
 
-from .models import Company_table, Member_table
-#from .models import Region, Prefecture, City, PriceofLand, TourResource, ForeignGuest, ForeignGuestM, Consumption, HotelType, WebSite, RegionSummary, SummaryArticleBreakdown, SummaryCapacityBreakdown, SummaryLanguageBreakdown, SummarySizeBreakdown, Company_table, Member_table, MemberFlg_table
+#from .models import Company_table, Member_table
+from .models import Region, Prefecture, City, PriceofLand, TourResource, ForeignGuest, ForeignGuestM, Consumption, HotelType, WebSite, RegionSummary, SummaryArticleBreakdown, SummaryCapacityBreakdown, SummaryLanguageBreakdown, SummarySizeBreakdown, Company_table, Member_table, MemberFlg_table
 
 class TopView(TemplateView):
     template_name = "index.html"
@@ -59,7 +59,7 @@ class ContactView(TemplateView):
         }
         return self.render_to_response(context)
 
-"""
+
 class RatingView(TemplateView):
     '''Airテーブルよりレーティング情報を取得する'''
     template_name = "rating.html"
@@ -132,7 +132,7 @@ class PrefectureShowView(TemplateView):
             'sum_size': sum_size,
         }
         return self.render_to_response(context)
-"""
+
 
 def current_datetime(request):
     '''現在時刻を表示する'''
