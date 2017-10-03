@@ -103,14 +103,14 @@
                                 </li>-->
                                 {% for p in latest_region_list %}
                                     <li>
-                                        <a href="{% url 'ac_site:prefecture_show' region_id=p.region_id %}" class="item-link item-content">
+                                        <a href="{% url 'ac_site:prefecture_show' region_id=p.id %}" class="item-link item-content">
                                             <div class="item-media">
                                                 <div class="card-header no-border item-content-icon item-content-icon-gallery"></div>
                                             </div>
                                             <div class="item-inner">
                                                 <div class="item-title-row">
                                                     <div class="item-title">
-                                                        {{ p.prefecture_id_rgs.prefecture }}
+                                                        {{ p.prefecture.prefecture_name }}
                                                     </div>
                                                 </div>
                                                 <div class="item-subtitle">

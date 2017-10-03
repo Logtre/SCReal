@@ -65,7 +65,7 @@
                         <span class="kkicon icon-menu"></span>
                     </a>
                 </div>
-                <div class="center sliding">{{ region_info.prefecture_id_rgs.prefecture }} レーティング情報</div>
+                <div class="center sliding">{{ region_info.prefecture.prefecture_name }} レーティング情報</div>
                 <div class="right">
                     <a href="#" class="link icon-only open-panel" data-panel="right">
                         <span class="kkicon icon-alarm"></span>
@@ -127,6 +127,14 @@
                         <div class="chart-row">
                             <div>
                                 <canvas class="radar-chart-content" width="300" height="150"></canvas>
+                                {{region_sum_info.total_listing_count}}
+                                {{region_sum_info.publish_count}}
+                                {{region_sum_info.suspend_count}}
+                                {{region_sum_info.reviewed_count}}
+                                {{region_sum_info.non_reviewed_count}}
+                                {{region_sum_info.average_price}}
+                                {{region_sum_info.monthly_sales}}
+                                {{sum_articlebd_info.atricle_type}}
                             </div>
                         </div>
 

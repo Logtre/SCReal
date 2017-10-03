@@ -10,8 +10,10 @@ class Region(models.Model):
     #prefecture_id = models.IntegerField(default=0, unique=True)
     #city_id = models.IntegerField(default=0, unique=True)
     #prefecture_id = models.OneToOneField('Prefecture', blank=True, null=True, db_column='link_prefecture_id', to_field='prefecture_id', related_name='link_region', on_delete=models.CASCADE, unique=True)
-    prefecture_id = models.IntegerField(default=0, unique=True)
-    city_id = models.IntegerField(default=0, null=True, unique=True) # city_idへのリンクはphase2以降に対応
+    #prefecture_id = models.IntegerField(default=0, unique=True)
+    prefecture = models.ForeignKey('Prefecture', blank=True, null=True, related_name='link_region_prefecture', on_delete=models.CASCADE)
+    #city_id = models.IntegerField(default=0, null=True, unique=True) # city_idへのリンクはphase2以降に対応
+    city = models.ForeignKey('City', blank=True, null=True, related_name='link_region_city', on_delete=models.CASCADE)
 
 
 class Prefecture(models.Model):
@@ -19,7 +21,7 @@ class Prefecture(models.Model):
     prefecture_code = models.IntegerField(default=0)
     #prefecture_id_pref = models.ForeignKey('Region', blank=True, null=True, db_column='prefecture_id_pref', to_field='prefecture_id', related_name='prefecture_id_pref', on_delete=models.CASCADE)
     prefecture_name = models.CharField(max_length=10)
-    region = models.ForeignKey('Region', blank=True, null=True, related_name='link_prefecture', on_delete=models.CASCADE)
+    #region = models.ForeignKey('Region', blank=True, null=True, related_name='link_prefecture', on_delete=models.CASCADE)
     #priceofland = models.ForeignKey('PriceofLand', blank=True, null=True, db_column='priceofland', to_field='prefecture_id_pol', related_name='priceofland', on_delete=models.CASCADE)
     #tourresource = models.ForeignKey('TourResource', blank=True, null=True, db_column='tourresource', to_field='prefecture_id_scr', related_name='tourresource', on_delete=models.CASCADE)
     #foreignguest = models.ForeignKey('ForeignGuest', blank=True, null=True, db_column='foreignguest', to_field='prefecture_id_frg', related_name='foreignguest', on_delete=models.CASCADE)
@@ -35,7 +37,7 @@ class City(models.Model):
     city_code = models.IntegerField(default=0)
     #city_id = models.ForeignKey(Region) phase2以降に対応
     city_name = models.CharField(max_length=30)
-    region = models.ForeignKey('Region', blank=True, null=True, related_name='link_city', on_delete=models.CASCADE)
+    #region = models.ForeignKey('Region', blank=True, null=True, related_name='link_city', on_delete=models.CASCADE)
 
 
 class PriceofLand(models.Model):
@@ -192,6 +194,7 @@ class RegionSummary(models.Model):
     #region_summary_id = models.IntegerField(default=0)
     created_at = models.DateTimeField(default=timezone.now)
     region = models.ForeignKey('Region', blank=True, null=True, related_name='link_regionsummary', on_delete=models.CASCADE)
+    #region = models.IntegerField(default=0, null=True)
 
 
 class SummaryCapacityBreakdown(models.Model):
