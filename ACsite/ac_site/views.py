@@ -9,9 +9,10 @@ from django.db.models import Avg
 
 import datetime
 
+
 #from .models import Company_table, Member_table
 from .models import Region, Prefecture, City, PriceofLand, TourResource, ForeignGuestCount, AnnualSummary, RegionSummary, SummaryArticleBreakdown, SummaryCapacityBreakdown, SummaryLanguageBreakdown, SummarySizeBreakdown, Company_table, Member_table, MemberFlg_table
-from .rating import individual_rating
+from .rating import individual_rating, cal_stdev, cal_beta
 
 
 today = datetime.date.today()
@@ -85,12 +86,8 @@ class PrefectureView(TemplateView):
     template_name = "prefectures.html"
 
     def get(self, request, **kwargs):
-        #latest_region_list = Region.objects.select_related().all().filter(city_id = None).filter(prefecture__prefecture_code__isnull = False)
         latest_region_list = Region.objects.select_related().all().filter(city_id = None)
-        #prefecture_list = latest_region_list.filter(link_prefecture__prefecture_code = prefecture_id)
-        #prefecture_list = latest_region_list.link_prefecture.select_related().all().filter(prefecture__region_id)
         print(latest_region_list.query)
-        #print(prefecture_list.query)
         context = {
             'latest_region_list': latest_region_list,
         }
@@ -108,19 +105,14 @@ class PrefectureShowView(TemplateView):
         '''
         # ミクロ情報の取得1
         # RegionSummaryの最新レコード（全都道府県分）
-        #region_sum_info = RegionSummary.objects.select_related().all().order_by('-created_at')[:47]
         region_sum_info = RegionSummary.objects.select_related().all()
         # SummaryArticleBreakdownの最新レコード（全都道府県分）
-        #sum_articlebd_info = SummaryArticleBreakdown.objects.select_related().all().order_by('-created_at')[:141] # 3*47
         sum_articlebd_info = SummaryArticleBreakdown.objects.select_related().all()
         # SummaryCapacityBreakdownの最新レコード（全都道府県分）
-        #sum_capacitybd_info = SummaryCapacityBreakdown.objects.select_related().all().order_by('-created_at')[:188] # 4*47
         sum_capacitybd_info = SummaryCapacityBreakdown.objects.select_related().all()
         # SummaryLanguageBreakdownの最新レコード（全都道府県分）
-        #sum_languagebd_info = SummaryLanguageBreakdown.objects.select_related().all().order_by('-created_at')[:470] # 10*47
         sum_languagebd_info = SummaryLanguageBreakdown.objects.select_related().all()
         # SummarySizeBreakdownの最新レコード（全都道府県分）
-        #sum_sizebd_info = SummarySizeBreakdown.objects.select_related().all().order_by('-created_at')[:141] # 3*47
         sum_sizebd_info = SummarySizeBreakdown.objects.select_related().all()
 
         '''DEBUG用
@@ -162,27 +154,15 @@ class PrefectureShowView(TemplateView):
 
 
         # マクロ情報
-        # Prefecture + Consumption + HotelType + Website
+        # Prefecture
         region_info = Region.objects.select_related().all().get(id=self.kwargs['region_id'])
         # PriceofLand（全地域分）
-        #priceofland_info = region_info.link_priceofland.select_related().all()
-        #priceofland_info = PriceofLand.objects.filter(region_id=self.kwargs['region_id'])
-        #priceofland_info = PriceofLand.objects.select_related().all().order_by('-created_at')[:556] # 全地域
         priceofland_info = PriceofLand.objects.select_related().all()
         # TourResource（全地域分）
-        #tourresource_info = region_info.link_tourresource.select_related().all()
-        #tourresource_info = TourResource.objects.filter(region_id=self.kwargs['region_id'])
-        #tourresource_info = TourResource.objects.select_related().all().order_by('-created_at')[:2788] # 全地域
         tourresource_info = TourResource.objects.select_related().all()
         # ForeignGuestCount（全地域分）
-        #foreignguest_info = region_info.link_foreignguestcount.select_related().all()
-        #foreignguest_info = ForeignGuestCount.objects.get(region_id=self.kwargs['region_id'])
-        #foreignguest_info = ForeignGuestCount.objects.select_related().all() # 全履歴
         foreignguest_info = ForeignGuestCount.objects.select_related().all()
         # AnnualSummary（全地域分）
-        #annualsummary_info = region_info.link_annualsummary.select_related().all()
-        #annualsummary_info = AnnualSummary.objects.get(region_id=self.kwargs['region_id'])
-        #annualsummary_info = AnnualSummary.objects.select_related().all().order_by('-created_at')[:47] # 全都道府県
         annualsummary_info = AnnualSummary.objects.select_related().all()
 
         ''' DEBUG用
@@ -201,17 +181,15 @@ class PrefectureShowView(TemplateView):
 
         # レーティング関連情報の取得
 
-        # 市場規模
+        # 市場規模の計算
         # 対象都道府県の観光客数(昨年度)
         trg_guest_count = foreignguest_info.filter(year=today.year-1).filter(region_id=self.kwargs['region_id']).aggregate(Avg('guest_count'))["guest_count__avg"]
         # 平均観光客数(昨年度)
         avg_guest_count = foreignguest_info.filter(year=today.year-1).aggregate(Avg('guest_count'))["guest_count__avg"]
 
         # 対象都道府県の消費金額(昨年度)
-        #trg_consumption_amount = AnnualSummary.objects.filter(year=today.year-1).get(region_id=self.kwargs['region_id']).consumption_ammount
         trg_consumption_amount = annualsummary_info.filter(year=today.year-1).get(region_id=self.kwargs['region_id']).consumption_ammount
         # 平均消費金額(昨年度)
-        #avg_consumption_amount = annualsummary_info.aggregate(Avg('consumption_ammount'))["consumption_ammount__avg"]
         avg_consumption_amount = annualsummary_info.filter(year=today.year-1).aggregate(Avg('consumption_ammount'))["consumption_ammount__avg"]
 
         # 都道府県の売上(最新月)
@@ -239,7 +217,8 @@ class PrefectureShowView(TemplateView):
         print(marktsize)
         '''
 
-        # 将来性
+
+        # 将来性の計算
         # 観光客変化率(trg_guest_count - prv_guest_count)
         # 当年分
         trg_guest_count = foreignguest_info.filter(year=today.year-1).filter(month=today.month).get(region_id=self.kwargs['region_id']).guest_count
@@ -277,8 +256,7 @@ class PrefectureShowView(TemplateView):
         avg_diff_total_listing = 0
 
         # 将来性
-        potential = individual_rating(trg_diff_guest_count, avg_diff_guest_count, trg_tourresource_score, avg_tourresource_score, trg_diff_total_listing, avg_diff_total_listing)
-
+        #potential = individual_rating(trg_diff_guest_count, avg_diff_guest_count, trg_tourresource_score, avg_tourresource_score, trg_diff_total_listing, avg_diff_total_listing)
 
         '''DEBUG用
         print(">>>>DEBUG>>>> trg_guest_count is :")
@@ -311,6 +289,97 @@ class PrefectureShowView(TemplateView):
         print(avg_diff_total_listing)
         print(">>>>DEBUG>>>> potential is :")
         print(potential)
+        '''
+
+
+        # 安定性
+        # 観光客ボラティリティ
+        # 当月観光客数
+        trg_guest_count_for_volatility = foreignguest_info.filter(region_id=self.kwargs['region_id']).order_by('-id')[:12]
+        # 前月観光客数
+        prv_guest_count_for_volatility = foreignguest_info.filter(region_id=self.kwargs['region_id']).order_by('-id')[1:13]
+        # 標準偏差
+        trg_stdev = cal_stdev(trg_guest_count_for_volatility, prv_guest_count_for_volatility)
+        # モデル都道府県の当月平均観光客数
+        avg_guest_count_for_volatility = foreignguest_info.filter(region_id=22).order_by('-id')[:12]
+        # モデル都道府県の前月平均観光客数
+        avg_prv_guest_count_for_volatility = foreignguest_info.filter(region_id=22).order_by('-id')[1:13]
+        # 標準偏差
+        avg_stdev = cal_stdev(avg_guest_count_for_volatility, avg_prv_guest_count_for_volatility)
+
+        # 観光客の変化率の変化率（ベータ）
+        # 当月観光客数
+        trg_guest_count_for_beta = trg_guest_count_for_volatility
+        # 前月観光客数
+        prv_guest_count_for_beta = prv_guest_count_for_volatility
+        # 前々月観光客数
+        prvprv_guest_count_for_beta = foreignguest_info.filter(region_id=self.kwargs['region_id']).order_by('-id')[2:14]
+        # ベータ
+        trg_beta = cal_beta(trg_guest_count_for_beta, prv_guest_count_for_beta, prvprv_guest_count_for_beta)
+        # モデル都道府県の当月観光客数
+        avg_guest_count_for_beta = avg_guest_count_for_volatility
+        # モデル都道府県の前月観光客数
+        avg_prv_guest_count_for_beta = avg_prv_guest_count_for_volatility
+        # モデル都道府県の前々月観光客数
+        avg_prvprv_guest_count_for_beta = foreignguest_info.filter(region_id=22).order_by('-id')[2:14]
+        # モデル都道府県のベータ
+        avg_beta = cal_beta(avg_guest_count_for_beta, avg_prv_guest_count_for_beta, avg_prvprv_guest_count_for_beta)
+
+        # リスティング数の変化率(Phase1では対象外)
+        # 当月分
+        #trg_total_listing = region_sum_info.filter(year=today.year).filter(month=today.month).get(region_id=self.kwargs['region_id']).total_listing
+        # 前月分
+        #prv_total_listing = region_sum_info.filter(year=today.year).filter(month=today.month-1).get(region_id=self.kwargs['region_id']).total_listing
+        # 差分
+        #trg_diff_total_listing = trg_total_listing - prv_total_listing
+        trg_diff_total_listing_for_volatility = 0
+        # リスティング数の変化率の平均値
+        # 当月分
+        #avg_trg_total_listing = region_sum_info.filter(year=today.year).filter(month=today.month).aggregate(Avg('total_listing'))["total_listing__avg"]
+        # 前月分
+        #avg_prv_total_listing = region_sum_info.filter(year=today.year).filter(month=today.month-1).aggregate(Avg('total_listing'))["total_listing__avg"]
+        # 差分
+        #avg_diff_total_listing = avg_trg_total_listing - avg_prv_total_listing
+        avg_diff_total_listing_for_volatility = 0
+
+        # 安定性
+        stability = individual_rating(trg_stdev, avg_stdev, trg_beta, avg_beta, trg_diff_total_listing_for_volatility, avg_diff_total_listing_for_volatility)
+
+        '''DEBUG用
+        print(">>>>DEBUG>>>> trg_guest_count_for_volatility is :")
+        print(trg_guest_count_for_volatility.values())
+        print(">>>>DEBUG>>>> prv_guest_count_for_volatility is :")
+        print(prv_guest_count_for_volatility.values())
+        print(">>>>DEBUG>>>> trg_stdev is :")
+        print(trg_stdev)
+        print(">>>>DEBUG>>>> avg_guest_count_for_volatility is :")
+        print(avg_guest_count_for_volatility.values())
+        print(">>>>DEBUG>>>> avg_prv_guest_count_for_volatility is :")
+        print(avg_prv_guest_count_for_volatility.values())
+        print(">>>>DEBUG>>>> avg_stdev is :")
+        print(avg_stdev)
+        print(">>>>DEBUG>>>> trg_guest_count_for_beta is :")
+        print(trg_guest_count_for_beta.values())
+        print(">>>>DEBUG>>>> prv_guest_count_for_beta is :")
+        print(prv_guest_count_for_beta.values())
+        print(">>>>DEBUG>>>> prvprv_guest_count_for_beta is :")
+        print(prvprv_guest_count_for_beta.values())
+        print(">>>>DEBUG>>>> trg_beta is :")
+        print(trg_beta)
+        print(">>>>DEBUG>>>> avg_guest_count_for_beta is :")
+        print(avg_guest_count_for_beta.values())
+        print(">>>>DEBUG>>>> avg_prv_guest_count_for_beta is :")
+        print(avg_prv_guest_count_for_beta.values())
+        print(">>>>DEBUG>>>> avg_prvprv_guest_count_for_beta is :")
+        print(avg_prvprv_guest_count_for_beta.values())
+        print(">>>>DEBUG>>>> avg_beta is :")
+        print(avg_beta)
+        print(">>>>DEBUG>>>> trg_diff_total_listing_for_volatility is :")
+        print(trg_diff_total_listing_for_volatility)
+        print(">>>>DEBUG>>>> avg_diff_total_listing_for_volatility is :")
+        print(avg_diff_total_listing_for_volatility)
+        print(">>>>DEBUG>>>> stability is :")
+        print(stability)
         '''
 
 
