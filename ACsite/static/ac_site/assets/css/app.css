@@ -7986,3 +7986,17 @@ transform: translateY(8px);
 .list-block {
   margin: 66px 0;
 }
+
+/* =========================================== */
+/*    19. for Rating table                     */
+/* =========================================== */
+
+.rating-table-row{
+  table{
+    border-collapse: collapse;
+  }
+  td{
+    border: solid 1px;
+    padding: 0.5em;
+  }
+}

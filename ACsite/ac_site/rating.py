@@ -50,10 +50,10 @@ def elemental_rating(trg, avg):
             elmt_rating = 2 + (trg - avg) / (avg * 2) # 1単位が2avg
         # lsがave2倍近傍
         elif avg * 2 <= trg < avg * 3:
-            elmt_rating = 3 + (trg - avg) / (avg * 1) # 1単位が1avg
+            elmt_rating = 3 + (trg - avg) / (avg * 3) # 1単位が1avg
         # lsがave3倍近傍
         elif avg * 3 <= trg < avg * 5:
-            elmt_rating = 4 + (trg - avg) / (avg * 2) # 1単位が2avg
+            elmt_rating = 4 + (trg - avg) / (avg * 5) # 1単位が2avg
         # lsがave5倍近傍
         else:
             elmt_rating = 5
@@ -67,10 +67,10 @@ def elemental_rating(trg, avg):
             elmt_rating = 4 - (abs(trg) - abs(avg)) / (abs(avg) * 1) # 1単位が1avg
         # lsがave2倍未満の衰退
         elif avg * 2 < trg <= avg:
-            elmt_rating = 3 - (abs(trg) - abs(avg)) / (abs(avg) * 1) # 1単位が1avg
+            elmt_rating = 3 - (abs(trg) - abs(avg)) / (abs(avg) * 2) # 1単位が1avg
         # lsがave3倍未満の衰退
         elif avg * 3 < trg <= avg * 2:
-            elmt_rating = 2 - (abs(trg) - abs(avg)) / (abs(avg) * 1) # 1単位が1avg
+            elmt_rating = 2 - (abs(trg) - abs(avg)) / (abs(avg) * 3) # 1単位が1avg
         # lsがave3倍以上の衰退
         else:
             elmt_rating = 1

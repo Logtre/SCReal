@@ -12,7 +12,7 @@ import datetime
 
 #from .models import Company_table, Member_table
 from .models import Region, Prefecture, City, PriceofLand, TourResource, ForeignGuestCount, AnnualSummary, RegionSummary, SummaryArticleBreakdown, SummaryCapacityBreakdown, SummaryLanguageBreakdown, SummarySizeBreakdown, Company_table, Member_table, MemberFlg_table
-from .rating import individual_rating, cal_stdev, cal_beta
+from .rating import individual_rating, elemental_rating, cal_stdev, cal_beta
 
 
 today = datetime.date.today()
@@ -181,24 +181,27 @@ class PrefectureShowView(TemplateView):
 
         # レーティング関連情報の取得
 
-        # 市場規模の計算
-        # 対象都道府県の観光客数(昨年度)
+        # 1.市場規模(訪問客の数)の計算
+        # 1.1.観光客数(昨年度)
+        # 1.1.1.対象都道府県単体の観光客数
         trg_guest_count = foreignguest_info.filter(year=today.year-1).filter(region_id=self.kwargs['region_id']).aggregate(Avg('guest_count'))["guest_count__avg"]
-        # 平均観光客数(昨年度)
+        # 1.1.2.平均観光客数
         avg_guest_count = foreignguest_info.filter(year=today.year-1).aggregate(Avg('guest_count'))["guest_count__avg"]
 
-        # 対象都道府県の消費金額(昨年度)
+        # 1.2.消費金額(昨年度)
+        # 1.2.1.対象都道府県単体の消費金額
         trg_consumption_amount = annualsummary_info.filter(year=today.year-1).get(region_id=self.kwargs['region_id']).consumption_ammount
-        # 平均消費金額(昨年度)
+        # 1.2.2.平均消費金額
         avg_consumption_amount = annualsummary_info.filter(year=today.year-1).aggregate(Avg('consumption_ammount'))["consumption_ammount__avg"]
 
-        # 都道府県の売上(最新月)
+        # 1.3.民泊売上(最新月)
+        # 1.3.1.対象都道府県単体の売上
         trg_monthly_sales = trg_region_sum_info.monthly_sales
-        # 平均売上(今年度)
+        # 1.3.2.平均売上
         avg_monthly_sales = region_sum_info.aggregate(Avg('monthly_sales'))["monthly_sales__avg"]
 
-        # 市場規模レーティング
-        marktsize = individual_rating(trg_guest_count, avg_guest_count, trg_consumption_amount, avg_consumption_amount, trg_monthly_sales, avg_monthly_sales)
+        # 1.4.市場規模レーティング
+        marketsize = round(individual_rating(trg_guest_count, avg_guest_count, trg_consumption_amount, avg_consumption_amount, trg_monthly_sales, avg_monthly_sales), 2)
 
         '''DEBUG用
         print(">>>>DEBUG>>>> trg_guest_count is :")
@@ -213,50 +216,52 @@ class PrefectureShowView(TemplateView):
         print(trg_monthly_sales)
         print(">>>>DEBUG>>>> avg_monthly_sales is :")
         print(avg_monthly_sales)
-        print(">>>>DEBUG>>>> marktsize is :")
-        print(marktsize)
+        print(">>>>DEBUG>>>> marketsize is :")
+        print(marketsize)
         '''
 
 
-        # 将来性の計算
-        # 観光客変化率(trg_guest_count - prv_guest_count)
-        # 当年分
+        # 2.将来性（将来の見込み売上）の計算
+        # 2.1.観光客変化率(trg_guest_count - prv_guest_count)
+        # 2.1.1.観光客数の変化率（対象都道府県分）
+        # 2.1.1.1当年分
         trg_guest_count = foreignguest_info.filter(year=today.year-1).filter(month=today.month).get(region_id=self.kwargs['region_id']).guest_count
-        # 前年分
+        # 2.1.1.2前年分
         prv_guest_count = foreignguest_info.filter(year=today.year-2).filter(month=today.month).get(region_id=self.kwargs['region_id']).guest_count
-        # 差分
+        # 2.1.1.3.差分
         trg_diff_guest_count = trg_guest_count - prv_guest_count
-        # 観光客変化率の平均値
-        # 当年分
+        # 2.1.2.観光客変化率の平均値
+        # 2.1.2.1.当年分
         avg_trg_guest_count = foreignguest_info.filter(year=today.year-1).filter(month=today.month).aggregate(Avg('guest_count'))["guest_count__avg"]
-        # 前年分
+        # 2.1.2.2.前年分
         avg_prv_guest_count = foreignguest_info.filter(year=today.year-2).filter(month=today.month).aggregate(Avg('guest_count'))["guest_count__avg"]
-        # 差分
+        # 2.1.2.3.差分
         avg_diff_guest_count = avg_trg_guest_count - avg_prv_guest_count
 
-        # 観光資源のスコア
+        # 2.2.観光資源のスコア
         trg_tourresource_score = tourresource_info.filter(region_id=self.kwargs['region_id']).aggregate(Avg('scr_score'))["scr_score__avg"]
         avg_tourresource_score = tourresource_info.aggregate(Avg('scr_score'))["scr_score__avg"]
 
-        # リスティング数の変化率(Phase1では対象外)
-        # 当月分
+        # 2.3.リスティング数の変化率(Phase1では対象外)
+        # 2.3.1.リスティング数の変化率（対象都道府県分）
+        # 2.3.1.1.当月分
         #trg_total_listing = region_sum_info.filter(year=today.year).filter(month=today.month).get(region_id=self.kwargs['region_id']).total_listing
-        # 前月分
+        # 2.3.1.2.前月分
         #prv_total_listing = region_sum_info.filter(year=today.year).filter(month=today.month-1).get(region_id=self.kwargs['region_id']).total_listing
-        # 差分
+        # 2.3.1.3.差分
         #trg_diff_total_listing = trg_total_listing - prv_total_listing
         trg_diff_total_listing = 0
-        # リスティング数の変化率の平均値
-        # 当月分
+        # 2.3.2.リスティング数の変化率の平均値
+        # 2.3.2.1.当月分
         #avg_trg_total_listing = region_sum_info.filter(year=today.year).filter(month=today.month).aggregate(Avg('total_listing'))["total_listing__avg"]
-        # 前月分
+        # 2.3.2.2.前月分
         #avg_prv_total_listing = region_sum_info.filter(year=today.year).filter(month=today.month-1).aggregate(Avg('total_listing'))["total_listing__avg"]
-        # 差分
+        # 2.3.2.3.差分
         #avg_diff_total_listing = avg_trg_total_listing - avg_prv_total_listing
         avg_diff_total_listing = 0
 
-        # 将来性
-        #potential = individual_rating(trg_diff_guest_count, avg_diff_guest_count, trg_tourresource_score, avg_tourresource_score, trg_diff_total_listing, avg_diff_total_listing)
+        # 2.4.将来性
+        potential = round(individual_rating(trg_diff_guest_count, avg_diff_guest_count, trg_tourresource_score, avg_tourresource_score, trg_diff_total_listing, avg_diff_total_listing), 2)
 
         '''DEBUG用
         print(">>>>DEBUG>>>> trg_guest_count is :")
@@ -292,58 +297,63 @@ class PrefectureShowView(TemplateView):
         '''
 
 
-        # 安定性
-        # 観光客ボラティリティ
-        # 当月観光客数
+        # 3.安定性(季節ごとの売上変動)
+        # 3.1.観光客ボラティリティ
+        # 3.1.1.観光客ボラティリティ（対象都道府県分）
+        # 3.1.1.1.当月観光客数
         trg_guest_count_for_volatility = foreignguest_info.filter(region_id=self.kwargs['region_id']).order_by('-id')[:12]
-        # 前月観光客数
+        # 3.1.1.2.前月観光客数
         prv_guest_count_for_volatility = foreignguest_info.filter(region_id=self.kwargs['region_id']).order_by('-id')[1:13]
-        # 標準偏差
+        # 3.1.1.3.標準偏差
         trg_stdev = cal_stdev(trg_guest_count_for_volatility, prv_guest_count_for_volatility)
-        # モデル都道府県の当月平均観光客数
+        # 3.1.2.観光客ボラティリティ（モデル都道府県分）
+        # 3.1.2.1.モデル都道府県の当月平均観光客数
         avg_guest_count_for_volatility = foreignguest_info.filter(region_id=22).order_by('-id')[:12]
-        # モデル都道府県の前月平均観光客数
+        # 3.1.2.2.モデル都道府県の前月平均観光客数
         avg_prv_guest_count_for_volatility = foreignguest_info.filter(region_id=22).order_by('-id')[1:13]
-        # 標準偏差
+        # 3.1.2.3.標準偏差
         avg_stdev = cal_stdev(avg_guest_count_for_volatility, avg_prv_guest_count_for_volatility)
 
-        # 観光客の変化率の変化率（ベータ）
-        # 当月観光客数
+        # 3.2.観光客の変化率の変化率（ベータ）
+        # 3.2.1.観光客のベータ（対象都道府県分）
+        # 3.2.1.1.当月観光客数
         trg_guest_count_for_beta = trg_guest_count_for_volatility
-        # 前月観光客数
+        # 3.2.1.2.前月観光客数
         prv_guest_count_for_beta = prv_guest_count_for_volatility
-        # 前々月観光客数
+        # 3.2.1.3.前々月観光客数
         prvprv_guest_count_for_beta = foreignguest_info.filter(region_id=self.kwargs['region_id']).order_by('-id')[2:14]
-        # ベータ
+        # 3.2.1.4.ベータ
         trg_beta = cal_beta(trg_guest_count_for_beta, prv_guest_count_for_beta, prvprv_guest_count_for_beta)
-        # モデル都道府県の当月観光客数
+        # 3.2.2.観光客のベータ（対象都道府県分）
+        # 3.2.2.1.モデル都道府県の当月観光客数
         avg_guest_count_for_beta = avg_guest_count_for_volatility
-        # モデル都道府県の前月観光客数
+        # 3.2.2.2.モデル都道府県の前月観光客数
         avg_prv_guest_count_for_beta = avg_prv_guest_count_for_volatility
-        # モデル都道府県の前々月観光客数
+        # 3.2.2.3.モデル都道府県の前々月観光客数
         avg_prvprv_guest_count_for_beta = foreignguest_info.filter(region_id=22).order_by('-id')[2:14]
-        # モデル都道府県のベータ
+        # 3.2.2.4.モデル都道府県のベータ
         avg_beta = cal_beta(avg_guest_count_for_beta, avg_prv_guest_count_for_beta, avg_prvprv_guest_count_for_beta)
 
-        # リスティング数の変化率(Phase1では対象外)
-        # 当月分
+        # 3.3.リスティング数の変化率(Phase1では対象外)
+        # 3.3.1.リスティング数の変化率(対象都道府県分)
+        # 3.3.1.1.当月分
         #trg_total_listing = region_sum_info.filter(year=today.year).filter(month=today.month).get(region_id=self.kwargs['region_id']).total_listing
-        # 前月分
+        # 3.3.1.2.前月分
         #prv_total_listing = region_sum_info.filter(year=today.year).filter(month=today.month-1).get(region_id=self.kwargs['region_id']).total_listing
-        # 差分
+        # 3.3.1.3.差分
         #trg_diff_total_listing = trg_total_listing - prv_total_listing
         trg_diff_total_listing_for_volatility = 0
-        # リスティング数の変化率の平均値
-        # 当月分
+        # 3.3.2.リスティング数の変化率の平均値
+        # 3.3.2.1.当月分
         #avg_trg_total_listing = region_sum_info.filter(year=today.year).filter(month=today.month).aggregate(Avg('total_listing'))["total_listing__avg"]
-        # 前月分
+        # 3.3.2.2.前月分
         #avg_prv_total_listing = region_sum_info.filter(year=today.year).filter(month=today.month-1).aggregate(Avg('total_listing'))["total_listing__avg"]
-        # 差分
+        # 3.3.2.3.差分
         #avg_diff_total_listing = avg_trg_total_listing - avg_prv_total_listing
         avg_diff_total_listing_for_volatility = 0
 
-        # 安定性
-        stability = individual_rating(trg_stdev, avg_stdev, trg_beta, avg_beta, trg_diff_total_listing_for_volatility, avg_diff_total_listing_for_volatility)
+        # 3.4.安定性
+        stability = round(5 - individual_rating(trg_stdev, avg_stdev, trg_beta, avg_beta, trg_diff_total_listing_for_volatility, avg_diff_total_listing_for_volatility), 2)
 
         '''DEBUG用
         print(">>>>DEBUG>>>> trg_guest_count_for_volatility is :")
@@ -383,13 +393,99 @@ class PrefectureShowView(TemplateView):
         '''
 
 
+        # 4.競争率(競争相手の数)
+        # 4.1.リスティング数
+        # 4.1.1.対象都道府県のリスティング数
+        trg_total_listing_for_competition = region_sum_info.filter(year=today.year).filter(month=today.month).get(region_id=self.kwargs['region_id']).total_listing
+        # 4.1.2.平均リスティング数
+        avg_total_listing_for_competition = region_sum_info.filter(year=today.year).filter(month=today.month).aggregate(Avg('total_listing'))["total_listing__avg"]
+
+        # 4.2.停止中リスティング数
+        # 4.2.1.対象都道府県の停止中リスティング数
+        trg_suspend_count_for_competition = region_sum_info.filter(year=today.year).filter(month=today.month).get(region_id=self.kwargs['region_id']).suspend_count
+        # 4.2.2.平均停止中リスティング数
+        avg_suspend_count_for_competition = region_sum_info.filter(year=today.year).filter(month=today.month).aggregate(Avg('suspend_count'))["suspend_count__avg"]
+
+        # 4.3.webサイト数
+        # 4.3.1.対象都道府県のwebサイト数
+        trg_website_count = annualsummary_info.filter(year=today.year-1).get(region_id=self.kwargs['region_id']).website_count
+        # 4.3.2.平均webサイト数
+        avg_website_count = annualsummary_info.filter(year=today.year-1).aggregate(Avg('website_count'))['website_count__avg']
+
+        # 4.4.競争率
+        competition = round(5 - individual_rating(trg_total_listing_for_competition, avg_total_listing_for_competition, trg_suspend_count_for_competition, avg_suspend_count_for_competition, trg_website_count, avg_website_count), 2)
+
+        '''DEBUG用
+        print(">>>>DEBUG>>>> trg_total_listing_for_competition is :")
+        print(trg_total_listing_for_competition)
+        print(">>>>DEBUG>>>> avg_total_listing_for_competition is :")
+        print(avg_total_listing_for_competition)
+        print(">>>>DEBUG>>>> trg_suspend_count_for_competition is :")
+        print(trg_suspend_count_for_competition)
+        print(">>>>DEBUG>>>> avg_suspend_count_for_competition is :")
+        print(avg_suspend_count_for_competition)
+        print(">>>>DEBUG>>>> trg_website_count is :")
+        print(trg_website_count)
+        print(">>>>DEBUG>>>> avg_website_count is :")
+        print(avg_website_count)
+        print(">>>>DEBUG>>>> competition is :")
+        print(competition)
+        '''
+
+
+        # 5.価格（物件購入に必要な費用）
+        # 5.1.公示価格
+        # 5.1.1公示価格（対象都道府県分）
+        trg_priceofland = priceofland_info.filter(region_id=self.kwargs['region_id']).aggregate(Avg('avg_price'))["avg_price__avg"]
+        print(trg_priceofland)
+        # 5.1.2.公示価格（平均）
+        avg_priceofland = priceofland_info.aggregate(Avg('avg_price'))["avg_price__avg"]
+        print(avg_priceofland)
+        #5.2 価格（Phase1は公示価格のみで計算する）
+        price = round(5 - elemental_rating(trg_priceofland, avg_priceofland), 2)
+
+        '''DEBUG用'''
+        print(">>>>DEBUG>>>> trg_priceofland is :")
+        print(trg_priceofland)
+        print(">>>>DEBUG>>>> avg_priceofland is :")
+        print(avg_priceofland)
+        print(">>>>DEBUG>>>> price is :")
+        print(price)
+        ''''''
+
+
+        # 6.リターン（予想収益）
+        # 6.1.月次売上
+        # 6.1.1.売上（対象都道府県）
+        trg_monthly_sales_for_return = trg_monthly_sales
+        # 6.1.2.公示価格（対象都道府県）
+        trg_priceofland_for_return = trg_priceofland
+        # 6.1.3.コスパ（対象都道府県）
+        trg_performance = trg_monthly_sales_for_return / trg_priceofland_for_return
+        # 6.1.4.売上（平均）
+        avg_monthly_sales_for_return = avg_monthly_sales
+        # 6.1.5.公示価格（平均）
+        avg_priceofland_for_return = avg_priceofland
+        # 6.1.6.コスパ（対象都道府県）
+        avg_performance = avg_monthly_sales_for_return / avg_priceofland_for_return
+
+        # 6.2.リターン
+        ex_return = round(elemental_rating(trg_performance, avg_performance), 2)
+
+        # 7.総合レーティング
+        general_rating = round((marketsize + potential + stability + competition + price + ex_return) / 6, 2)
+
         context = {
             'region_sum_info': region_sum_info,
             'region_info': region_info,
             'sum_articlebd_info': sum_articlebd_info,
-            #'sum_cap': sum_cap,
-            #'sum_lang': sum_lang,
-            #'sum_size': sum_size,
+            'marketsize': marketsize,
+            'potential': potential,
+            'stability': stability,
+            'competition': competition,
+            'price': price,
+            'ex_return': ex_return,
+            'general_rating': general_rating,
         }
         return self.render_to_response(context)
 

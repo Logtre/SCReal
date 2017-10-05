@@ -81,7 +81,7 @@
                 </div>
             </a>
         </li>
-        <li>
+        <!--<li>
             <a href="ac_site/news_release.html" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-newspaper-o"></i>
@@ -90,9 +90,9 @@
                     <div class="item-title">みんなの民泊日記</div>
                 </div>
             </a>
-        </li>
+        </li>-->
         <li>
-            <a href="ac_site/contact.html" class="item-link close-panel item-content">
+            <a href="{% url 'ac_site:contact' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-envelope-o"></i>
                 </div>
@@ -427,7 +427,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a href="ac_site/minnpaku_news.html" class="item-link close-panel item-content">
                                     <div class="item-media">
                                         <i class="fa fa-newspaper-o"></i>
@@ -435,11 +435,11 @@
                                     <div class="item-inner">
                                         <div class="item-title">みんなの民泊日記</div>
                                         <div class="item-after">
-                                            <!--<span class="badge badge-secondary">new</span>-->
+                                            <span class="badge badge-secondary">new</span>
                                         </div>
                                     </div>
                                 </a>
-                            </li>
+                            </li>-->
                             <!--<li>
                                 <a href="article-1.html" class="item-link close-panel item-content">
                                     <div class="item-media">
@@ -493,7 +493,7 @@
                         </a>
                     </li>-->
                     <li>
-                        <a href="ac_site/contact.html" class="item-link close-panel item-content">
+                        <a href="{% url 'ac_site:contact' %}" class="item-link close-panel item-content">
                             <div class="item-media">
                                 <i class="fa fa-envelope-o"></i>
                             </div>
@@ -724,9 +724,9 @@
                             <div class="col-30" max-width="300xp">
                                 <a href="{% url 'ac_site:prefectures' %}" class="button button-fill button-primary">調べる</a>
                             </div>
-                            <div class="col-50">
+                            <!--<div class="col-50">
                                 <a href="article-1.html" class="button button-fill button-secondary">民泊ニュース</a>
-                            </div>
+                            </div>-->
                         </div>
 
                         <span class="kkicon icon-chevron-down scroll-down"></span>
@@ -907,7 +907,7 @@
                                 <p>
                                     Quisque lorem tortor fringilla sed, vestibulum id, eleifend justo vel bibendum sapien massa ac turpis faucibus orci luctus non, consectetuer lobortis quis, varius in, purus. Integer ultrices posuere cubilia Curae.
                                 </p>
-                                <a href="ac_site/contact.html" class="button button-primary button-fill">お問い合わせ</a>
+                                <a href="{% url 'ac_site:contact' %}" class="button button-primary button-fill">お問い合わせ</a>
                             </div>
                         </div>
                     {% endfor %}

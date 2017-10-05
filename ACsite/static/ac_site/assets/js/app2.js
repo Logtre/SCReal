@@ -4,7 +4,7 @@ $(document).ready(function() {
         localStorage.setItem('newOptions', true);
     }
 
-    if($('.chart-content').length > 0) {
+    /*if($('.chart-content').length > 0) {
         var obj = document.querySelector(".chart-content");
         var ctx = obj.getContext("2d");
 
@@ -53,7 +53,7 @@ $(document).ready(function() {
         showPolarChartPage(ctx);
     }
 
-    naxvarBg();
+    naxvarBg();*/
 
     $('.js-toggle-menu').on('click', function() {
         $(this).next().slideToggle(200);
