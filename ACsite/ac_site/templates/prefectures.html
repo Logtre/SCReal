@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/img/favicons/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-TileImage" content="/assets/img/favicons/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>SCReal</title>
+
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/bower_components/framework7/dist/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="/bower_components/swipebox/src/css/swipebox.css">
+    <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.theme.css">
+    <link rel="stylesheet" href="/assets/css/app.css">
+
+    <!-- for LOCAL SETTING  START --
+    <link rel="stylesheet" href="/static/ac_site/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/ac_site/bower_components/framework7/dist/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="/static/ac_site/bower_components/swipebox/src/css/swipebox.css">
+    <link rel="stylesheet" href="/static/ac_site/bower_components/owl-carousel/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="/static/ac_site/bower_components/owl-carousel/owl-carousel/owl.theme.css">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/bower_components/font-awesome/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/bower_components/framework7/dist/css/framework7.ios.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/bower_components/swipebox/src/css/swipebox.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/bower_components/owl-carousel/owl-carousel/owl.carousel.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/bower_components/owl-carousel/owl-carousel/owl.theme.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/assets/css/app.css' %}" />
+    <!-- for LOCAL SETTING  END -->
+    <!-- <link rel="stylesheet" href="assets/themes/green/style.css" id="theme-style">-->
+</head>
+<body onload="hidePreloader()">
+
+<div class="statusbar-overlay"></div>
+<div class="panel-overlay"></div>
+
+<!-- Left panel -->
+<nav class="left-panel-global">
+    <ul class="left-panel-gnav">
+        <li class="divider">
+            メニュー
+        </li>
+        <li>
+            <a href="{% url 'ac_site:index' %}" class="item-link close-panel item-content">
+                <div class="item-media">
+                    <i class="fa fa-home"></i>
+                </div>
+                <div class="item-inner">
+                    <div class="item-title">ホーム</div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'ac_site:prefectures' %}" class="item-link close-panel item-content">
+                <div class="item-media">
+                    <i class="fa fa-area-chart"></i>
+                </div>
+                <div class="item-inner">
+                    <div class="item-title">民泊レーティング</div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="ac_site/news_release.html" class="item-link close-panel item-content">
+                <div class="item-media">
+                    <i class="fa fa-newspaper-o"></i>
+                </div>
+                <div class="item-inner">
+                    <div class="item-title">みんなの民泊日記</div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="ac_site/contact.html" class="item-link close-panel item-content">
+                <div class="item-media">
+                    <i class="fa fa-envelope-o"></i>
+                </div>
+                <div class="item-inner">
+                    <div class="item-title">お問い合わせ</div>
+                </div>
+            </a>
+        </li>
+        <li class="divider">
+            ソーシャルメディア
+        </li>
+        <li>
+            <a href="twitter.html" class="item-link close-panel item-content">
+                <div class="item-media">
+                    <i class="fa fa-twitter"></i>
+                </div>
+                <div class="item-inner">
+                    <div class="item-title">Twitter</div>
+                </div>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div class="panel panel-left panel-reveal">
+    <div class="logo-box">
+        <div class="row">
+            <div class="col-25">
+                <!--<img src="assets/img/tmp/ava-demo.jpg" alt="" class="ava">-->
+            </div>
+            <div class="col-75">
+                <strong>SCReaL</strong>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="list-block mt-15">
+        <div class="list-group">
+            <nav>
+                <ul>
+                    <li class="divider">
+                        メニュー
+                    </li>
+                    <li>
+                        <a href="ac_site/index.html" class="item-link close-panel item-content">
+                            <div class="item-media">
+                                <i class="fa fa-home"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">ホーム</div>
+                                <div class="item-after">
+                                    <span class="badge badge-primary"></span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="#" class="js-toggle-menu"><span class="icon-chevron-down"></span></a>
+                        <ul>
+                            <!--<li>
+                                <a href="splash.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-lock"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">Splash</div>
+                                    </div>
+                                </a>
+                            </li>-->
+                            <li>
+                                <a href="ac_site/login.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-lock"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">ログイン</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ac_site/registration.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-lock"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">サインイン</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ac_site/index.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">ホーム</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <!--<li>
+                                <a href="dashboard-1.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">Dashboard</div>
+                                    </div>
+                                </a>
+                            </li>-->
+                            <!--<li>
+                                <a href="menu.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-th"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">Menu</div>
+                                    </div>
+                                </a>
+                            </li>-->
+                        </ul>
+                    </li>
+
+                    <!--<li>
+                        <a href="shop-home-1.html" class="item-link close-panel item-content">
+                            <div class="item-media">
+                                <i class="fa fa-home"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">Shop Home</div>
+                                <div class="item-after">
+                                    <span class="badge badge-secondary">new</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="#" class="js-toggle-menu"><span class="icon-chevron-down"></span></a>
+                        <ul>
+                            <li>
+                                <a href="shop-home-1.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-home"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">Shop Home</div>
+                                        <div class="item-after">
+                                            <span class="badge badge-secondary">new</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="shop-product-1.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-home"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">Product</div>
+                                        <div class="item-after">
+                                            <span class="badge badge-secondary">new</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="shop-cart-1.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">Cart</div>
+                                        <div class="item-after">
+                                            <span class="badge badge-secondary">new</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="shop-delivery.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-truck"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">Delivery</div>
+                                        <div class="item-after">
+                                            <span class="badge badge-secondary">new</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="shop-payment.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-credit-card"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">Payment Method</div>
+                                        <div class="item-after">
+                                            <span class="badge badge-secondary">new</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="shop-summary.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-file-text-o"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">Summary</div>
+                                        <div class="item-after">
+                                            <span class="badge badge-secondary">new</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>-->
+
+                    <!--<li>
+                        <a href="misc.html" class="item-link close-panel item-content">
+                            <div class="item-media">
+                                <i class="fa fa-cubes"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">UI Elements</div>
+                            </div>
+                        </a>
+
+                        <a href="#" class="js-toggle-menu"><span class="icon-chevron-down"></span></a>
+                        <ul>
+                            <li>
+                                <a href="datepickers.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-calendar-o"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">Calendar</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="notifications.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-comment-o"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">Notifications</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="misc.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-bullseye"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">MISC</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="buttons.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-square"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">Buttons</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="charts.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-area-chart"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">Charts</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tabs.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-folder-o"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">Tabs</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="accordion.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-bars"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">Accordion</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>-->
+                    <li>
+                        <a href="{% url 'ac_site:prefectures' %}" class="item-link close-panel item-content">
+                            <div class="item-media">
+                                <i class="fa fa-area-chart"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">民泊レーティング</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="ac_site/news_release.html" class="item-link close-panel item-content">
+                            <div class="item-media">
+                                <i class="fa fa-newspaper-o"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">ニュース</div>
+                            </div>
+                        </a>
+
+                        <a href="#" class="js-toggle-menu"><span class="icon-chevron-down"></span></a>
+                        <ul>
+                            <li>
+                                <a href="ac_site/news_release.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-newspaper-o"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">ニュースリリース</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ac_site/minnpaku_news.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-newspaper-o"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">みんなの民泊日記</div>
+                                        <div class="item-after">
+                                            <!--<span class="badge badge-secondary">new</span>-->
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <!--<li>
+                                <a href="article-1.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-file-text-o"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">Article 1</div>
+                                    </div>
+                                </a>
+                            </li>-->
+                            <!--<li>
+                                <a href="article-2.html" class="item-link close-panel item-content">
+                                    <div class="item-media">
+                                        <i class="fa fa-file-text-o"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title">Article 2</div>
+                                    </div>
+                                </a>
+                            </li>-->
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="ac_site/company.html" class="item-link close-panel item-content">
+                            <div class="item-media">
+                                <i class="fa fa-magic"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">運営会社</div>
+                            </div>
+                        </a>
+                    </li>
+                    <!--<li>
+                        <a href="gallery.html" class="item-link close-panel item-content">
+                            <div class="item-media">
+                                <i class="fa fa-picture-o"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">Gallery</div>
+                            </div>
+                        </a>
+                    </li>-->
+                    <!--<li>
+                        <a href="videos.html" class="item-link close-panel item-content">
+                            <div class="item-media">
+                                <i class="fa fa-video-camera"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">Videos</div>
+                            </div>
+                        </a>
+                    </li>-->
+                    <li>
+                        <a href="ac_site/contact.html" class="item-link close-panel item-content">
+                            <div class="item-media">
+                                <i class="fa fa-envelope-o"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">お問い合わせ</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider">
+                        ソーシャルメディア
+                    </li>
+                    <li>
+                        <a href="twitter.html" class="item-link close-panel item-content">
+                            <div class="item-media">
+                                <i class="fa fa-twitter"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">Twitter</div>
+                            </div>
+                        </a>
+                    </li>
+                    <!--<li>
+                        <a href="flickr.html" class="item-link close-panel item-content">
+                            <div class="item-media">
+                                <i class="fa fa-flickr"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">Flickr</div>
+                            </div>
+                        </a>
+                    </li>-->
+                    <!--<li>
+                        <a href="chat.html" class="item-link close-panel item-content">
+                            <div class="item-media">
+                                <i class="fa fa-weixin"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">Chat</div>
+                                <div class="item-after">
+                                    <span class="badge badge-secondary">5</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>-->
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</div>
+
+<!-- Right panel -->
+<!--<div class="panel panel-right panel-reveal">
+
+    <div class="welcome-msg">
+        <div class="avatars">
+            <span><img src="assets/img/tmp/ava1.jpg" alt="ava1"></span>
+            <span><img src="assets/img/tmp/ava2.jpg" alt="ava1"></span>
+            <span><img src="assets/img/tmp/ava3.jpg" alt="ava1"></span>
+            <span><img src="assets/img/tmp/ava4.jpg" alt="ava1"></span>
+            <span><img src="assets/img/tmp/ava5.jpg" alt="ava1"></span>
+        </div>
+        <p class="text-center">
+            Say hello to your friends!
+        </p>
+    </div>
+
+    <div class="buttons-row">
+        <a href="#" class="button button-small button-light button-clear">
+            <span class="icon-bubble-pencil fs-24"></span>
+        </a>
+        <a href="#" class="button button-small button-light button-clear">
+            <span class="icon-users-plus fs-24"></span>
+        </a>
+    </div>
+
+    <div class="list-block media-list mt-15">
+        <div class="list-group">
+            <nav class="contacts">
+                <ul>
+                    <li>
+                        <a href="" class="item-link close-panel item-content">
+                            <div class="item-media">
+                                <span>
+                                    <img src="assets/img/tmp/ava-demo.jpg" alt="">
+                                </span>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">Lu Mayer</div>
+                                </div>
+                                <div class="item-subtitle">1h ago</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="item-link close-panel item-content online">
+                            <div class="item-media">
+                                <span>
+                                    <img src="assets/img/tmp/ava1.jpg" alt="">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">Adam Z.</div>
+                                </div>
+                                <div class="item-subtitle">ONLINE</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="item-link close-panel item-content">
+                            <div class="item-media">
+                                <span>
+                                    <img src="assets/img/tmp/ava2.jpg" alt="">
+                                </span>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">Ala C.</div>
+                                </div>
+                                <div class="item-subtitle">1min ago</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="item-link close-panel item-content">
+                            <div class="item-media">
+                                <span>
+                                    <img src="assets/img/tmp/ava5.jpg" alt="">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">Su K.</div>
+                                </div>
+                                <div class="item-subtitle">12.12.2012</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="item-link close-panel item-content online">
+                            <div class="item-media">
+                                <span>
+                                    <img src="assets/img/tmp/ava3.jpg" alt="">
+                                </span>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">Mike F.</div>
+                                </div>
+                                <div class="item-subtitle">ONLINE</div>
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+
+        <div class="list-group mt-20" style="display: none">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#" class="item-link item-primary close-panel item-content">
+                            <div class="item-media">
+                                <i class="fa fa-info-circle"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">About APP/Website</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>-->
+
+
+<!-- Views -->
+<div class="views">
+    <div class="view view-main">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="left">
+                    <!--<a href="#" class="link icon-only open-panel">
+                        <span class="kkicon icon-menu"></span>
+                    </a>-->
+                    <div class="left-panel-gnav-btn">
+                        <div class="left-panel-icon-animation">
+                            <span class="top"></span>
+                            <span class="middle"></span>
+                            <span class="bottom"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="center sliding">都道府県一覧</div>
+                <div class="right">
+                    <!--<a href="#" class="link icon-only open-panel" data-panel="right">
+                        <span class="kkicon icon-alarm"></span>
+                    </a>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="view another-view">
+            <!-- Pages -->
+            <div class="pages">
+                <div class="page no-toolbar" data-page="features">
+                    <div class="page-content">
+
+                        <div class="list-block media-list">
+                            <ul>
+
+                                <!--<li>
+                                    <a href="#" data-popup=".popup-splash" class="open-popup item-link item-content">
+                                        <div class="item-media">
+                                            <div class="card-header no-border item-content-icon item-content-icon-slider"></div>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title-row">
+                                                <div class="item-title">
+                                                    App update info
+                                                </div>
+                                            </div>
+                                            <div class="item-subtitle">
+                                                Cool app update slider!
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>-->
+                                {% for p in latest_region_list %}
+                                    <li>
+                                        <a href="{% url 'ac_site:cities' region_id=p.id %}" class="item-link item-content">
+                                            <div class="item-media">
+                                                <div class="card-header no-border item-content-icon item-content-icon-gallery"></div>
+                                            </div>
+                                            <div class="item-inner">
+                                                <div class="item-title-row">
+                                                    <div class="item-title">
+                                                        {{ p.prefecture.prefecture_name }}
+                                                    </div>
+                                                </div>
+                                                <div class="item-subtitle">
+                                                    <!--3 columns layout-->
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="/bower_components/swipebox/src/js/jquery.swipebox.min.js"></script>
+<!--<script type="text/javascript" src="/bower_components/framework7/dist/js/framework7.min.js"></script>-->
+<script type="text/javascript" src="/bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/bower_components/Tweetie/tweetie.min.js"></script>
+<script type="text/javascript" src="/bower_components/chartjs/Chart.js"></script>
+<script type="text/javascript" src="/bower_components/scrollAnimate/jquery.scrollAnimate.js"></script>
+<script type="text/javascript" src="/bower_components/owl-carousel/owl-carousel/owl.carousel.min.js"></script>
+<script type="text/javascript" src="/bower_components/vide/dist/jquery.vide.min.js"></script>
+
+<script type="text/javascript" src="/assets/js/jflickrfeed.min.js"></script>
+<script type="text/javascript" src="/assets/js/app2.js"></script>
+<script type="text/javascript" src="/assets/js/left-menu.js"></script>
+<!--<script type="text/javascript" src="/assets/js/min/app.js"></script>-->
+<!--<script type="text/javascript" src="/assets/js/animations.js"></script>-->
+
+<!--<script type="text/javascript" src="{% static '/ac_site/bower_components/jquery/dist/jquery.min.js' %}" /></script>
+<script type="text/javascript" src="{% static '/ac_site/bower_components/swipebox/src/js/jquery.swipebox.min.js' %}" /></script>
+<script type="text/javascript" src="{% static '/ac_site/bower_components/framework7/dist/js/framework7.min.js' %}" /></script>
+<script type="text/javascript" src="{% static '/ac_site/bower_components/jquery-validation/dist/jquery.validate.min.js'%}" /></script>
+<script type="text/javascript" src="{% static '/ac_site/bower_components/Tweetie/tweetie.min.js' %}" /></script>
+<script type="text/javascript" src="{% static '/ac_site/bower_components/chartjs/Chart.js' %}" /></script>
+<script type="text/javascript" src="{% static '/ac_site/bower_components/scrollAnimate/jquery.scrollAnimate.js' %}" /></script>
+<script type="text/javascript" src="{% static '/ac_site/bower_components/owl-carousel/owl-carousel/owl.carousel.min.js' %}" /></script>
+<script type="text/javascript" src="{% static '/ac_site/bower_components/vide/dist/jquery.vide.min.js' %}" /></script>
+
+<script type="text/javascript" src="{% static '/ac_site/assets/js/jflickrfeed.min.js'%}" /></script>
+<script type="text/javascript" src="{% static '/ac_site/assets/js/min/app.js' %}" /></script>
+<script type="text/javascript" src="{% static '/ac_site/assets/js/animations.js' %}" /></script>-->
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+# -*- coding:utf-8 -*-
+# [START django_app]
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+#- url: /static
+#  static_dir: ACsite/static # /staticという文言があったらACsite/staticと読み換える
+- url: /assets
+  static_dir: ACsite/static/ac_site/assets
+- url: /bower_components
+  static_dir: ACsite/static/ac_site/bower_components
+- url: /php_mailer
+  static_dir: ACsite/static/ac_site/php_mailer
+#- url: /templates
+#  static_dir: ACsite/ac_site/templates/ac_site
+- url: .*
+  script: ACsite.wsgi.application
+- url: /(.*\.(gif|png|jpg))$
+  static_files: static/
+  upload: static/ac_site/assets/img/.*\.(gif|png|jpg)$
+- url: /_ah/(mapreduce|queue|warmup).*
+  script: ACsite.ac_site.wsgi.application
+  login: admin
+
+
+# Only pure Python libraries can be vendored
+# Python libraries that use C extensions can
+# only be included if they are part of the App Engine SDK
+# Using Third Party Libraries: https://cloud.google.com/appengine/docs/python/tools/using-libraries-python-27
+libraries:
+- name: MySQLdb
+  version: 1.2.5
+- name: django
+  version: "1.11"
+
+builtins:
+- django_wsgi: on
+# [END django_app]
+
+# Google App Engine limits application deployments to 10,000 uploaded files per
+# version. The skip_files section allows us to skip virtual environment files
+# to meet this requirement. The first 5 are the default regular expressions to
+# skip, while the last one is for all env/ files.
+skip_files:
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
+- ^env/.*$
+
+env_variables:
+  # Replace INSTANCE_CONNECTION_NAME with the value obtained when configuring your
+  # Cloud SQL instance, available from the Google Cloud Console or from the Cloud SDK.
+  # For Cloud SQL 2nd generation instances, this should be in the form of "project:region:instance".
+  CLOUDSQL_CONNECTION_NAME: acrawler-gcp-dev:asia-east1:acrawlinstance-dev01
+  # Replace username and password if you aren't using the root user.
+  CLOUDSQL_USER: logtre
+  CLOUDSQL_PASSWORD: '6Dtwoa6qb4y2Mpvx'
