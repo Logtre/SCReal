@@ -868,21 +868,41 @@ class CityShowView(TemplateView):
         # 5.1.公示価格
         # 5.1.1公示価格（対象都道府県分）
         trg_priceofland = priceofland_info.filter(region_id=self.kwargs['region_city_id']).aggregate(Avg('avg_price'))["avg_price__avg"]
+        trg_priceofland_bkup = priceofland_info.filter(region_id=self.kwargs['region_id']).aggregate(Avg('avg_price'))["avg_price__avg"]
+        # 対象市区町村の地価が存在しない場合、都道府県の地価を代用する
+        '''DEBUG用
+        print(">>>>DEBUG>>>> trg_priceofland is #1:")
         print(trg_priceofland)
+        '''
+
+        if trg_priceofland is None:
+            print(">>>>DEBUG>>>> USE ALTER PriceofLand!!")
+            trg_priceofland = trg_priceofland_bkup
+        else:
+            pass
+
+        '''DEBUG用
+        print(">>>>DEBUG>>>> trg_priceofland is #1:")
+        print(trg_priceofland)
+        '''
         # 5.1.2.公示価格（平均）
         avg_priceofland = priceofland_info.aggregate(Avg('avg_price'))["avg_price__avg"]
+
+        '''DEBUG用
+        print(">>>>DEBUG>>>> avg_priceofland is #1:")
         print(avg_priceofland)
+        '''
         #5.2 価格（Phase1は公示価格のみで計算する）
         price = round(5 - elemental_rating(trg_priceofland, avg_priceofland), 2)
 
-        '''DEBUG用'''
+        '''DEBUG用
         print(">>>>DEBUG>>>> trg_priceofland is :")
         print(trg_priceofland)
         print(">>>>DEBUG>>>> avg_priceofland is :")
         print(avg_priceofland)
         print(">>>>DEBUG>>>> price is :")
         print(price)
-        ''''''
+        '''
 
 
         # 6.リターン（予想収益）
