@@ -5771,7 +5771,8 @@ html:not(.watch-active-state) .list-block .item-link:active {
   background: #f0f0f0;
 }
 .chart-row div {
-  margin: 0 5px;
+  /* margin: 0 5px; */
+  margin: 0 5px 30px 0;
 }
 
 .header-fix-top {
@@ -8009,4 +8010,12 @@ transform: translateY(8px);
     border: solid 1px #ccc;
     font-size: 12px;
   }
+}
+
+/* =========================================== */
+/*    20. for XX-Chart                         */
+/* =========================================== */
+
+.general_rating-count{
+  background-color: #ffffff;
 }

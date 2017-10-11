@@ -937,6 +937,7 @@ class CityShowView(TemplateView):
             'price': price,
             'ex_return': ex_return,
             'general_rating': general_rating,
+            'trg_guest_count': trg_guest_count,
         }
         return self.render_to_response(context)
 
