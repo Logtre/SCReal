@@ -117,35 +117,6 @@ class AnnualSummary(models.Model):
     region = models.ForeignKey('Region', blank=True, null=True, related_name='link_annualsummary', on_delete=models.CASCADE)
 
 
-class Cost(models.Model):
-    prefecture_code = models.IntegerField(default=0)
-    city_code = models.IntegerField(default=0, null=True)
-    year = models.IntegerField(default=0)
-    month = models.IntegerField(default=0)
-    rent = models.IntegerField(default=0)
-    restroom_facility_cost = models.IntegerField(default=0)
-    bathroom_facility_cost = models.IntegerField(default=0)
-    kitchen_facility_cost = models.IntegerField(default=0)
-    reform_fee = models.IntegerField(default=0)
-    repainting_fee = models.IntegerField(default=0)
-    created_at = models.DateTimeField(default=timezone.now)
-    region = models.ForeignKey('Region', blank=True, null=True, related_name='link_cost', on_delete=models.CASCADE)
-
-
-class Nationality(models.Model):
-    nationality_code = models.IntegerField(default=0)
-    nationality_name = models.CharField(max_length=30)
-
-
-class GuestNationality(models.Model):
-    prefecture_code = models.IntegerField(default=0)
-    nationality = models.ForeignKey('Nationality', blank=True, null=True, related_name='link_guestnationality_nationality', on_delete=models.CASCADE)
-    answer_count = models.IntegerField(default=0)
-    visit_duration = models.DecimalField(max_digits=5, decimal_places=2, default=0)
-    created_at = models.DateTimeField(default=timezone.now)
-    region = models.ForeignKey('Region', blank=True, null=True, related_name='link_guestnationality', on_delete=models.CASCADE)
-
-
 #class MonthlySummary(models.Model):
 #    '''月次サマリーテーブル'''
 #    prefecture_code = models.IntegerField(default=0)

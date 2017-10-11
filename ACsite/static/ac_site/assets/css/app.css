@@ -7994,7 +7994,7 @@ transform: translateY(8px);
 .rating-table-row{
   table{
     border-collapse: collapse;
-    padding: 2px 10px;
+    padding: 66px 10px;
   }
   th{
     padding: 10px;
@@ -8007,6 +8007,10 @@ transform: translateY(8px);
     padding: 0.5em;
     vertical-align: top;
     border: solid 1px #ccc;
-    font-size: 12px;
+    font-size: 14px;
   }
+}
+
+.general-rating{
+
 }

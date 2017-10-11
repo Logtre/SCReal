@@ -693,7 +693,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="center sliding">地域一覧</div>
+                <div class="center sliding">都道府県一覧</div>
                 <div class="right">
                     <!--<a href="#" class="link icon-only open-panel" data-panel="right">
                         <span class="kkicon icon-alarm"></span>
@@ -730,7 +730,7 @@
                                 </li>-->
                                 {% for p in latest_region_list %}
                                     <li>
-                                        <a href="{% url 'ac_site:prefecture_show' region_id=p.id %}" class="item-link item-content">
+                                        <a href="{% url 'ac_site:cities' region_id=p.id %}" class="item-link item-content">
                                             <div class="item-media">
                                                 <div class="card-header no-border item-content-icon item-content-icon-gallery"></div>
                                             </div>

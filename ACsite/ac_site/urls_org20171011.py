@@ -9,9 +9,7 @@ from .views import (
     ContactView,
     PrefectureView,
     PrefectureShowView,
-    RatingView,
-    CityView,
-    CityShowView
+    RatingView
 )
 
 app_name = 'ac_site'
@@ -22,8 +20,6 @@ urlpatterns = [
     url(r'^contacts$', ContactView.as_view(), name='contact'),
     url(r'^prefectures$', PrefectureView.as_view(), name='prefectures'),
     url(r'^prefectures/(?P<region_id>[0-9]+)/$', PrefectureShowView.as_view(), name='prefecture_show'),
-    url(r'^prefectures/(?P<region_id>[0-9]+)/cities$', CityView.as_view(), name='cities'),
-    url(r'^prefectures/(?P<region_id>[0-9]+)/cities/(?P<region_city_id>[0-9]+)/$', CityShowView.as_view(), name='city_show'),
     url(r'^ratings', RatingView.as_view(), name='rating'),
 
     # ex: /ac_site/5/
