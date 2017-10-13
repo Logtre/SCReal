@@ -5768,7 +5768,7 @@ html:not(.watch-active-state) .list-block .item-link:active {
 }
 
 .chart-row {
-  background: #f0f0f0;
+  /*background: #f0f0f0;*/
 }
 .chart-row div {
   /* margin: 0 5px; */

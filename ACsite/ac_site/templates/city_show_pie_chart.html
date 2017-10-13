@@ -696,7 +696,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="center sliding">{{ region_info.prefecture.prefecture_name }} レーティング情報</div>
+                <div class="center sliding">{{ region_info.city.city_name }} レーティング情報</div>
                 <div class="right">
                     <a href="#" class="link icon-only open-panel" data-panel="right">
                         <span class="kkicon icon-alarm"></span>
@@ -751,7 +751,110 @@
                             </div>
                         </div>-->
 
-                        <div class="content-block-title">総合レーティング {{general_rating}}</div>
+                        <div class="content-block content-light">
+                            <div class="content-wew">
+                                <h3 class="header-2"><span>レーティング</span></h3>
+                                <p></p>
+
+
+                                <div class="chart-row col-50">
+                                    <div>
+                                        <canvas id="general_rating-content" class="general_rating-content" width="300" height="210"></canvas>
+
+                                        <!-- 横棒チャート表示部分 -->
+                                        <script>
+                                            console.log('***DEBUG***');
+                                            console.log(document);
+                                            var ctx = document.getElementById('general_rating-content').getContext('2d');
+                                            var mychart =  new Chart(ctx, {
+                                                type: 'horizontalBar',
+                                                data: {
+                                                    labels: ['総合レーティング', '訪問客数', '成長性', '年間の売上変動', '競合数', '物件購入費', '価格'],
+                                                    datasets: [{
+                                                        label: 'レーティング',
+                                                        data: [{{general_rating}}, {{marketsize}}, {{potential}}, {{stability}}, {{competition}}, {{cost}}, {{ex_return}}],
+                                                        backgroundColor: ["rgba(238,115,28,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)"]
+                                                    }]
+                                                },
+                                                options: {
+                                                    legend: {
+                                                        display: false,
+                                                    },
+                                                    scale: {
+                                                        xAxes: [{
+                                                            ticks: {
+                                                                beginAtZero: true,
+                                                                max: 5,
+                                                            }
+                                                        }]
+                                                    }
+                                                    //scaleShowLine: true,
+                                                    //scaleOverride: true,
+                                                    //scaleSteps: 10,
+                                                    //scaleStepWidth: 1,
+                                                    //scaleStartValue: 0
+                                                }
+                                            });
+
+                                        </script>
+
+                                    </div>
+                                </div>
+
+                                <h3 class="header-2"><span>訪問客数</span></h3>
+                                <p>{{ region_info.city.city_name }}の年間訪問外国人観光客数は{{ trg_guest_count }}人です。</p>
+                                <p>外国人観光客の内訳は以下の通りです。</p>
+                                <div class="chart-row col-50">
+                                    <div>
+                                        <canvas id="general_rating-content" class="general_rating-content" width="300" height="210"></canvas>
+
+                                        <!-- 横棒チャート表示部分 -->
+                                        <script>
+                                            console.log('***DEBUG***');
+                                            console.log(document);
+                                            var ctx = document.getElementById('general_rating-content').getContext('2d');
+                                            var mychart =  new Chart(ctx, {
+                                                type: 'pie',
+                                                data: {
+                                                    labels: ['韓国', '台湾', '香港', '中国', 'タイ', '米国', 'その他'],
+                                                    datasets: [{
+                                                        label: 'レーティング',
+                                                        data: [{{rate_guestnationality_info_korea}}, {{rate_guestnationality_info_taiwang}}, {{rate_guestnationality_info_hongkong}}, {{rate_guestnationality_info_china}}, {{rate_guestnationality_info_thailand}}, {{rate_guestnationality_info_usa}}, {{rate_guestnationality_info_other}}],
+                                                        backgroundColor: ["rgba(238,115,28,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)"]
+                                                    }]
+                                                },
+                                                options: {
+                                                    legend: {
+                                                        display: false,
+                                                    },
+                                                    scale: {
+                                                        xAxes: [{
+                                                            ticks: {
+                                                                beginAtZero: true,
+                                                                max: 5,
+                                                            }
+                                                        }]
+                                                    }
+                                                    //scaleShowLine: true,
+                                                    //scaleOverride: true,
+                                                    //scaleSteps: 10,
+                                                    //scaleStepWidth: 1,
+                                                    //scaleStartValue: 0
+                                                }
+                                            });
+
+                                        </script>
+                                    </div>
+                                </div>
+
+                                <h3 class="header-2"><span>成長性</span></h3>
+                                <h3 class="header-2"><span>年間の売上変動</span></h3>
+                                <h3 class="header-2"><span>競合数</span></h3>
+                                <h3 class="header-2"><span>物件購入費</span></h3>
+                                <h3 class="header-2"><span>価格</span></h3>
+
+                            </div>
+                        </div>
 
                         <div class="chart-row col-50">
                             <div>
@@ -836,7 +939,7 @@
                                         <tr>
                                             <td>価格</td>
                                             <td>{{ex_return}}</td>
-                                            <td>その地域で民泊を運営した場合、どのくらいの収益が見込めるか</td>
+                                            <td>その地域の民泊業者が、どのくらいの値段設定で営業しているか</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -844,12 +947,12 @@
                         </div>
 
                         <div class="content-block mb-15">
-                            <h3>民泊シミュレーション</h3>
+                            <h3>利回りシミュレーション</h3>
 
                             <div class="buttons-row">
                                 <a href="#tab1-1" class="tab-link active button button-primary">アパート経営</a>
-                                <a href="#tab2-1" class="tab-link button button-primary">転貸物件で民泊経営</a>
-                                <a href="#tab3-1" class="tab-link button button-primary">購入物件で民泊経営</a>
+                                <a href="#tab2-1" class="tab-link button button-primary">転貸物件民泊</a>
+                                <a href="#tab3-1" class="tab-link button button-primary">購入物件民泊</a>
                             </div>
                         </div>
 

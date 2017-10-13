@@ -5,13 +5,13 @@ from django.http import Http404
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from django.db.models import Avg, Q
+from django.db.models import Avg, Q, Sum
 
 import datetime
 
 
 #from .models import Company_table, Member_table
-from .models import Region, Prefecture, City, PriceofLand, TourResource, ForeignGuestCount, AnnualSummary, RegionSummary, SummaryArticleBreakdown, SummaryCapacityBreakdown, SummaryLanguageBreakdown, SummarySizeBreakdown, Company_table, Member_table, MemberFlg_table
+from .models import Region, Prefecture, City, PriceofLand, TourResource, ForeignGuestCount, AnnualSummary, RegionSummary, SummaryArticleBreakdown, SummaryCapacityBreakdown, SummaryLanguageBreakdown, SummarySizeBreakdown, Cost, GuestNationality, Nationality, Company_table, Member_table, MemberFlg_table
 from .rating import individual_rating, elemental_rating, cal_stdev, cal_beta, city_list
 
 
@@ -595,6 +595,10 @@ class CityShowView(TemplateView):
         foreignguest_info = ForeignGuestCount.objects.select_related().all()
         # AnnualSummary（全地域分）
         annualsummary_info = AnnualSummary.objects.select_related().all()
+        # Cost（全地域分）
+        cost_info = Cost.objects.select_related().all()
+        # GuestNationality（全地域分）
+        guestnationality_info = GuestNationality.objects.select_related().all()
 
         ''' DEBUG用
         print(">>>>DEBUG>>>> region_info is :")
@@ -892,16 +896,67 @@ class CityShowView(TemplateView):
         print(">>>>DEBUG>>>> avg_priceofland is #1:")
         print(avg_priceofland)
         '''
-        #5.2 価格（Phase1は公示価格のみで計算する）
-        price = round(5 - elemental_rating(trg_priceofland, avg_priceofland), 2)
+
+        # 5.2.家賃
+        # 5.2.1.家賃（対象地域）
+        trg_rent = cost_info.filter(region_id=self.kwargs['region_city_id'], year=today.year-1, month=today.month-1).aggregate(Avg('rent'))['rent__avg']
+        # 対象地域の情報がなかった時の処理
+        if trg_rent is None:
+            print(">>>>DEBUG>>>> USE ALTER Rent!!")
+            trg_rent = cost_info.filter(prefecture_code=self.kwargs['region_id'],year=today.year-1, month=today.month-1).aggregate(Avg('rent'))['rent__avg']
+        else:
+            pass
+
+        # 5.2.2.家賃（平均）
+        avg_rent = cost_info.filter(year=today.year-1, month=today.month-1).aggregate(Avg('rent'))['rent__avg']
+
+        # 5.3.リフォーム費用
+        # 5.3.1.リフォーム費用（対象地域）
+        trg_restroom_facility_cost = cost_info.filter(region_id=self.kwargs['region_city_id'], year=today.year-1, month=today.month-1).aggregate(Avg('restroom_facility_cost'))['restroom_facility_cost__avg']
+        # 対象地域の情報がなかった時の処理
+        if trg_restroom_facility_cost is None:
+            print(">>>>DEBUG>>>> USE ALTER Rent!!")
+            # 都道府県の平均値で代用
+            trg_restroom_facility_cost = cost_info.filter(prefecture_code=self.kwargs['region_id'],year=today.year-1, month=today.month-1).aggregate(Avg('restroom_facility_cost'))['restroom_facility_cost__avg']
+            trg_bathroom_facility_cost = cost_info.filter(prefecture_code=self.kwargs['region_id'],year=today.year-1, month=today.month-1).aggregate(Avg('bathroom_facility_cost'))['bathroom_facility_cost__avg']
+            trg_kitchen_facility_cost = cost_info.filter(prefecture_code=self.kwargs['region_id'],year=today.year-1, month=today.month-1).aggregate(Avg('kitchen_facility_cost'))['kitchen_facility_cost__avg']
+            trg_reform_fee = cost_info.filter(prefecture_code=self.kwargs['region_id'],year=today.year-1, month=today.month-1).aggregate(Avg('reform_fee'))['reform_fee__avg']
+            trg_repainting_fee = cost_info.filter(prefecture_code=self.kwargs['region_id'],year=today.year-1, month=today.month-1).aggregate(Avg('repainting_fee'))['repainting_fee__avg']
+            trg_sum_reform_cost = trg_restroom_facility_cost + trg_bathroom_facility_cost + trg_kitchen_facility_cost + trg_reform_fee + trg_repainting_fee
+        else:
+            # そのまま計算を続行
+            trg_bathroom_facility_cost = cost_info.filter(region_id=self.kwargs['region_city_id'], year=today.year-1, month=today.month-1).aggregate(Avg('bathroom_facility_cost'))['bathroom_facility_cost__avg']
+            trg_kitchen_facility_cost = cost_info.filter(region_id=self.kwargs['region_city_id'], year=today.year-1, month=today.month-1).aggregate(Avg('kitchen_facility_cost'))['kitchen_facility_cost__avg']
+            trg_reform_fee = cost_info.filter(region_id=self.kwargs['region_city_id'], year=today.year-1, month=today.month-1).aggregate(Avg('reform_fee'))['reform_fee__avg']
+            trg_repainting_fee = cost_info.filter(region_id=self.kwargs['region_city_id'], year=today.year-1, month=today.month-1).aggregate(Avg('repainting_fee'))['repainting_fee__avg']
+            trg_sum_reform_cost = trg_restroom_facility_cost + trg_bathroom_facility_cost + trg_kitchen_facility_cost + trg_reform_fee + trg_repainting_fee
+
+        #5.3.2.リフォーム費用（平均）
+        avg_restroom_facility_cost = cost_info.filter(year=today.year-1, month=today.month-1).aggregate(Avg('restroom_facility_cost'))['restroom_facility_cost__avg']
+        avg_bathroom_facility_cost = cost_info.filter(year=today.year-1, month=today.month-1).aggregate(Avg('bathroom_facility_cost'))['bathroom_facility_cost__avg']
+        avg_kitchen_facility_cost = cost_info.filter(year=today.year-1, month=today.month-1).aggregate(Avg('kitchen_facility_cost'))['kitchen_facility_cost__avg']
+        avg_reform_fee = cost_info.filter(year=today.year-1, month=today.month-1).aggregate(Avg('reform_fee'))['reform_fee__avg']
+        avg_repainting_fee = cost_info.filter(year=today.year-1, month=today.month-1).aggregate(Avg('repainting_fee'))['repainting_fee__avg']
+        avg_sum_reform_cost = avg_restroom_facility_cost + avg_bathroom_facility_cost + avg_kitchen_facility_cost + avg_reform_fee + avg_repainting_fee
+
+        #5.4 価格（Phase1は公示価格のみで計算する）
+        cost = round(5 - individual_rating(trg_priceofland, avg_priceofland, trg_rent, avg_rent, trg_sum_reform_cost, avg_sum_reform_cost), 2)
 
         '''DEBUG用
         print(">>>>DEBUG>>>> trg_priceofland is :")
         print(trg_priceofland)
         print(">>>>DEBUG>>>> avg_priceofland is :")
         print(avg_priceofland)
-        print(">>>>DEBUG>>>> price is :")
-        print(price)
+        print(">>>>DEBUG>>>> trg_rent is :")
+        print(trg_rent)
+        print(">>>>DEBUG>>>> avg_rent is :")
+        print(avg_rent)
+        print(">>>>DEBUG>>>> trg_sum_reform_cost is :")
+        print(trg_sum_reform_cost)
+        print(">>>>DEBUG>>>> avg_sum_reform_cost is :")
+        print(avg_sum_reform_cost)
+        print(">>>>DEBUG>>>> cost is :")
+        print(cost)
         '''
 
 
@@ -924,7 +979,30 @@ class CityShowView(TemplateView):
         ex_return = round(elemental_rating(trg_performance, avg_performance), 2)
 
         # 7.総合レーティング
-        general_rating = round((marketsize + potential + stability + competition + price + ex_return) / 6, 2)
+        general_rating = round(((marketsize * 2) + (potential * 0.5) + (stability * 0.5) + competition + (cost * 2) + ex_return) / 6, 2)
+        # marketsizeが小さいと特別減算
+        if marketsize > 2:
+            general_rating -= 2
+        else:
+            pass
+
+        # 8.付加価値情報（ゲストの国籍）
+        trg_guestnationality_info = guestnationality_info.filter(prefecture_code=self.kwargs['region_id'])
+        sum_guestnationality_info = guestnationality_info.filter(prefecture_code=self.kwargs['region_id']).aggregate(Sum('answer_count'))['answer_count__sum']
+        # ゲスト国籍割合を格納する空リストの定義
+        #rate_guestnationality_info = []
+        # ゲスト国籍割合を代入
+        #for q in trg_guestnationality_info:
+        #    insrt_factor = q.answer_count / sum_guestnationality_info * 100
+        #    rate_guestnationality_info.append(insrt_factor)
+
+        #rate_guestnationality_info_korea = rate_guestnationality_info[0]
+        #rate_guestnationality_info_taiwang = rate_guestnationality_info[1]
+        #rate_guestnationality_info_hongkong = rate_guestnationality_info[2]
+        #rate_guestnationality_info_china = rate_guestnationality_info[3]
+        #rate_guestnationality_info_thailand = rate_guestnationality_info[4]
+        #rate_guestnationality_info_usa = rate_guestnationality_info[5]
+        #rate_guestnationality_info_ohter = rate_guestnationality_info[6]
 
         context = {
             'region_sum_info': region_sum_info,
@@ -934,10 +1012,20 @@ class CityShowView(TemplateView):
             'potential': potential,
             'stability': stability,
             'competition': competition,
-            'price': price,
+            'cost': cost,
             'ex_return': ex_return,
             'general_rating': general_rating,
             'trg_guest_count': trg_guest_count,
+            'trg_guestnationality_info': trg_guestnationality_info,
+            'trg_diff_guest_count': trg_diff_guest_count,
+            'trg_stdev': trg_stdev,
+            #'rate_guestnationality_info_korea': rate_guestnationality_info_korea,
+            #'rate_guestnationality_info_taiwang': rate_guestnationality_info_taiwang,
+            #'rate_guestnationality_info_hongkong': rate_guestnationality_info_hongkong,
+            #'rate_guestnationality_info_china': rate_guestnationality_info_china,
+            #'rate_guestnationality_info_thailand': rate_guestnationality_info_thailand,
+            #'rate_guestnationality_info_usa': rate_guestnationality_info_usa,
+            #'rate_guestnationality_info_ohter': rate_guestnationality_info_ohter,
         }
         return self.render_to_response(context)
 

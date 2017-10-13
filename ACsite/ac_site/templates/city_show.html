@@ -759,7 +759,7 @@
 
                                 <div class="chart-row col-50">
                                     <div>
-                                        <canvas id="general_rating-content" class="general_rating-content" width="300" height="150"></canvas>
+                                        <canvas id="general_rating-content" class="general_rating-content" width="300" height="210"></canvas>
 
                                         <!-- 横棒チャート表示部分 -->
                                         <script>
@@ -772,7 +772,7 @@
                                                     labels: ['総合レーティング', '訪問客数', '成長性', '年間の売上変動', '競合数', '物件購入費', '価格'],
                                                     datasets: [{
                                                         label: 'レーティング',
-                                                        data: [{{general_rating}}, {{marketsize}}, {{potential}}, {{stability}}, {{competition}}, {{price}}, {{ex_return}}],
+                                                        data: [{{general_rating}}, {{marketsize}}, {{potential}}, {{stability}}, {{competition}}, {{cost}}, {{ex_return}}],
                                                         backgroundColor: ["rgba(238,115,28,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)"]
                                                     }]
                                                 },
@@ -802,10 +802,22 @@
                                 </div>
 
                                 <h3 class="header-2"><span>訪問客数</span></h3>
-                                <p>{{ region_info.city.city_name }}の年間訪問外国人観光客数は{{ trg_guest_count }}人です。</p>
+                                <p>{{ region_info.city.city_name }}の年間の外国人観光客数は{{ trg_guest_count }}人です。</p>
+                                <!--<p>外国人観光客の内訳は</p>
+                                    <ul>
+                                        {% for q in trg_guestnationality_info %}
+                                            <li>{{ q.nationality.nationality_name }}人 　{{ q.answer_count}}人</li>
+                                        {% endfor %}
+                                    </ul>
+                                <p>です。</p>-->
                                 <h3 class="header-2"><span>成長性</span></h3>
+                                <p>{{ region_info.city.city_name }}の昨年度からの外国人観光客数の増減は{{ trg_diff_guest_count }}です。</p>
+
                                 <h3 class="header-2"><span>年間の売上変動</span></h3>
+                                <p>{{ region_info.city.city_name }}の年間の売上変動は{{ trg_stdev }}です。
+
                                 <h3 class="header-2"><span>競合数</span></h3>
+                                
                                 <h3 class="header-2"><span>物件購入費</span></h3>
                                 <h3 class="header-2"><span>価格</span></h3>
 
@@ -827,7 +839,7 @@
                                             labels: ['訪問客数', '成長性', '年間の売上変動', '競合数', '物件購入費', '価格'],
                                             datasets: [{
                                                 label: 'レーティング',
-                                                data: [{{marketsize}}, {{potential}}, {{stability}}, {{competition}}, {{price}}, {{ex_return}}],
+                                                data: [{{marketsize}}, {{potential}}, {{stability}}, {{competition}}, {{cost}}, {{ex_return}}],
                                                 backgroundColor: "rgba(52,199,23,0.6)"
                                             }]
                                         },
@@ -889,7 +901,7 @@
                                         </tr>
                                         <tr>
                                             <td>物件購入費</td>
-                                            <td>{{price}}</td>
+                                            <td>{{cost}}</td>
                                             <td>その地域での物件購入にどれだけの費用がかかるか（レーティングが高い＝少額の費用で物件購入できる）</td>
                                         </tr>
                                         <tr>
