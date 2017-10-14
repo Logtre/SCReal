@@ -146,6 +146,14 @@ class GuestNationality(models.Model):
     region = models.ForeignKey('Region', blank=True, null=True, related_name='link_guestnationality', on_delete=models.CASCADE)
 
 
+class Ranking(models.Model):
+    total_listing_rank = models.IntegerField(default=0)
+    average_price_rank = models.IntegerField(default=0)
+    monthly_sales_rank = models.IntegerField(default=0)
+    created_at = models.DateTimeField(default=timezone.now)
+    region = models.ForeignKey('Region', blank=True, null=True, related_name='link_ranking', on_delete=models.CASCADE)
+
+
 #class MonthlySummary(models.Model):
 #    '''月次サマリーテーブル'''
 #    prefecture_code = models.IntegerField(default=0)
