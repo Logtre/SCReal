@@ -11,7 +11,8 @@ from .views import (
     PrefectureShowView,
     RatingView,
     CityView,
-    CityShowView
+    CityShowView,
+    RankingView
 )
 
 app_name = 'ac_site'
@@ -24,6 +25,7 @@ urlpatterns = [
     url(r'^prefectures/(?P<region_id>[0-9]+)/$', PrefectureShowView.as_view(), name='prefecture_show'),
     url(r'^prefectures/(?P<region_id>[0-9]+)/cities$', CityView.as_view(), name='cities'),
     url(r'^prefectures/(?P<region_id>[0-9]+)/cities/(?P<region_city_id>[0-9]+)/$', CityShowView.as_view(), name='city_show'),
+    url(r'^ranking$', RankingView.as_view(), name='ranking'),
     url(r'^ratings', RatingView.as_view(), name='rating'),
 
     # ex: /ac_site/5/

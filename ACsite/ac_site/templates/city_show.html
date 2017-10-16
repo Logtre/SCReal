@@ -754,7 +754,82 @@
                         <div class="content-block content-light">
                             <div class="content-wew">
                                 <h3 class="header-2"><span>レーティング</span></h3>
-                                <p></p>
+                                <p>{{ trg_region_sum_info.region.prefecture.prefecture_name }}</p>
+                                <p>{{ trg_region_sum_info.region.city.city_name }}</p>
+
+                                <div>総合レーティング
+                                    <div class="star-ratings-css">
+                                        <div class="star-ratings-css-top" style="width: {{general_rating_for_star}}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                        <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                    </div>
+                                </div>
+
+                                <div class="rating-table-row col-50">
+                                    <div>
+                                        <table>
+                                            <caption>パフォーマンス</caption>
+                                            <tbody>
+                                                <tr>
+                                                    <td>訪問客数</td>
+                                                    <td>{{trg_region_sum_info.total_listing}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>成長性</td>
+                                                    <td>{{trg_diff_guest_count}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>物件購入費</td>
+                                                    <td>{{trg_priceofland}}（円／平米）</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <h3 class="header-2"><span>チャート</span></h3>
+                                <div class="chart-row col-50">
+                                    <div>
+                                        <canvas id="total_listing_legend" class="total_listing_legend" width="300" height="210"></canvas>
+
+                                        <!-- ラインチャート表示部分 -->
+                                        <script>
+                                            console.log('***DEBUG***');
+                                            console.log(document);
+                                            var ctx = document.getElementById('total_listing_legend').getContext('2d');
+                                            var mychart =  new Chart(ctx, {
+                                                type: 'line',
+                                                data: {
+                                                    labels: ['総合レーティング', '訪問客数', '成長性', '年間の売上変動', '競合数', '物件購入費', '価格'],
+                                                    datasets: [{
+                                                        label: 'レーティング',
+                                                        data: [{{general_rating}}, {{marketsize}}, {{potential}}, {{stability}}, {{competition}}, {{cost}}, {{ex_return}}],
+                                                        backgroundColor: ["rgba(238,115,28,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)"]
+                                                    }]
+                                                },
+                                                options: {
+                                                    legend: {
+                                                        display: false,
+                                                    },
+                                                    scale: {
+                                                        xAxes: [{
+                                                            ticks: {
+                                                                beginAtZero: true,
+                                                                max: 5,
+                                                            }
+                                                        }]
+                                                    }
+                                                    //scaleShowLine: true,
+                                                    //scaleOverride: true,
+                                                    //scaleSteps: 10,
+                                                    //scaleStepWidth: 1,
+                                                    //scaleStartValue: 0
+                                                }
+                                            });
+
+                                        </script>
+
+                                    </div>
+                                </div>
 
 
                                 <div class="chart-row col-50">
@@ -817,7 +892,7 @@
                                 <p>{{ region_info.city.city_name }}の年間の売上変動は{{ trg_stdev }}です。
 
                                 <h3 class="header-2"><span>競合数</span></h3>
-                                
+
                                 <h3 class="header-2"><span>物件購入費</span></h3>
                                 <h3 class="header-2"><span>価格</span></h3>
 

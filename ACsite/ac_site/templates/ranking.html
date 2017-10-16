@@ -33,6 +33,8 @@
     <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.carousel.css">
     <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.theme.css">
     <link rel="stylesheet" href="/assets/css/app.css">
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/tab.js"></script>
 
     <!-- for LOCAL SETTING  START --
     <link rel="stylesheet" href="/static/ac_site/bower_components/font-awesome/css/font-awesome.min.css">
@@ -72,26 +74,16 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'ac_site:ranking' %}" class="item-link close-panel item-content">
-                <div class="item-media">
-                    <i class="fa fa-trophy"></i>
-                </div>
-                <div class="item-inner">
-                    <div class="item-title">民泊地域ランキング</div>
-                </div>
-            </a>
-        </li>
-        <li>
             <a href="{% url 'ac_site:prefectures' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-area-chart"></i>
                 </div>
                 <div class="item-inner">
-                    <div class="item-title">民泊向け都道府県一覧</div>
+                    <div class="item-title">民泊レーティング</div>
                 </div>
             </a>
         </li>
-        <!--<li>
+        <li>
             <a href="ac_site/news_release.html" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-newspaper-o"></i>
@@ -100,9 +92,9 @@
                     <div class="item-title">みんなの民泊日記</div>
                 </div>
             </a>
-        </li>-->
+        </li>
         <li>
-            <a href="{% url 'ac_site:contact' %}" class="item-link close-panel item-content">
+            <a href="ac_site/contact.html" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-envelope-o"></i>
                 </div>
@@ -437,7 +429,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <!--<li>
+                            <li>
                                 <a href="ac_site/minnpaku_news.html" class="item-link close-panel item-content">
                                     <div class="item-media">
                                         <i class="fa fa-newspaper-o"></i>
@@ -445,11 +437,11 @@
                                     <div class="item-inner">
                                         <div class="item-title">みんなの民泊日記</div>
                                         <div class="item-after">
-                                            <span class="badge badge-secondary">new</span>
+                                            <!--<span class="badge badge-secondary">new</span>-->
                                         </div>
                                     </div>
                                 </a>
-                            </li>-->
+                            </li>
                             <!--<li>
                                 <a href="article-1.html" class="item-link close-panel item-content">
                                     <div class="item-media">
@@ -503,7 +495,7 @@
                         </a>
                     </li>-->
                     <li>
-                        <a href="{% url 'ac_site:contact' %}" class="item-link close-panel item-content">
+                        <a href="ac_site/contact.html" class="item-link close-panel item-content">
                             <div class="item-media">
                                 <i class="fa fa-envelope-o"></i>
                             </div>
@@ -685,11 +677,11 @@
     </div>
 </div>-->
 
+
 <!-- Views -->
 <div class="views">
     <div class="view view-main">
-
-        <div class="navbar navbar-clear anim-navbar">
+        <div class="navbar">
             <div class="navbar-inner">
                 <div class="left">
                     <!--<a href="#" class="link icon-only open-panel">
@@ -703,368 +695,121 @@
                         </div>
                     </div>
                 </div>
-                <div class="center sliding">
-                    <span class="anim-logo-small" style="opacity: 0">SCReal</span>
-                </div>
-                <!--<div class="right">
-                    <a href="#" class="link icon-only open-panel" data-panel="right">
-                        <span class="badge badge-secondary">2</span>
+                <div class="center sliding">民泊地域ランキング</div>
+                <div class="right">
+                    <!--<a href="#" class="link icon-only open-panel" data-panel="right">
                         <span class="kkicon icon-alarm"></span>
-                    </a>
-                </div>-->
+                    </a>-->
+                </div>
             </div>
         </div>
 
-        <div class="pages navbar-fixed toolbar-fixed ">
-            <div data-page="index" class="page">
-                <div class="page-content navbar-fix">
-                    <div class="full-page-image full-page-video play-bg-video">
-                        <div class="logo">
-                            <img src="/assets/img/screal_logo_blk.svg" alt="" />
-                        </div>
-                        <div class="desc content-padding">
-                            <!--<strong class="text-bg text-bg-green">民泊の物件選びはAIにお任せ！！</strong>-->
-                            <!-- <div class="mt-5 text-bg">
-                                気になる地域のレーティングを見てみよう！！
-                            </div>-->
-                            <strong class="text-no-bg">民泊調査はAIにおまかせ！！</strong><br/>
-                            <strong class="text-no-bg-small">AIがオススメの民泊地域を教えます</strong>
-                        </div>
-                        <div class="row content-padding">
-                            <div class="col-30" max-width="300xp">
-                                <a href="{% url 'ac_site:prefectures' %}" class="button button-fill button-primary">調べる</a>
-                            </div>
-                            <!--<div class="col-50">
-                                <a href="article-1.html" class="button button-fill button-secondary">民泊ニュース</a>
-                            </div>-->
-                        </div>
+        <div class="view another-view">
+            <!-- Pages -->
+            <div class="pages">
+                <div class="page no-toolbar" data-page="features">
+                    <div class="page-content">
 
-                        <span class="kkicon icon-chevron-down scroll-down"></span>
-                    </div>
-
-                    <div class="content-block mb-15">
-                        <div class="content-wew">
-                            <h2 class="header-1 mb-0"><span>AIでスマート民泊</span></h2>
-                            <h3 class="sub-header mt-0">リアルタイム民泊情報<br/>
-                                                        ＋<br/>
-                                                        マクロ情報<br/>
-                                                        で各地をレーティング</h3>
-                            <span class="hr-1"></span>
-
-                            <!-- <div class="tweet"></div>-->
-                        </div>
-                    </div>
-
-                    <!--<div class="owl-carousel">
-                        <div>
-                            <strong class="carousel-text text-bg text-bg-green">Some slide text 1</strong>
-                            <img src="assets/img/tmp/temp_1.png" alt="">
-                        </div>
-                        <div>
-                            <strong class="carousel-text text-bg text-bg-green">Some slide text 2</strong>
-                            <img src="assets/img/tmp/temp_2.png" alt="">
-                        </div>
-                        <div>
-                            <strong class="carousel-text text-bg text-bg-green">Some slide text 3</strong>
-                            <img src="assets/img/tmp/temp_3.png" alt="">
-                        </div>
-                    </div>-->
-                    <div class="content-block">
-                        <div class="content-wew">
-                            <p>
-                                稼働している民泊物件の情報、観光情報などをもとに、AIが全国の地域の民泊最適度をレーティングします。特定の国籍の方に特化した民泊の展開や、季節限定の民泊など従来とは違った民泊の運営を目指される方を強力にサポートします。
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="content-block content-light">
-                        <div class="content-wew">
-                            <h3 class="header-2"><span>利用シーン</span></h3>
-
-                            <p>SCRealは様々なシーンであなたをサポートします。以下のアンケート結果は我々のお客様がSCRealを活用した利用シーンを抜粋したものです。</p>
-
-                            <div class="progress-box progress-green indicating" data-percent="75">
-                                <div class="bar" style="transition-duration: 300ms; width: 95%;">
-                                    <div class="progress">95%</div>
-                                </div>
-                                <div class="label">進出地域を全国から探す</div>
-                            </div>
-                            <div class="progress-box progress-green indicating" data-percent="75">
-                                <div class="bar" style="transition-duration: 300ms; width: 90%;">
-                                    <div class="progress">90%</div>
-                                </div>
-                                <div class="label">ターゲット顧客を特定する</div>
-                            </div>
-                            <div class="progress-box progress-green indicating" data-percent="75">
-                                <div class="bar" style="transition-duration: 300ms; width: 88%;">
-                                    <div class="progress">88%</div>
-                                </div>
-                                <div class="label">ゲストハウスの運営方針を決める</div>
-                            </div>
-
+                        <div class="list-block media-list">
                             <ul>
-                              <li>全国の都道府県のレーティング情報を提供しているので、全国から民泊に最適な地域を探すことができます。</li>
-                              <li>各都道府県で民泊を利用している外国人数も収集していますので、ターゲット顧客を特定する際にも活用できます。</li>
-                              <li>民泊物件のリアルタイム情報から他物件の状況を予測できるので、ゲストハウスの運営方針を決める際に活用できます。</li>
+
+                                <!--<li>
+                                    <a href="#" data-popup=".popup-splash" class="open-popup item-link item-content">
+                                        <div class="item-media">
+                                            <div class="card-header no-border item-content-icon item-content-icon-slider"></div>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title-row">
+                                                <div class="item-title">
+                                                    App update info
+                                                </div>
+                                            </div>
+                                            <div class="item-subtitle">
+                                                Cool app update slider!
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>-->
+                                <ul class="tab">
+                                    <li class="select toggle">掲載数</li>
+                                    <li class="toggle">価格</li>
+                                    <li class="toggle">売上高</li>
+                                </ul>
+                                <ul class="content">
+                                    <div class="toggle">
+                                        {% for p in total_listing_ranking %}
+                                            <li>
+                                                <a href="{% url 'ac_site:city_show' region_id=p.region.prefecture.id region_city_id=p.region_id %}" class="item-link item-content">
+                                                    <!--<div class="item-media">
+                                                        <div class="card-header no-border item-content-icon item-content-icon-gallery"></div>
+                                                    </div>-->
+                                                    <div class="itm-media">
+                                                        {{ forloop.counter }}
+                                                    </div>
+                                                    <div class="item-inner">
+                                                        <div class="item-title-row">
+                                                            <div class="item-title">
+                                                                {{ p.region.city.city_name }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="item-subtitle">
+                                                            <!--3 columns layout-->
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="toggle hide">
+                                        {% for q in average_price_ranking %}
+                                            <li>
+                                                <a href="{% url 'ac_site:city_show'  region_id=q.region.prefecture.id region_city_id=q.region_id %}" class="item-link item-content">
+                                                    <div class="item-media">
+                                                        <!--<div class="card-header no-border item-content-icon item-content-icon-gallery"></div>-->
+                                                        {{ forloop.counter }}
+                                                    </div>
+                                                    <div class="item-inner">
+                                                        <div class="item-title-row">
+                                                            <div class="item-title">
+                                                                {{ q.region.city.city_name }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="item-subtitle">
+                                                            <!--3 columns layout-->
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="toggle hide">
+                                        {% for r in monthly_sales_ranking %}
+                                            <li>
+                                                <a href="{% url 'ac_site:city_show' region_id=r.region.prefecture.id region_city_id=r.region_id %}" class="item-link item-content">
+                                                    <div class="item-media">
+                                                        <!--<div class="card-header no-border item-content-icon item-content-icon-gallery"></div>-->
+                                                        {{ forloop.counter }}
+                                                    </div>
+                                                    <div class="item-inner">
+                                                        <div class="item-title-row">
+                                                            <div class="item-title">
+                                                                {{ r.region.city.city_name }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="item-subtitle">
+                                                            <!--3 columns layout-->
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </div>
                             </ul>
                         </div>
-                    </div>
-                    <div class="content-block">
-                        <div class="content-wew">
 
-                            <h3 class="header-2"><span>メンバー</span></h3>
-
-                            <div class="the-team-slider">
-                                <a href="#" class="team-nav-left arrow-left">
-                                    <span class="kkicon icon-chevron-left"></span>
-                                </a>
-                                <a href="#" class="team-nav-right arrow-right">
-                                    <span class="kkicon icon-chevron-right"></span>
-                                </a>
-                                <div class="team">
-                                    {% for m in member_info %}
-                                        <div class="text-center">
-                                            <img src="/assets/img/image1.JPG" alt="Ava1" class="round-ava" />
-                                            <h3>{{ m.name }}</h3>
-                                            <p>{{ m.comment }}</p>
-                                            <div class="mt-10">
-                                                <span class="badge badge-third badge-square text-uppercase">
-                                                    {{ m.position }}
-                                                </span>
-                                            </div>
-                                            <div class="mt-15">
-                                                <a href="{{ m.twitter_url }}" class="button-team-twitter">
-                                                    <i class="fa fa-twitter"></i>
-                                                </a>
-                                                <a href="{{ m.facebook_url }}" class="button-team-facebook">
-                                                    <i class="fa fa-facebook"></i>
-                                                </a>
-                                                <a href="{{ m.linkedin_url }}" class="kkicon-linkedin">
-                                                    <i class="fa fa-linkedin"></i>
-                                                </a>
-                                                <!--<a href="#" class="button-team-gplus">
-                                                    <i class="fa fa-google-plus"></i>
-                                                </a>-->
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                    <!--<div class="text-center">
-                                        <img src="assets/img/tmp/ava2.jpg" alt="Ava1" class="round-ava">
-                                        <h3>Julia Alan</h3>
-                                        <p>Livesey, and the rest of these.</p>
-                                        <div class="mt-10">
-                                            <span class="badge badge-third badge-square text-uppercase">
-                                                Developer
-                                            </span>
-                                        </div>
-                                        <div class="mt-15">
-                                            <a href="#" class="button-team-twitter">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                            <a href="#" class="button-team-facebook">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-                                            <a href="#" class="button-team-gplus">
-                                                <i class="fa fa-google-plus"></i>
-                                            </a>
-                                        </div>
-                                    </div>-->
-                                    <!--<div class="text-center">
-                                        <img src="assets/img/tmp/ava5.jpg" alt="Ava1" class="round-ava">
-                                        <h3>Kaya Max</h3>
-                                        <p>Livesey, and the rest of these.</p>
-                                        <div class="mt-10">
-                                            <span class="badge badge-third badge-square text-uppercase">
-                                                Developer
-                                            </span>
-                                        </div>
-                                        <div class="mt-15">
-                                            <a href="#" class="button-team-twitter">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                            <a href="#" class="button-team-facebook">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-                                            <a href="#" class="button-team-gplus">
-                                                <i class="fa fa-google-plus"></i>
-                                            </a>
-                                        </div>
-                                    </div>-->
-                                </div>
-                            </div>
-
-                            <span class="hr-2 mt-20"></span>
-
-                            <p>
-                                協力者求む！！
-                            </p>
-                        </div>
-                    </div>
-
-                    {% for comp in company_info %}
-                        <div class="content-block">
-                            <div class="content-wew">
-                                <h3 class="header-2"><span>アクセス</span></h3>
-                                {{ comp.address }}
-                            </div>
-                        </div>
-                        <div class="ggmap" >
-                          <iframe src="{{ comp.gmap }}" width=100% height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
-                        </div>
-                        <!--<iframe src="https://www.google.co.jp/maps/@35.6576512,139.7435944,17z/data=!3m1!4b1!4m2!7m1!2e1" width="100%" height="250" frameborder="0" style="border:0"></iframe>-->
-                        <div class="content-block">
-                            <div class="content-wew">
-                                <p>
-                                    Quisque lorem tortor fringilla sed, vestibulum id, eleifend justo vel bibendum sapien massa ac turpis faucibus orci luctus non, consectetuer lobortis quis, varius in, purus. Integer ultrices posuere cubilia Curae.
-                                </p>
-                                <a href="{% url 'ac_site:contact' %}" class="button button-primary button-fill">お問い合わせ</a>
-                            </div>
-                        </div>
-                    {% endfor %}
-
-                    <div class="content-block content-light">
-                        <div class="content-wew">
-                            <h3 class="header-2"><span>ソーシャルメディア</span></h3>
-                            <p></p>
-
-                            <div class="social-buttons mb-15">
-                                <a href="#" class="kkicon-twitter"><i class="fa fa-twitter"></i></a>
-                                <a href="#" class="kkicon-facebook"><i class="fa fa-facebook"></i></a>
-                                <!--<a href="#" class="kkicon-pinterest"><i class="fa fa-pinterest"></i></a>-->
-                                <a href="#" class="kkicon-linkedin"><i class="fa fa-linkedin"></i></a>
-                                <!--<a href="#" class="kkicon-gplus"><i class="fa fa-google-plus"></i></a>-->
-                                <!--<a href="#" class="kkicon-flickr"><i class="fa fa-flickr"></i></a>-->
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<div class="popup popup-splash">
-    <div class="content-block">
-        <a href="#" class="close-popup">
-            スキップ
-        </a>
-
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide text-center">
-                    <div class="slide-content">
-                        <h2>Responsive</h2>
-
-                        <h3>flexible layout</h3>
-                        <img src="assets/img/tmp/slide1.png" alt=""/>
-                    </div>
-                </div>
-                <div class="swiper-slide text-center">
-                    <div class="slide-content">
-                        <h2>Very Detailed</h2>
-
-                        <h3>20+ page templates</h3>
-                        <img src="assets/img/tmp/slide2.png" alt=""/>
-                    </div>
-                </div>
-                <div class="swiper-slide text-center">
-                    <div class="slide-content clearfix">
-                        <h2>Call<br>Us Now</h2>
-
-                        <h3>Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis.
-                            Maecenas malesuada elit lectus felis, malesuada ultricies.</h3>
-                        <a href="#" class="button mt-50 mb-20">Click to call!</a>
                     </div>
                 </div>
             </div>
-            <div class="bottom-color"></div>
-            <div class="swiper-pagination"></div>
-        </div>
-
-    </div>
-</div>
-
-<div class="popup popup-login">
-    <div class="content-block">
-        <a href="#" class="close-popup">
-            スキップ
-        </a>
-
-        <div class="text-center mt-70">
-            <h2>ようこそ</h2>
-
-            <h3>ログインしますか？</h3>
-        </div>
-
-        <div class="forms mt-50">
-            <form method="post"
-                  class="js-validate"
-                  novalidate="novalidate">
-
-                <div class="form-row">
-                    <div class="input-text">
-                        <input type="text" name="login" placeholder="Login" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="input-text">
-                        <input type="password" name="password" placeholder="Password" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="input-submit">
-                        <a href="#" class="button button-big js-form-submit button-fill button-primary">Login</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-        <a href="#" class="more-info">I don't have a APP account.</a>
-    </div>
-</div>
-
-<!-- Picker -->
-<div class="picker-modal picker-social">
-    <div class="toolbar">
-        <div class="toolbar-inner">
-            <div class="left"></div>
-            <div class="right"><a href="#" class="close-picker">done</a></div>
-        </div>
-    </div>
-    <div class="picker-modal-inner">
-        <div class="content-block mt-15 mb-10">
-            <h3>Sharing is sexy!</h3>
-
-            <p>Duis ac nibh ac quam quam sagittis tortor. Cum sociis natoque penatibus et neque.</p>
-
-            <div class="social-buttons">
-                <a href="#" class="kkicon-twitter"><i class="fa fa-twitter"></i></a>
-                <a href="#" class="kkicon-facebook"><i class="fa fa-facebook"></i></a>
-                <a href="#" class="kkicon-pinterest"><i class="fa fa-pinterest"></i></a>
-                <a href="#" class="kkicon-linkedin"><i class="fa fa-linkedin"></i></a>
-                <a href="#" class="kkicon-gplus"><i class="fa fa-google-plus"></i></a>
-                <a href="#" class="kkicon-flickr"><i class="fa fa-flickr"></i></a>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="page page-bg full-page-video page-preloader full-page-image">
-    <div class="logo">
-        <img src="assets/img/logo-login.png" alt="">
-    </div>
-
-    <div class="text-center splash">
-        <div class="splash-welcome text-center">
-            <h4>Welcome!</h4>
-            <p>Start building your app or website<br> with Indra template.</p>
-        </div>
-
-        <div class="la-ball-rotate mt-30">
-            <div></div>
         </div>
     </div>
 </div>

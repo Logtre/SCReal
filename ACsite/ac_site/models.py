@@ -147,6 +147,8 @@ class GuestNationality(models.Model):
 
 
 class Ranking(models.Model):
+    prefecture_code = models.IntegerField(default=0, null=True)
+    city_code = models.IntegerField(default=0, null=True)
     total_listing_rank = models.IntegerField(default=0)
     average_price_rank = models.IntegerField(default=0)
     monthly_sales_rank = models.IntegerField(default=0)
