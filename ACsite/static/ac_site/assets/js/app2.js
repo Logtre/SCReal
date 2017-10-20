@@ -1,8 +1,8 @@
 $(document).ready(function() {
-    if( localStorage.getItem('newOptions') === null || localStorage.getItem('newOptions') === true ) {
+    /*if( localStorage.getItem('newOptions') === null || localStorage.getItem('newOptions') === true ) {
         myApp.popup('.popup-splash');
         localStorage.setItem('newOptions', true);
-    }
+    }*/
 
     /*if($('.chart-content').length > 0) {
         var obj = document.querySelector(".chart-content");

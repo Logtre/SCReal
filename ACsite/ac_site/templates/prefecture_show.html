@@ -33,6 +33,11 @@
     <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.carousel.css">
     <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.theme.css">
     <link rel="stylesheet" href="/assets/css/app.css">
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/tab.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script type="text/javascript" src="/assets/js/chart.js"></script>
+    <script type="text/javascript" src="/assets/js/radar-chart-view.js"></script>
 
     <!-- for LOCAL SETTING  START --
     <link rel="stylesheet" href="/static/ac_site/bower_components/font-awesome/css/font-awesome.min.css">
@@ -49,10 +54,6 @@
     <link rel="stylesheet" type="text/css" href="{% static '/ac_site/assets/css/app.css' %}" />
     <!-- for LOCAL SETTING  END -->
     <!-- <link rel="stylesheet" href="assets/themes/green/style.css" id="theme-style">-->
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-    <script type="text/javascript" src="/assets/js/chart.js"></script>
-    <script type="text/javascript" src="/assets/js/radar-chart-view.js"></script>
 </head>
 <body onload="hidePreloader()">
 
@@ -76,16 +77,26 @@
             </a>
         </li>
         <li>
+            <a href="{% url 'ac_site:ranking' %}" class="item-link close-panel item-content">
+                <div class="item-media">
+                    <i class="fa fa-trophy"></i>
+                </div>
+                <div class="item-inner">
+                    <div class="item-title">民泊地域ランキング</div>
+                </div>
+            </a>
+        </li>
+        <li>
             <a href="{% url 'ac_site:prefectures' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-area-chart"></i>
                 </div>
                 <div class="item-inner">
-                    <div class="item-title">民泊レーティング</div>
+                    <div class="item-title">民泊向け都道府県一覧</div>
                 </div>
             </a>
         </li>
-        <li>
+        <!--<li>
             <a href="ac_site/news_release.html" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-newspaper-o"></i>
@@ -94,9 +105,9 @@
                     <div class="item-title">みんなの民泊日記</div>
                 </div>
             </a>
-        </li>
+        </li>-->
         <li>
-            <a href="ac_site/contact.html" class="item-link close-panel item-content">
+            <a href="{% url 'ac_site:contact' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-envelope-o"></i>
                 </div>
@@ -431,7 +442,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a href="ac_site/minnpaku_news.html" class="item-link close-panel item-content">
                                     <div class="item-media">
                                         <i class="fa fa-newspaper-o"></i>
@@ -439,11 +450,11 @@
                                     <div class="item-inner">
                                         <div class="item-title">みんなの民泊日記</div>
                                         <div class="item-after">
-                                            <!--<span class="badge badge-secondary">new</span>-->
+                                            <span class="badge badge-secondary">new</span>
                                         </div>
                                     </div>
                                 </a>
-                            </li>
+                            </li>-->
                             <!--<li>
                                 <a href="article-1.html" class="item-link close-panel item-content">
                                     <div class="item-media">
@@ -497,7 +508,7 @@
                         </a>
                     </li>-->
                     <li>
-                        <a href="ac_site/contact.html" class="item-link close-panel item-content">
+                        <a href="{% url 'ac_site:contact' %}" class="item-link close-panel item-content">
                             <div class="item-media">
                                 <i class="fa fa-envelope-o"></i>
                             </div>
@@ -680,6 +691,7 @@
 </div>-->
 
 <!-- Views -->
+{% load humanize %}
 <div class="views">
     <div class="view view-main">
         <div class="navbar">
@@ -696,7 +708,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="center sliding">{{ region_info.prefecture.prefecture_name }} レーティング情報</div>
+                <div class="center sliding">{{ trg_region_sum_info.region.city.city_name }}レーティング情報</div>
                 <div class="right">
                     <a href="#" class="link icon-only open-panel" data-panel="right">
                         <span class="kkicon icon-alarm"></span>
@@ -751,105 +763,262 @@
                             </div>
                         </div>-->
 
-                        <div class="content-block-title">総合レーティング {{general_rating}}</div>
+                        <div class="content-block content-light">
+                            <div class="content-wew">
+                                <!--<h3 class="header-2"><span>パフォーマンス</span></h3>-->
+                                <p class="performance_city_name">{{ trg_region_sum_info.region.city.city_name }}</p>
+                                <p class="performance_prefecture_name">{{ trg_region_sum_info.region.prefecture.prefecture_name }}</p>
 
-                        <div class="chart-row col-50">
-                            <div>
-                                <canvas id="radar-chart-content" class="radar-chart-content" width="300" height="150"></canvas>
+                                <div class="ROI">
+                                    <!--期待利回り（転貸時）：{{roi1}}％<br />-->
+                                    期待利回り（購入時）：{{roi2}}％<br />
+                                </div>
 
-                                <!-- レーダーチャート表示部分 -->
-                                <script>
-                                    console.log('***DEBUG***');
-                                    console.log(document);
-                                    var ctx = document.getElementById('radar-chart-content').getContext('2d');
-                                    var mychart =  new Chart(ctx, {
-                                        type: 'radar',
-                                        data: {
-                                            labels: ['訪問客数', '成長性', '年間の売上変動', '競合数', '物件購入費', '価格'],
-                                            datasets: [{
-                                                label: 'レーティング',
-                                                data: [{{marketsize}}, {{potential}}, {{stability}}, {{competition}}, {{cost}}, {{ex_return}}],
-                                                backgroundColor: "rgba(52,199,23,0.6)"
-                                            }]
-                                        },
-                                        options: {
-                                            legend: {
-                                                display: false
-                                            },
-                                            scale: {
-                                                ticks: {
-                                                    beginAtZero: true,
-                                                    max: 5,
+                                <div class="general_rating_div">総合レーティング （{{general_rating}}点）
+                                    <div class="star-ratings-css">
+                                        <div class="star-ratings-css-top" style="width: {{general_rating_for_star}}%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                        <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                                    </div>
+                                </div>
+
+                                <div class="rating-table-row">
+                                    <div>
+                                        <table>
+                                            <caption></caption>
+                                            <tbody>
+                                                <tr>
+                                                    <th>平均宿泊価格</th>
+                                                    <td>{{trg_region_sum_info.average_price| intcomma}} 円／泊</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>月間宿泊売上</th>
+                                                    <td>{{trg_region_sum_info.monthly_sales| intcomma}} 円／月</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>平均地価</th>
+                                                    <td>{{trg_priceofland| intcomma}} 円／平米</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <h3 class="header-2"><span>リスティング数推移</span></h3>
+                                <div class="chart-row col-50">
+                                    <div>
+                                        <canvas id="total_listing_legend" class="total_listing_legend" width="300" height="210"></canvas>
+
+                                        <!-- ラインチャート表示部分 -->
+                                        <script>
+                                            console.log('***DEBUG***');
+                                            console.log(document);
+                                            var ctx = document.getElementById('total_listing_legend').getContext('2d');
+                                            var mychart =  new Chart(ctx, {
+                                                type: 'line',
+                                                data: {
+                                                    labels: ['{{listing_legend_I.year}}/{{listing_legend_I.month}}', '{{listing_legend_II.year}}/{{listing_legend_II.month}}', '{{listing_legend_III.year}}/{{listing_legend_III.month}}', '{{listing_legend_IV.year}}/{{listing_legend_IV.month}}', '{{listing_legend_V.year}}/{{listing_legend_V.month}}', '{{listing_legend_VI.year}}/{{listing_legend_VI.month}}', '{{listing_legend_VII.year}}/{{listing_legend_VII.month}}','{{listing_legend_VIII.year}}/{{listing_legend_VIII.month}}', '{{listing_legend_IX.year}}/{{listing_legend_IX.month}}', '{{listing_legend_X.year}}/{{listing_legend_X.month}}', '{{listing_legend_XI.year}}/{{listing_legend_XI.month}}', '{{listing_legend_XII.year}}/{{listing_legend_XII.month}}'],
+                                                    datasets: [{
+                                                        label: 'リスティング数',
+                                                        data: [{{listing_legend_I.total_listing}}, {{listing_legend_II.total_listing}}, {{listing_legend_III.total_listing}}, {{listing_legend_IV.total_listing}}, {{listing_legend_V.total_listing}}, {{listing_legend_VI.total_listing}}, {{listing_legend_VII.total_listing}}, {{listing_legend_VIII.total_listing}}, {{listing_legend_IX.total_listing}}, {{listing_legend_X.total_listing}}, {{listing_legend_XI.total_listing}}, {{listing_legend_XII.total_listing}}],
+                                                        backgroundColor: ["rgba(52,199,23,0.6)"]
+                                                    }]
+                                                },
+                                                borderColor: ["rgba(52,199,23,0.6)"],
+                                                pointBackgroundColor: ["rgba(52,199,23,0.6)"],
+                                                fill: false,
+                                                options: {
+                                                    legend: {
+                                                        display: false,
+                                                    },
+                                                    scale: {
+                                                        yAxes: [{
+                                                            ticks: {
+                                                                beginAtZero: true,
+                                                            }
+                                                        }]
+                                                    }
+                                                    //scaleShowLine: true,
+                                                    //scaleOverride: true,
+                                                    //scaleSteps: 10,
+                                                    //scaleStepWidth: 1,
+                                                    //scaleStartValue: 0
                                                 }
-                                            }
-                                            //scaleShowLine: true,
-                                            //scaleOverride: true,
-                                            //scaleSteps: 10,
-                                            //scaleStepWidth: 1,
-                                            //scaleStartValue: 0
-                                        }
-                                    });
-                                    //new Chart(ctx).Radar(myChart);
+                                            });
 
-                                </script>
+                                        </script>
 
-                            </div>
-                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="rating-table-row col-50">
-                            <div>
-                                <table>
-                                    <caption></caption>
-                                    <thead style="background:rgba(52,199,23,0.6)">
-                                        <tr>
-                                            <th>評価項目</th>
-                                            <th>レーティング</th>
-                                            <th>評価基準</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>訪問客数</td>
-                                            <td>{{marketsize}}</td>
-                                            <td>その地域の旅行客の数・どれほどの集客が見込めるか</td>
-                                        </tr>
-                                        <tr>
-                                            <td>成長性</td>
-                                            <td>{{potential}}</td>
-                                            <td>その地域の成長率・今後どれほどの集客の増加が見込めるか</td>
-                                        </tr>
-                                        <tr>
-                                            <td>年間の売上変動</td>
-                                            <td>{{stability}}</td>
-                                            <td>季節などによって売上のばらつきがどれほど発生するか（レーティングが高い＝ばらつきが少ない）</td>
-                                        </tr>
-                                        <tr>
-                                            <td>競合</td>
-                                            <td>{{competition}}</td>
-                                            <td>その地域にどれほど競合がいるか（レーティングが高い＝競合が少ない）</td>
-                                        </tr>
-                                        <tr>
-                                            <td>物件購入費</td>
-                                            <td>{{cost}}</td>
-                                            <td>その地域での物件購入にどれだけの費用がかかるか（レーティングが高い＝少額の費用で物件購入できる）</td>
-                                        </tr>
-                                        <tr>
-                                            <td>価格</td>
-                                            <td>{{ex_return}}</td>
-                                            <td>その地域で民泊を運営した場合、どのくらいの収益が見込めるか</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+
+                                <h3 class="header-2"><span>パフォーマンス</span></h3>
+
+                                <div class="rating-table-row">
+                                    <div>
+                                        <table>
+                                            <caption></caption>
+                                            <tbody>
+                                                <tr>
+                                                    <th>売上順位</th>
+                                                    <td>{{ranking_info.monthly_sales_rank| intcomma}} 位</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>宿泊価格順位</th>
+                                                    <td>{{ranking_info.average_price_rank| intcomma}} 位</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>訪問客増減</th>
+                                                    <td>{{trg_diff_guest_count| intcomma}} 人／年</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="chart-row col-50">
+                                    <div>
+                                        <canvas id="guest_legend" class="guest_legend" width="300" height="210"></canvas>
+
+                                        <!-- ラインチャート表示部分 -->
+                                        <script>
+                                            console.log('***DEBUG***');
+                                            console.log(document);
+                                            var ctx = document.getElementById('guest_legend').getContext('2d');
+                                            var mychart =  new Chart(ctx, {
+                                                type: 'line',
+                                                data: {
+                                                    labels: ['{{gest_legend_I.year}}/{{guest_legend_I.month}}', '{{guest_legend_II.year}}/{{guest_legend_II.month}}', '{{guest_legend_III.year}}/{{guest_legend_III.month}}', '{{guest_legend_IV.year}}/{{guest_legend_IV.month}}', '{{guest_legend_V.year}}/{{guest_legend_V.month}}', '{{guest_legend_VI.year}}/{{guest_legend_VI.month}}', '{{guest_legend_VII.year}}/{{guest_legend_VII.month}}','{{guest_legend_VIII.year}}/{{guest_legend_VIII.month}}', '{{guest_legend_IX.year}}/{{guest_legend_IX.month}}', '{{guest_legend_X.year}}/{{guest_legend_X.month}}', '{{guest_legend_XI.year}}/{{guest_legend_XI.month}}', '{{guest_legend_XII.year}}/{{guest_legend_XII.month}}'],
+                                                    datasets: [{
+                                                        label: 'ゲスト数',
+                                                        data: [{{guest_legend_I.guest_count}}, {{guest_legend_II.guest_count}}, {{guest_legend_III.guest_count}}, {{guest_legend_IV.guest_count}}, {{guest_legend_V.guest_count}}, {{guest_legend_VI.guest_count}}, {{guest_legend_VII.guest_count}}, {{guest_legend_VIII.guest_count}}, {{guest_legend_IX.guest_count}}, {{guest_legend_X.guest_count}}, {{guest_legend_XI.guest_count}}, {{guest_legend_XII.guest_count}}],
+                                                        backgroundColor: ["rgba(52,199,23,0.6)"]
+                                                    }]
+                                                },
+                                                borderColor: ["rgba(52,199,23,0.6)"],
+                                                pointBackgroundColor: ["rgba(52,199,23,0.6)"],
+                                                fill: false,
+                                                options: {
+                                                    legend: {
+                                                        display: false,
+                                                    },
+                                                    scale: {
+                                                        yAxes: [{
+                                                            ticks: {
+                                                                beginAtZero: true,
+                                                            }
+                                                        }]
+                                                    }
+                                                    //scaleShowLine: true,
+                                                    //scaleOverride: true,
+                                                    //scaleSteps: 10,
+                                                    //scaleStepWidth: 1,
+                                                    //scaleStartValue: 0
+                                                }
+                                            });
+
+                                        </script>
+
+                                    </div>
+                                </div>
+
+                                <h3 class="header-2"><span>地域の特徴（{{trg_region_sum_info.region.prefecture.prefecture_name}}）</span></h3>
+
+                                <p>{{ trg_region_sum_info.region.prefecture.prefecture_name }}を訪れる外国人観光客の順位は以下の通りです。</p>
+                                <p>
+                                      １位　{{trg_guestnationality_info_I.nationality.nationality_name}}国籍<br />
+                                      ２位　{{trg_guestnationality_info_II.nationality.nationality_name}}国籍<br />
+                                      ３位　{{trg_guestnationality_info_III.nationality.nationality_name}}国籍<br /><br />
+                                </p>
+                                <p>外国人観光客の内訳は以下の通りです。</p>
+
+                                <div class="chart-row col-50">
+                                    <div>
+                                        <canvas id="guestnationality" class="guestnationality" width="300" height="210"></canvas>
+
+                                        <!-- パイチャート表示部分 -->
+                                        <script>
+                                            console.log('***DEBUG***');
+                                            console.log(document);
+                                            var ctx = document.getElementById('guestnationality').getContext('2d');
+                                            var mychart =  new Chart(ctx, {
+                                                type: 'pie',
+                                                data: {
+                                                    labels: ['{{trg_guestnationality_info_I.nationality.nationality_name}}', '{{trg_guestnationality_info_II.nationality.nationality_name}}', '{{trg_guestnationality_info_III.nationality.nationality_name}}', '{{trg_guestnationality_info_IV.nationality.nationality_name}}', '{{trg_guestnationality_info_V.nationality.nationality_name}}', '{{trg_guestnationality_info_VI.nationality.nationality_name}}', '{{trg_guestnationality_info_VII.nationality.nationality_name}}'],
+                                                    datasets: [{
+                                                        label: '観光客国籍',
+                                                        data: [{{trg_guestnationality_info_I.answer_count}}, {{trg_guestnationality_info_II.answer_count}}, {{trg_guestnationality_info_III.answer_count}}, {{trg_guestnationality_info_IV.answer_count}}, {{trg_guestnationality_info_V.answer_count}}, {{trg_guestnationality_info_VI.answer_count}}, {{trg_guestnationality_info_VII.answer_count}}],
+                                                        backgroundColor: ["rgba(230,27,46,0.6)", "rgba(238,116,28,0.6)", "rgba(238,229,28,0.6)", "rgba(52,199,23,0.6)", "rgba(32,75,159,0.6)", "rgba(137,21,157,0.6)" ]
+                                                    }]
+                                                },
+                                                options: {
+                                                    legend: {
+                                                        display: true,
+                                                    },
+                                                    scale: {
+                                                        xAxes: [{
+                                                            ticks: {
+                                                                beginAtZero: true,
+                                                                max: 5,
+                                                            }
+                                                        }]
+                                                    }
+                                                    //scaleShowLine: true,
+                                                    //scaleOverride: true,
+                                                    //scaleSteps: 10,
+                                                    //scaleStepWidth: 1,
+                                                    //scaleStartValue: 0
+                                                }
+                                            });
+
+                                        </script>
+                                    </div>
+                                </div>
+
+                                <h3 class="header-2"><span>コスト（{{trg_region_sum_info.region.prefecture.prefecture_name}}）</span></h3>
+
+                                <div class="rating-table-row">
+                                    <div>
+                                        <table>
+                                            <caption></caption>
+                                            <tbody>
+                                                <tr>
+                                                    <th>家賃</th>
+                                                    <td>{{trg_rent| intcomma}} 円(*1)</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>リフォーム業者報酬</th>
+                                                    <td>{{trg_reform_fee| intcomma}} 円(*1)</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>塗装業者報酬</th>
+                                                    <td>{{trg_repainting_fee| intcomma}} 円(*1)</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>トイレリフォーム費</th>
+                                                    <td>{{trg_restroom_facility_cost| intcomma}} 円</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>お風呂リフォーム費</th>
+                                                    <td>{{trg_bathroom_facility_cost| intcomma}} 円</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>キッチンリフォーム費</th>
+                                                    <td>{{trg_kitchen_facility_cost| intcomma}} 円</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        (*1)１平米あたりの値段
+                                    </div>
+                                </div>
+
 
                         <div class="content-block mb-15">
-                            <h3>民泊シミュレーション</h3>
+                            <h3>利回りシミュレーション</h3>
 
                             <div class="buttons-row">
                                 <a href="#tab1-1" class="tab-link active button button-primary">アパート経営</a>
-                                <a href="#tab2-1" class="tab-link button button-primary">転貸物件で民泊経営</a>
-                                <a href="#tab3-1" class="tab-link button button-primary">購入物件で民泊経営</a>
+                                <a href="#tab2-1" class="tab-link button button-primary">転貸物件民泊</a>
+                                <a href="#tab3-1" class="tab-link button button-primary">購入物件民泊</a>
                             </div>
                         </div>
 
@@ -890,7 +1059,7 @@
 <!--<script type="text/javascript" src="/bower_components/framework7/dist/js/framework7.min.js"></script>-->
 <script type="text/javascript" src="/bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/bower_components/Tweetie/tweetie.min.js"></script>
-<!--<script type="text/javascript" src="/bower_components/chartjs/Chart.js"></script>-->
+<script type="text/javascript" src="/bower_components/chartjs/Chart.js"></script>
 <script type="text/javascript" src="/bower_components/scrollAnimate/jquery.scrollAnimate.js"></script>
 <script type="text/javascript" src="/bower_components/owl-carousel/owl-carousel/owl.carousel.min.js"></script>
 <script type="text/javascript" src="/bower_components/vide/dist/jquery.vide.min.js"></script>

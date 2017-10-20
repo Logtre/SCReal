@@ -7937,8 +7937,8 @@ position: absolute;
 left: 50%;
 top: 50%;
 margin-left: -25px;
--webkit-transition: all 0.3s;
-transition: all 0.3s;
+-webkit-transition: all 0.1s;
+transition: all 0.1s;
 -webkit-transform: rotate(0deg);
 -ms-transform: rotate(0deg);
 transform: rotate(0deg);
@@ -7992,24 +7992,26 @@ transform: translateY(8px);
 /*    19. for Rating table                     */
 /* =========================================== */
 
-.rating-table-row{
-  table{
+.rating-table-row table{
+    margin-top: 20px;
+    margin-bottom: 50px;
     border-collapse: collapse;
     padding: 2px 10px;
+    width: 100%;
   }
-  th{
+.rating-table-row th{
     padding: 10px;
     font-weight: bold;
     vertical-align: top;
     border: solid 1px #ccc;
     font-size: 16px;
+    text-align: left;
   }
-  td{
+.rating-table-row td{
     padding: 0.5em;
     vertical-align: top;
     border: solid 1px #ccc;
-    font-size: 12px;
-  }
+    font-size: 14px;
 }
 
 /* =========================================== */
@@ -8024,12 +8026,36 @@ transform: translateY(8px);
 /*    21. for tab                              */
 /* =========================================== */
 
-.tab{overflow:hidden;}
-.tab .toggle{background:#ccc; padding:5px 25px; float:left; margin-right:1px;}
-.tab .toggle.select{background:#eee;}
-.content .toggle{background:#eee; padding:20px;}
-.hide {display:none;}
+.tab{
+  overflow:hidden;
+}
 
+.tab .toggle{
+  background:#fff;
+  padding:5px 22px;
+  float:left;
+  margin-right:1px;
+  font-size:12px;
+  margin-left:1px;
+}
+
+.tab .toggle.select{
+  background:#30583B;
+  color:#ffffff;
+}
+
+.content .toggle{
+  background:#ffffff;
+  padding:0px;
+}
+
+.hide {
+  display:none;
+}
+
+.toggle .item-inner{
+  padding-left:15px;
+}
 /* =========================================== */
 /*    22. for star-rating                      */
 /* =========================================== */
@@ -8037,17 +8063,17 @@ transform: translateY(8px);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,700);
 .star-ratings-css {
   unicode-bidi: bidi-override;
-  color: #c5c5c5;
+  color: #ffffff;
   font-size: 25px;
   height: 25px;
   width: 100px;
-  margin: 0 auto;
+  margin: 0;
   position: relative;
   padding: 0;
-  text-shadow: 0px 1px 0 #a2a2a2;
+  text-shadow: 0px 1px 0 #ffffff;
 }
 .star-ratings-css-top {
-  color: #e7711b;
+  color: #30583B;
   padding: 0;
   position: absolute;
   z-index: 1;
@@ -8060,4 +8086,26 @@ transform: translateY(8px);
   padding: 0;
   display: block;
   z-index: 0;
+}
+
+/* =========================================== */
+/*    23. for original rayout                  */
+/* =========================================== */
+
+.performance_city_name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.performance_prefecture_name {
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.ROI {
+  margin-top: 10px;
+  margin-bottom: 18px;
+  font-size: 17px;
+  color: #F24757;
+  font-weight: bold;
 }
