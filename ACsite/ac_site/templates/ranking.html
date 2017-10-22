@@ -708,7 +708,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="center sliding">都道府県一覧</div>
+                <div class="center sliding">民泊地域ランキング</div>
                 <div class="right">
                     <a href="#" class="link icon-only open-panel" data-panel="right">
                         <span class="kkicon icon-star"></span>
@@ -743,25 +743,80 @@
                                         </div>
                                     </a>
                                 </li>-->
-                                {% for p in latest_region_list %}
-                                    <li>
-                                        <a href="{% url 'ac_site:cities' region_id=p.id %}" class="item-link item-content">
-                                            <div class="item-media">
-                                                <div class="card-header no-border item-content-icon item-content-icon-gallery"></div>
-                                            </div>
-                                            <div class="item-inner">
-                                                <div class="item-title-row">
-                                                    <div class="item-title">
-                                                        {{ p.prefecture.prefecture_name }}
+                                <ul class="tab">
+                                    <li class="select toggle">掲載数</li>
+                                    <li class="toggle">価格</li>
+                                    <li class="toggle">売上高</li>
+                                </ul>
+                                <ul class="content">
+                                    <div class="toggle">
+                                        {% for p in total_listing_ranking %}
+                                            <li>
+                                                <a href="{% url 'ac_site:city_show' region_id=p.region.prefecture.id region_city_id=p.region_id %}" class="item-link item-content">
+                                                    <!--<div class="item-media">
+                                                        <div class="card-header no-border item-content-icon item-content-icon-gallery"></div>
+                                                    </div>-->
+                                                    <div class="itm-media">
+                                                        {{ forloop.counter }}
                                                     </div>
-                                                </div>
-                                                <div class="item-subtitle">
-                                                    <!--3 columns layout-->
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                {% endfor %}
+                                                    <div class="item-inner">
+                                                        <div class="item-title-row">
+                                                            <div class="item-title">
+                                                                {{ p.region.city.city_name }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="item-subtitle">
+                                                            <!--3 columns layout-->
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="toggle hide">
+                                        {% for q in average_price_ranking %}
+                                            <li>
+                                                <a href="{% url 'ac_site:city_show'  region_id=q.region.prefecture.id region_city_id=q.region_id %}" class="item-link item-content">
+                                                    <div class="item-media">
+                                                        <!--<div class="card-header no-border item-content-icon item-content-icon-gallery"></div>-->
+                                                        {{ forloop.counter }}
+                                                    </div>
+                                                    <div class="item-inner">
+                                                        <div class="item-title-row">
+                                                            <div class="item-title">
+                                                                {{ q.region.city.city_name }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="item-subtitle">
+                                                            <!--3 columns layout-->
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="toggle hide">
+                                        {% for r in monthly_sales_ranking %}
+                                            <li>
+                                                <a href="{% url 'ac_site:city_show' region_id=r.region.prefecture.id region_city_id=r.region_id %}" class="item-link item-content">
+                                                    <div class="item-media">
+                                                        <!--<div class="card-header no-border item-content-icon item-content-icon-gallery"></div>-->
+                                                        {{ forloop.counter }}
+                                                    </div>
+                                                    <div class="item-inner">
+                                                        <div class="item-title-row">
+                                                            <div class="item-title">
+                                                                {{ r.region.city.city_name }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="item-subtitle">
+                                                            <!--3 columns layout-->
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </div>
                             </ul>
                         </div>
 

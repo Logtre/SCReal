@@ -33,11 +33,6 @@
     <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.carousel.css">
     <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.theme.css">
     <link rel="stylesheet" href="/assets/css/app.css">
-    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/assets/js/tab.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-    <script type="text/javascript" src="/assets/js/chart.js"></script>
-    <script type="text/javascript" src="/assets/js/radar-chart-view.js"></script>
 
     <!-- for LOCAL SETTING  START --
     <link rel="stylesheet" href="/static/ac_site/bower_components/font-awesome/css/font-awesome.min.css">
@@ -54,6 +49,10 @@
     <link rel="stylesheet" type="text/css" href="{% static '/ac_site/assets/css/app.css' %}" />
     <!-- for LOCAL SETTING  END -->
     <!-- <link rel="stylesheet" href="assets/themes/green/style.css" id="theme-style">-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script type="text/javascript" src="/assets/js/chart.js"></script>
+    <script type="text/javascript" src="/assets/js/radar-chart-view.js"></script>
 </head>
 <body onload="hidePreloader()">
 
@@ -77,26 +76,16 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'ac_site:ranking' %}" class="item-link close-panel item-content">
-                <div class="item-media">
-                    <i class="fa fa-trophy"></i>
-                </div>
-                <div class="item-inner">
-                    <div class="item-title">民泊地域ランキング</div>
-                </div>
-            </a>
-        </li>
-        <li>
             <a href="{% url 'ac_site:prefectures' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-area-chart"></i>
                 </div>
                 <div class="item-inner">
-                    <div class="item-title">民泊向け都道府県一覧</div>
+                    <div class="item-title">民泊レーティング</div>
                 </div>
             </a>
         </li>
-        <!--<li>
+        <li>
             <a href="ac_site/news_release.html" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-newspaper-o"></i>
@@ -105,9 +94,9 @@
                     <div class="item-title">みんなの民泊日記</div>
                 </div>
             </a>
-        </li>-->
+        </li>
         <li>
-            <a href="{% url 'ac_site:contact' %}" class="item-link close-panel item-content">
+            <a href="ac_site/contact.html" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-envelope-o"></i>
                 </div>
@@ -442,7 +431,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <!--<li>
+                            <li>
                                 <a href="ac_site/minnpaku_news.html" class="item-link close-panel item-content">
                                     <div class="item-media">
                                         <i class="fa fa-newspaper-o"></i>
@@ -450,11 +439,11 @@
                                     <div class="item-inner">
                                         <div class="item-title">みんなの民泊日記</div>
                                         <div class="item-after">
-                                            <span class="badge badge-secondary">new</span>
+                                            <!--<span class="badge badge-secondary">new</span>-->
                                         </div>
                                     </div>
                                 </a>
-                            </li>-->
+                            </li>
                             <!--<li>
                                 <a href="article-1.html" class="item-link close-panel item-content">
                                     <div class="item-media">
@@ -508,7 +497,7 @@
                         </a>
                     </li>-->
                     <li>
-                        <a href="{% url 'ac_site:contact' %}" class="item-link close-panel item-content">
+                        <a href="ac_site/contact.html" class="item-link close-panel item-content">
                             <div class="item-media">
                                 <i class="fa fa-envelope-o"></i>
                             </div>
@@ -690,7 +679,6 @@
     </div>
 </div>-->
 
-
 <!-- Views -->
 <div class="views">
     <div class="view view-main">
@@ -708,65 +696,293 @@
                         </div>
                     </div>
                 </div>
-                <div class="center sliding">都道府県一覧</div>
+                <div class="center sliding">{{ region_info.city.city_name }} レーティング情報</div>
                 <div class="right">
                     <a href="#" class="link icon-only open-panel" data-panel="right">
-                        <span class="kkicon icon-star"></span>
+                        <span class="kkicon icon-alarm"></span>
                     </a>
                 </div>
             </div>
         </div>
 
-        <div class="view another-view">
-            <!-- Pages -->
-            <div class="pages">
-                <div class="page no-toolbar" data-page="features">
-                    <div class="page-content">
+        <div class="pages navbar-fixed toolbar-fixed">
+            <div data-page="charts" class="page">
 
-                        <div class="list-block media-list">
-                            <ul>
+                <div class="page-content">
+                    <div class="content-wew">
 
-                                <!--<li>
-                                    <a href="#" data-popup=".popup-splash" class="open-popup item-link item-content">
-                                        <div class="item-media">
-                                            <div class="card-header no-border item-content-icon item-content-icon-slider"></div>
-                                        </div>
-                                        <div class="item-inner">
-                                            <div class="item-title-row">
-                                                <div class="item-title">
-                                                    App update info
-                                                </div>
-                                            </div>
-                                            <div class="item-subtitle">
-                                                Cool app update slider!
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>-->
-                                {% for p in latest_region_list %}
-                                    <li>
-                                        <a href="{% url 'ac_site:cities' region_id=p.id %}" class="item-link item-content">
-                                            <div class="item-media">
-                                                <div class="card-header no-border item-content-icon item-content-icon-gallery"></div>
-                                            </div>
-                                            <div class="item-inner">
-                                                <div class="item-title-row">
-                                                    <div class="item-title">
-                                                        {{ p.prefecture.prefecture_name }}
-                                                    </div>
-                                                </div>
-                                                <div class="item-subtitle">
-                                                    <!--3 columns layout-->
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
+                        <!--<div class="content-block-title">
+                            Line Chart
+                        </div>
+
+                        <div class="chart-row">
+                            <div>
+                                <canvas class="line-chart-content" width="300" height="150"></canvas>
+                            </div>
+                        </div>-->
+
+                        <!--<div class="content-block-title">
+                            Bar Chart
+                        </div>
+
+                        <div class="chart-row">
+                            <div>
+                                <canvas class="bar-chart-content" width="300" height="150"></canvas>
+                            </div>
+                        </div>-->
+
+                        <!--<div class="content-block-title">
+                            Pie Chart
+                        </div>
+
+                        <div class="chart-row">
+                            <div>
+                                <canvas class="pie-chart-content" width="300" height="150"></canvas>
+                            </div>
+                        </div>-->
+
+                        <!--<div class="content-block-title">
+                            Doughnut Chart
+                        </div>
+
+                        <div class="chart-row">
+                            <div>
+                                <canvas class="doughnut-chart-content" width="300" height="150"></canvas>
+                            </div>
+                        </div>-->
+
+                        <div class="content-block content-light">
+                            <div class="content-wew">
+                                <h3 class="header-2"><span>レーティング</span></h3>
+                                <p></p>
+
+
+                                <div class="chart-row col-50">
+                                    <div>
+                                        <canvas id="general_rating-content" class="general_rating-content" width="300" height="210"></canvas>
+
+                                        <!-- 横棒チャート表示部分 -->
+                                        <script>
+                                            console.log('***DEBUG***');
+                                            console.log(document);
+                                            var ctx = document.getElementById('general_rating-content').getContext('2d');
+                                            var mychart =  new Chart(ctx, {
+                                                type: 'horizontalBar',
+                                                data: {
+                                                    labels: ['総合レーティング', '訪問客数', '成長性', '年間の売上変動', '競合数', '物件購入費', '価格'],
+                                                    datasets: [{
+                                                        label: 'レーティング',
+                                                        data: [{{general_rating}}, {{marketsize}}, {{potential}}, {{stability}}, {{competition}}, {{cost}}, {{ex_return}}],
+                                                        backgroundColor: ["rgba(238,115,28,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)"]
+                                                    }]
+                                                },
+                                                options: {
+                                                    legend: {
+                                                        display: false,
+                                                    },
+                                                    scale: {
+                                                        xAxes: [{
+                                                            ticks: {
+                                                                beginAtZero: true,
+                                                                max: 5,
+                                                            }
+                                                        }]
+                                                    }
+                                                    //scaleShowLine: true,
+                                                    //scaleOverride: true,
+                                                    //scaleSteps: 10,
+                                                    //scaleStepWidth: 1,
+                                                    //scaleStartValue: 0
+                                                }
+                                            });
+
+                                        </script>
+
+                                    </div>
+                                </div>
+
+                                <h3 class="header-2"><span>訪問客数</span></h3>
+                                <p>{{ region_info.city.city_name }}の年間訪問外国人観光客数は{{ trg_guest_count }}人です。</p>
+                                <p>外国人観光客の内訳は以下の通りです。</p>
+                                <div class="chart-row col-50">
+                                    <div>
+                                        <canvas id="general_rating-content" class="general_rating-content" width="300" height="210"></canvas>
+
+                                        <!-- 横棒チャート表示部分 -->
+                                        <script>
+                                            console.log('***DEBUG***');
+                                            console.log(document);
+                                            var ctx = document.getElementById('general_rating-content').getContext('2d');
+                                            var mychart =  new Chart(ctx, {
+                                                type: 'pie',
+                                                data: {
+                                                    labels: ['韓国', '台湾', '香港', '中国', 'タイ', '米国', 'その他'],
+                                                    datasets: [{
+                                                        label: 'レーティング',
+                                                        data: [{{rate_guestnationality_info_korea}}, {{rate_guestnationality_info_taiwang}}, {{rate_guestnationality_info_hongkong}}, {{rate_guestnationality_info_china}}, {{rate_guestnationality_info_thailand}}, {{rate_guestnationality_info_usa}}, {{rate_guestnationality_info_other}}],
+                                                        backgroundColor: ["rgba(238,115,28,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)", "rgba(52,199,23,0.6)"]
+                                                    }]
+                                                },
+                                                options: {
+                                                    legend: {
+                                                        display: false,
+                                                    },
+                                                    scale: {
+                                                        xAxes: [{
+                                                            ticks: {
+                                                                beginAtZero: true,
+                                                                max: 5,
+                                                            }
+                                                        }]
+                                                    }
+                                                    //scaleShowLine: true,
+                                                    //scaleOverride: true,
+                                                    //scaleSteps: 10,
+                                                    //scaleStepWidth: 1,
+                                                    //scaleStartValue: 0
+                                                }
+                                            });
+
+                                        </script>
+                                    </div>
+                                </div>
+
+                                <h3 class="header-2"><span>成長性</span></h3>
+                                <h3 class="header-2"><span>年間の売上変動</span></h3>
+                                <h3 class="header-2"><span>競合数</span></h3>
+                                <h3 class="header-2"><span>物件購入費</span></h3>
+                                <h3 class="header-2"><span>価格</span></h3>
+
+                            </div>
+                        </div>
+
+                        <div class="chart-row col-50">
+                            <div>
+                                <canvas id="radar-chart-content" class="radar-chart-content" width="300" height="150"></canvas>
+
+                                <!-- レーダーチャート表示部分 -->
+                                <script>
+                                    console.log('***DEBUG***');
+                                    console.log(document);
+                                    var ctx = document.getElementById('radar-chart-content').getContext('2d');
+                                    var mychart =  new Chart(ctx, {
+                                        type: 'radar',
+                                        data: {
+                                            labels: ['訪問客数', '成長性', '年間の売上変動', '競合数', '物件購入費', '価格'],
+                                            datasets: [{
+                                                label: 'レーティング',
+                                                data: [{{marketsize}}, {{potential}}, {{stability}}, {{competition}}, {{cost}}, {{ex_return}}],
+                                                backgroundColor: "rgba(52,199,23,0.6)"
+                                            }]
+                                        },
+                                        options: {
+                                            legend: {
+                                                display: false
+                                            },
+                                            scale: {
+                                                ticks: {
+                                                    beginAtZero: true,
+                                                    max: 5,
+                                                }
+                                            }
+                                            //scaleShowLine: true,
+                                            //scaleOverride: true,
+                                            //scaleSteps: 10,
+                                            //scaleStepWidth: 1,
+                                            //scaleStartValue: 0
+                                        }
+                                    });
+                                    //new Chart(ctx).Radar(myChart);
+
+                                </script>
+
+                            </div>
+                        </div>
+
+                        <div class="rating-table-row col-50">
+                            <div>
+                                <table>
+                                    <caption></caption>
+                                    <thead style="background:rgba(52,199,23,0.6)">
+                                        <tr>
+                                            <th>評価項目</th>
+                                            <th>レーティング</th>
+                                            <th>評価基準</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>訪問客数</td>
+                                            <td>{{marketsize}}</td>
+                                            <td>その地域の旅行客の数・どれほどの集客が見込めるか</td>
+                                        </tr>
+                                        <tr>
+                                            <td>成長性</td>
+                                            <td>{{potential}}</td>
+                                            <td>その地域の成長率・今後どれほどの集客の増加が見込めるか</td>
+                                        </tr>
+                                        <tr>
+                                            <td>年間の売上変動</td>
+                                            <td>{{stability}}</td>
+                                            <td>季節などによって売上のばらつきがどれほど発生するか（レーティングが高い＝ばらつきが少ない）</td>
+                                        </tr>
+                                        <tr>
+                                            <td>競合</td>
+                                            <td>{{competition}}</td>
+                                            <td>その地域にどれほど競合がいるか（レーティングが高い＝競合が少ない）</td>
+                                        </tr>
+                                        <tr>
+                                            <td>物件購入費</td>
+                                            <td>{{cost}}</td>
+                                            <td>その地域での物件購入にどれだけの費用がかかるか（レーティングが高い＝少額の費用で物件購入できる）</td>
+                                        </tr>
+                                        <tr>
+                                            <td>価格</td>
+                                            <td>{{ex_return}}</td>
+                                            <td>その地域の民泊業者が、どのくらいの値段設定で営業しているか</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="content-block mb-15">
+                            <h3>利回りシミュレーション</h3>
+
+                            <div class="buttons-row">
+                                <a href="#tab1-1" class="tab-link active button button-primary">アパート経営</a>
+                                <a href="#tab2-1" class="tab-link button button-primary">転貸物件民泊</a>
+                                <a href="#tab3-1" class="tab-link button button-primary">購入物件民泊</a>
+                            </div>
+                        </div>
+
+                        <div class="tabs">
+                            <div id="tab1-1" class="tab active">
+                                <div class="content-block mt-15">
+                                    <p>アパート経営</p>
+                                    <p>Duis ac nibh ac quam quam sagittis tortor. Cum sociis natoque penatibus et neque. Etiam dolor. Vivamus consectetuer adipiscing elit. Nunc vehicula. Integer condimentum sed, luctus diam. </p>
+                                </div>
+                            </div>
+
+                            <div id="tab2-1" class="tab">
+                                <div class="content-block mt-15">
+                                    <p>転貸物件で民泊経営</p>
+                                    <p>Fusce gravida, eros magna dolor, dictum sed, ullamcorper et, nonummy faucibus condimentum lorem id rutrum consectetuer lectus. Fusce ullamcorper libero vel blandit non, placerat nisl auctor quis.</p>
+                                </div>
+                            </div>
+
+                            <div id="tab3-1" class="tab">
+                                <div class="content-block mt-15">
+                                    <p>購入物件で民泊経営</p>
+                                    <p>Fusce gravida, eros magna dolor, dictum sed, ullamcorper et, nonummy faucibus condimentum lorem id rutrum consectetuer lectus. Fusce ullamcorper libero vel blandit non, placerat nisl auctor quis.</p>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -777,7 +993,7 @@
 <!--<script type="text/javascript" src="/bower_components/framework7/dist/js/framework7.min.js"></script>-->
 <script type="text/javascript" src="/bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/bower_components/Tweetie/tweetie.min.js"></script>
-<script type="text/javascript" src="/bower_components/chartjs/Chart.js"></script>
+<!--<script type="text/javascript" src="/bower_components/chartjs/Chart.js"></script>-->
 <script type="text/javascript" src="/bower_components/scrollAnimate/jquery.scrollAnimate.js"></script>
 <script type="text/javascript" src="/bower_components/owl-carousel/owl-carousel/owl.carousel.min.js"></script>
 <script type="text/javascript" src="/bower_components/vide/dist/jquery.vide.min.js"></script>

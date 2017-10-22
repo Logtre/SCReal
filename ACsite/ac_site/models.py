@@ -113,6 +113,7 @@ class AnnualSummary(models.Model):
     guest_count_youthhostel = models.IntegerField(default=0, null=True)
     guest_count_other = models.IntegerField(default=0, null=True)
     website_count = models.IntegerField(default=0, null=True)
+    total_floor_area = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     created_at = models.DateTimeField(default=timezone.now)
     region = models.ForeignKey('Region', blank=True, null=True, related_name='link_annualsummary', on_delete=models.CASCADE)
 
@@ -144,6 +145,16 @@ class GuestNationality(models.Model):
     visit_duration = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     created_at = models.DateTimeField(default=timezone.now)
     region = models.ForeignKey('Region', blank=True, null=True, related_name='link_guestnationality', on_delete=models.CASCADE)
+
+
+class Ranking(models.Model):
+    prefecture_code = models.IntegerField(default=0, null=True)
+    city_code = models.IntegerField(default=0, null=True)
+    total_listing_rank = models.IntegerField(default=0)
+    average_price_rank = models.IntegerField(default=0)
+    monthly_sales_rank = models.IntegerField(default=0)
+    created_at = models.DateTimeField(default=timezone.now)
+    region = models.ForeignKey('Region', blank=True, null=True, related_name='link_ranking', on_delete=models.CASCADE)
 
 
 #class MonthlySummary(models.Model):

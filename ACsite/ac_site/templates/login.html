@@ -560,215 +560,73 @@
 
 </div>
 
-<!-- Right panel -->
-<!--<div class="panel panel-right panel-reveal">
-
-    <div class="welcome-msg">
-        <div class="avatars">
-            <span><img src="assets/img/tmp/ava1.jpg" alt="ava1"></span>
-            <span><img src="assets/img/tmp/ava2.jpg" alt="ava1"></span>
-            <span><img src="assets/img/tmp/ava3.jpg" alt="ava1"></span>
-            <span><img src="assets/img/tmp/ava4.jpg" alt="ava1"></span>
-            <span><img src="assets/img/tmp/ava5.jpg" alt="ava1"></span>
-        </div>
-        <p class="text-center">
-            Say hello to your friends!
-        </p>
+<div class="navbar navbar-clear">
+    <div class="navbar-inner">
+        <div class="center sliding"></div>
     </div>
+</div>
 
-    <div class="buttons-row">
-        <a href="#" class="button button-small button-light button-clear">
-            <span class="icon-bubble-pencil fs-24"></span>
-        </a>
-        <a href="#" class="button button-small button-light button-clear">
-            <span class="icon-users-plus fs-24"></span>
-        </a>
-    </div>
+<div class="pages navbar-fixed toolbar-fixed">
+    <div data-page="login" class="page page-bg full-page-video full-page-image">
 
-    <div class="list-block media-list mt-15">
-        <div class="list-group">
-            <nav class="contacts">
-                <ul>
-                    <li>
-                        <a href="" class="item-link close-panel item-content">
-                            <div class="item-media">
-                                <span>
-                                    <img src="assets/img/tmp/ava-demo.jpg" alt="">
-                                </span>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">Lu Mayer</div>
-                                </div>
-                                <div class="item-subtitle">1h ago</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="item-link close-panel item-content online">
-                            <div class="item-media">
-                                <span>
-                                    <img src="assets/img/tmp/ava1.jpg" alt="">
-                                    <i class="fa fa-envelope"></i>
-                                </span>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">Adam Z.</div>
-                                </div>
-                                <div class="item-subtitle">ONLINE</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="item-link close-panel item-content">
-                            <div class="item-media">
-                                <span>
-                                    <img src="assets/img/tmp/ava2.jpg" alt="">
-                                </span>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">Ala C.</div>
-                                </div>
-                                <div class="item-subtitle">1min ago</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="item-link close-panel item-content">
-                            <div class="item-media">
-                                <span>
-                                    <img src="assets/img/tmp/ava5.jpg" alt="">
-                                    <i class="fa fa-envelope"></i>
-                                </span>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">Su K.</div>
-                                </div>
-                                <div class="item-subtitle">12.12.2012</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="item-link close-panel item-content online">
-                            <div class="item-media">
-                                <span>
-                                    <img src="assets/img/tmp/ava3.jpg" alt="">
-                                </span>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">Mike F.</div>
-                                </div>
-                                <div class="item-subtitle">ONLINE</div>
-                            </div>
-                        </a>
-                    </li>
-
-                </ul>
-            </nav>
-        </div>
-
-        <div class="list-group mt-20" style="display: none">
-            <nav>
-                <ul>
-                    <li>
-                        <a href="#" class="item-link item-primary close-panel item-content">
-                            <div class="item-media">
-                                <i class="fa fa-info-circle"></i>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title">About APP/Website</div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</div>-->
-
-
-<!-- Views -->
-<div class="views">
-    <div class="view view-main">
-        <div class="navbar">
-            <div class="navbar-inner">
-                <div class="left">
-                    <!--<a href="#" class="link icon-only open-panel">
-                        <span class="kkicon icon-menu"></span>
-                    </a>-->
-                    <div class="left-panel-gnav-btn">
-                        <div class="left-panel-icon-animation">
-                            <span class="top"></span>
-                            <span class="middle"></span>
-                            <span class="bottom"></span>
-                        </div>
-                    </div>
+        <div class="page-content">
+            <div class="content-wew">
+                <div class="logo mt-70">
+                    <img src="assets/img/logo-login.png" alt="">
                 </div>
-                <div class="center sliding">都道府県一覧</div>
-                <div class="right">
-                    <a href="#" class="link icon-only open-panel" data-panel="right">
-                        <span class="kkicon icon-star"></span>
-                    </a>
+
+                <div class="login-view-box mt-50">
+
+                    {% block content %}
+                    <form method="post" action="{% url 'account_login' %}">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button type="submit">Sign In</button>
+                    </form>
+                    {% endblock %}
+
+                    <div class="list login-form-box">
+                        <form ng-submit="tryLogin()" class="form nice-label">
+
+                            <div class="form-row">
+                                <label for="login"><span class="icon-man"></span></label>
+                                <input type="text" id="login" placeholder="Login">
+                            </div>
+                            <div class="form-row">
+                                <label for="password"><span class="icon-lock"></span></label>
+                                <input type="password" id="password" placeholder="Password">
+                            </div>
+
+                            <a href="#"
+                                class="button button-primary button-fill"
+                                id="login-button">Sign In</a>
+
+                            <div class="text-right forgot-password">
+                                <a href="#">Forgot password?</a>
+                            </div>
+                            <div class="text-center or-social">
+                                or log in using
+                            </div>
+
+                            <div class="buttons-row">
+                                <a href="#" class="button button-facebook button-fill">Facebook</a>
+                                <a href="#" class="button button-twitter button-fill">Twitter</a>
+                            </div>
+
+
+                        </form>
+                    </div>
+
+                    <div class="footer-link text-center">
+                        <a href="registration.html">
+                            I don't have account.
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>
 
-        <div class="view another-view">
-            <!-- Pages -->
-            <div class="pages">
-                <div class="page no-toolbar" data-page="features">
-                    <div class="page-content">
-
-                        <div class="list-block media-list">
-                            <ul>
-
-                                <!--<li>
-                                    <a href="#" data-popup=".popup-splash" class="open-popup item-link item-content">
-                                        <div class="item-media">
-                                            <div class="card-header no-border item-content-icon item-content-icon-slider"></div>
-                                        </div>
-                                        <div class="item-inner">
-                                            <div class="item-title-row">
-                                                <div class="item-title">
-                                                    App update info
-                                                </div>
-                                            </div>
-                                            <div class="item-subtitle">
-                                                Cool app update slider!
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>-->
-                                {% for p in latest_region_list %}
-                                    <li>
-                                        <a href="{% url 'ac_site:cities' region_id=p.id %}" class="item-link item-content">
-                                            <div class="item-media">
-                                                <div class="card-header no-border item-content-icon item-content-icon-gallery"></div>
-                                            </div>
-                                            <div class="item-inner">
-                                                <div class="item-title-row">
-                                                    <div class="item-title">
-                                                        {{ p.prefecture.prefecture_name }}
-                                                    </div>
-                                                </div>
-                                                <div class="item-subtitle">
-                                                    <!--3 columns layout-->
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 

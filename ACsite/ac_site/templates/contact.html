@@ -33,6 +33,11 @@
     <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.carousel.css">
     <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.theme.css">
     <link rel="stylesheet" href="/assets/css/app.css">
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/tab.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script type="text/javascript" src="/assets/js/chart.js"></script>
+    <script type="text/javascript" src="/assets/js/radar-chart-view.js"></script>
 
     <!-- for LOCAL SETTING  START --
     <link rel="stylesheet" href="/static/ac_site/bower_components/font-awesome/css/font-awesome.min.css">
@@ -49,10 +54,6 @@
     <link rel="stylesheet" type="text/css" href="{% static '/ac_site/assets/css/app.css' %}" />
     <!-- for LOCAL SETTING  END -->
     <!-- <link rel="stylesheet" href="assets/themes/green/style.css" id="theme-style">-->
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-    <script type="text/javascript" src="/assets/js/chart.js"></script>
-    <script type="text/javascript" src="/assets/js/radar-chart-view.js"></script>
 </head>
 <body onload="hidePreloader()">
 
@@ -76,16 +77,26 @@
             </a>
         </li>
         <li>
+            <a href="{% url 'ac_site:ranking' %}" class="item-link close-panel item-content">
+                <div class="item-media">
+                    <i class="fa fa-trophy"></i>
+                </div>
+                <div class="item-inner">
+                    <div class="item-title">民泊地域ランキング</div>
+                </div>
+            </a>
+        </li>
+        <li>
             <a href="{% url 'ac_site:prefectures' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-area-chart"></i>
                 </div>
                 <div class="item-inner">
-                    <div class="item-title">民泊レーティング</div>
+                    <div class="item-title">民泊向け都道府県一覧</div>
                 </div>
             </a>
         </li>
-        <li>
+        <!--<li>
             <a href="ac_site/news_release.html" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-newspaper-o"></i>
@@ -94,9 +105,9 @@
                     <div class="item-title">みんなの民泊日記</div>
                 </div>
             </a>
-        </li>
+        </li>-->
         <li>
-            <a href="ac_site/contact.html" class="item-link close-panel item-content">
+            <a href="{% url 'ac_site:contact' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-envelope-o"></i>
                 </div>
@@ -431,7 +442,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a href="ac_site/minnpaku_news.html" class="item-link close-panel item-content">
                                     <div class="item-media">
                                         <i class="fa fa-newspaper-o"></i>
@@ -439,11 +450,11 @@
                                     <div class="item-inner">
                                         <div class="item-title">みんなの民泊日記</div>
                                         <div class="item-after">
-                                            <!--<span class="badge badge-secondary">new</span>-->
+                                            <span class="badge badge-secondary">new</span>
                                         </div>
                                     </div>
                                 </a>
-                            </li>
+                            </li>-->
                             <!--<li>
                                 <a href="article-1.html" class="item-link close-panel item-content">
                                     <div class="item-media">
@@ -497,7 +508,7 @@
                         </a>
                     </li>-->
                     <li>
-                        <a href="ac_site/contact.html" class="item-link close-panel item-content">
+                        <a href="{% url 'ac_site:contact' %}" class="item-link close-panel item-content">
                             <div class="item-media">
                                 <i class="fa fa-envelope-o"></i>
                             </div>
@@ -703,9 +714,9 @@
                 </div>
                 <div class="center sliding">お問い合わせ</div>
                 <div class="right">
-                    <!--<a href="#" class="link icon-only open-panel" data-panel="right">
-                        <span class="kkicon icon-alarm"></span>
-                    </a>-->
+                    <a href="#" class="link icon-only open-panel" data-panel="right">
+                        <span class="kkicon icon-star"></span>
+                    </a>
                 </div>
             </div>
         </div>

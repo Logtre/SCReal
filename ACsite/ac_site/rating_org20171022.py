@@ -42,18 +42,18 @@ def elemental_rating(trg, avg):
 
     # 成長期
     if avg > 0:
-        # lsがave*1/2未満
-        if trg < avg / 2:
+        # lsがave未満
+        if trg < avg:
             elmt_rating = 1 + trg / avg
-        # lsがave*1/2近傍
-        elif avg / 2 <= trg < avg:
-            elmt_rating = 2 + (trg - (avg/2)) / avg # 1単位が2avg
-        # lsがave*1.2倍近傍
-        elif avg <= trg < avg * 1.2:
-            elmt_rating = 3 + (trg - avg) / (avg * 1.2) # 1単位が1.2avg
-        # lsがave*1.5倍近傍
-        elif avg * 1.2 <= trg < avg * 1.5:
-            elmt_rating = 4 + (trg - avg) / (avg * 1.5) # 1単位が1.5avg
+        # lsがave近傍
+        elif avg <= trg < avg * 2:
+            elmt_rating = 2 + (trg - avg) / (avg * 2) # 1単位が2avg
+        # lsがave2倍近傍
+        elif avg * 2 <= trg < avg * 3:
+            elmt_rating = 3 + (trg - avg) / (avg * 3) # 1単位が1avg
+        # lsがave3倍近傍
+        elif avg * 3 <= trg < avg * 5:
+            elmt_rating = 4 + (trg - avg) / (avg * 5) # 1単位が2avg
         # lsがave5倍近傍
         else:
             elmt_rating = 5
@@ -65,12 +65,12 @@ def elemental_rating(trg, avg):
         # lsがave未満の衰退
         elif avg < trg <= 0:
             elmt_rating = 4 - (abs(trg) - abs(avg)) / (abs(avg) * 1) # 1単位が1avg
-        # lsがave1.2倍未満の衰退
-        elif avg * 1.2 < trg <= avg:
-            elmt_rating = 3 - (abs(trg) - abs(avg)) / (abs(avg) * 1.2) # 1単位が1.2avg
+        # lsがave2倍未満の衰退
+        elif avg * 2 < trg <= avg:
+            elmt_rating = 3 - (abs(trg) - abs(avg)) / (abs(avg) * 2) # 1単位が1avg
         # lsがave3倍未満の衰退
-        elif avg * 1.5 < trg <= avg * 2:
-            elmt_rating = 2 - (abs(trg) - abs(avg)) / (abs(avg) * 1.5) # 1単位が1.5avg
+        elif avg * 3 < trg <= avg * 2:
+            elmt_rating = 2 - (abs(trg) - abs(avg)) / (abs(avg) * 3) # 1単位が1avg
         # lsがave3倍以上の衰退
         else:
             elmt_rating = 1
@@ -129,8 +129,6 @@ def cal_beta(ls1, ls2, ls3):
     beta = beta_sum / 12
 
     return beta
-
-
 
 
 def city_list():

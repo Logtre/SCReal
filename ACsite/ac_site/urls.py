@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from django.conf.urls import url
+from django.conf.urls import url, include
 
 from . import views
 from .views import (
@@ -11,7 +11,10 @@ from .views import (
     PrefectureShowView,
     RatingView,
     CityView,
-    CityShowView
+    CityShowView,
+    RankingView,
+    PropertiesView,
+    PropertyShowView
 )
 
 app_name = 'ac_site'
@@ -24,7 +27,10 @@ urlpatterns = [
     url(r'^prefectures/(?P<region_id>[0-9]+)/$', PrefectureShowView.as_view(), name='prefecture_show'),
     url(r'^prefectures/(?P<region_id>[0-9]+)/cities$', CityView.as_view(), name='cities'),
     url(r'^prefectures/(?P<region_id>[0-9]+)/cities/(?P<region_city_id>[0-9]+)/$', CityShowView.as_view(), name='city_show'),
+    url(r'^ranking$', RankingView.as_view(), name='ranking'),
     url(r'^ratings', RatingView.as_view(), name='rating'),
+    url(r'^prefectures/(?P<region_id>[0-9]+)/cities/(?P<region_city_id>[0-9]+)/properties$', PropertiesView.as_view(), name='properties'),
+    url(r'^prefectures/(?P<region_id>[0-9]+)/cities/(?P<region_city_id>[0-9]+)/properties/(?P<property_id>[0-9]+)$', PropertyShowView.as_view(), name='property_show'),
 
     # ex: /ac_site/5/
     url(r'^(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
