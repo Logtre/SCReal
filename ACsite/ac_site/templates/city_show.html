@@ -711,7 +711,7 @@
                 <div class="center sliding">レーティング情報</div>
                 <div class="right">
                     <a href="#" class="link icon-only open-panel" data-panel="right">
-                        <span class="kkicon icon-alarm"></span>
+                        <span class="kkicon icon-star"></span>
                     </a>
                 </div>
             </div>
@@ -771,7 +771,7 @@
 
                                 <div class="ROI">
                                     <!--期待利回り（転貸時）：{{roi1}}％<br />-->
-                                    期待利回り（購入時）：{{roi2}}％<br />
+                                    {{ranking_last_month}}月の利回り：{{roi2}}％<br />
                                 </div>
 
                                 <div class="general_rating_div">総合レーティング （{{general_rating}}点）
@@ -780,6 +780,19 @@
                                         <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
                                     </div>
                                 </div>
+
+                                <a href="{% url 'ac_site:properties' region_id=trg_region_sum_info.region.prefecture.id region_city_id=trg_region_sum_info.region_id %}" class="item-link item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title-row">
+                                            <div class="item-title">
+                                                {{ trg_region_sum_info.region.city.city_name }}周辺の物件一覧
+                                            </div>
+                                        </div>
+                                        <div class="item-subtitle">
+                                            <!--3 columns layout-->
+                                        </div>
+                                    </div>
+                                </a>
 
                                 <div class="rating-table-row">
                                     <div>
@@ -1101,43 +1114,46 @@
                                     </div>
                                 </div>
 
-                        <div class="content-block mb-15">
-                            <h3>利回りシミュレーション</h3>
 
-                            <div class="buttons-row">
-                                <a href="#tab1-1" class="tab-link active button button-primary">アパート経営</a>
-                                <a href="#tab2-1" class="tab-link button button-primary">転貸物件民泊</a>
-                                <a href="#tab3-1" class="tab-link button button-primary">購入物件民泊</a>
-                            </div>
-                        </div>
+                                <!--<div class="content-block mb-15">
+                                    <h3>利回りシミュレーション</h3>
 
-                        <div class="tabs">
-                            <div id="tab1-1" class="tab active">
-                                <div class="content-block mt-15">
-                                    <p>アパート経営</p>
-                                    <p>Duis ac nibh ac quam quam sagittis tortor. Cum sociis natoque penatibus et neque. Etiam dolor. Vivamus consectetuer adipiscing elit. Nunc vehicula. Integer condimentum sed, luctus diam. </p>
+                                    <div class="buttons-row">
+                                        <a href="#tab1-1" class="tab-link active button button-primary">アパート経営</a>
+                                        <a href="#tab2-1" class="tab-link button button-primary">転貸物件民泊</a>
+                                        <a href="#tab3-1" class="tab-link button button-primary">購入物件民泊</a>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div id="tab2-1" class="tab">
-                                <div class="content-block mt-15">
-                                    <p>転貸物件で民泊経営</p>
-                                    <p>Fusce gravida, eros magna dolor, dictum sed, ullamcorper et, nonummy faucibus condimentum lorem id rutrum consectetuer lectus. Fusce ullamcorper libero vel blandit non, placerat nisl auctor quis.</p>
-                                </div>
-                            </div>
+                                <div class="tabs">
+                                    <div id="tab1-1" class="tab active">
+                                        <div class="content-block mt-15">
+                                            <p>アパート経営</p>
+                                            <p>Duis ac nibh ac quam quam sagittis tortor. Cum sociis natoque penatibus et neque. Etiam dolor. Vivamus consectetuer adipiscing elit. Nunc vehicula. Integer condimentum sed, luctus diam. </p>
+                                        </div>
+                                    </div>
 
-                            <div id="tab3-1" class="tab">
-                                <div class="content-block mt-15">
-                                    <p>購入物件で民泊経営</p>
-                                    <p>Fusce gravida, eros magna dolor, dictum sed, ullamcorper et, nonummy faucibus condimentum lorem id rutrum consectetuer lectus. Fusce ullamcorper libero vel blandit non, placerat nisl auctor quis.</p>
-                                </div>
-                            </div>
+                                    <div id="tab2-1" class="tab">
+                                        <div class="content-block mt-15">
+                                            <p>転貸物件で民泊経営</p>
+                                            <p>Fusce gravida, eros magna dolor, dictum sed, ullamcorper et, nonummy faucibus condimentum lorem id rutrum consectetuer lectus. Fusce ullamcorper libero vel blandit non, placerat nisl auctor quis.</p>
+                                        </div>
+                                    </div>
 
+                                    <div id="tab3-1" class="tab">
+                                        <div class="content-block mt-15">
+                                            <p>購入物件で民泊経営</p>
+                                            <p>Fusce gravida, eros magna dolor, dictum sed, ullamcorper et, nonummy faucibus condimentum lorem id rutrum consectetuer lectus. Fusce ullamcorper libero vel blandit non, placerat nisl auctor quis.</p>
+                                        </div>
+                                    </div>
+
+                                </div>-->
+
+                            </div>
                         </div>
 
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

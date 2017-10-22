@@ -107,6 +107,42 @@ class RankingView(TemplateView):
         return self.render_to_response(context)
 
 
+class PropertiesView(TemplateView):
+    '''cityにひもづく物件一覧を取得する'''
+    template_name="properties.html"
+
+    def get(self, request, **kwargs):
+        # ミクロ情報の取得2
+        # RegionSummaryの対象レコード
+        try:
+            trg_region_sum_info = RegionSummary.objects.select_related().all().get(region_id=self.kwargs['region_city_id'], year=today.year, month=today.month)
+        except RegionSummary.DoesNotExist:
+            raise Http404("No MyModel matches the given query.")
+
+        context = {
+            'trg_region_sum_info': trg_region_sum_info,
+        }
+        return self.render_to_response(context)
+
+
+class PropertyShowView(TemplateView):
+    '''物件詳細を取得する'''
+    template_name="property.html"
+
+    def get(self, request, **kwargs):
+        # ミクロ情報の取得2
+        # RegionSummaryの対象レコード
+        try:
+            trg_region_sum_info = RegionSummary.objects.select_related().all().get(region_id=self.kwargs['region_city_id'], year=today.year, month=today.month)
+        except RegionSummary.DoesNotExist:
+            raise Http404("No MyModel matches the given query.")
+
+        context = {
+            'trg_region_sum_info': trg_region_sum_info,
+        }
+        return self.render_to_response(context)
+
+
 class PrefectureView(TemplateView):
     '''prefectureテーブルより都道府県一覧を取得する'''
     template_name = "prefectures.html"

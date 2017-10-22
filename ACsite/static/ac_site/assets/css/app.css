@@ -4674,7 +4674,7 @@ Template:	    Indra - Mobile Web/APP Template
 body {
   font-family: 'robotoregular', Tahoma, Arial, sans-serif;
   background-color: #30583B;
-  color: #ffffff;
+  color: #333333;
 }
 body .views {
   top: 0;

@@ -690,7 +690,6 @@
     </div>
 </div>-->
 
-
 <!-- Views -->
 <div class="views">
     <div class="view view-main">
@@ -708,7 +707,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="center sliding">都道府県一覧</div>
+                <div class="center sliding">{{trg_region_sum_info.region.city.city_name}} 物件一覧</div>
                 <div class="right">
                     <a href="#" class="link icon-only open-panel" data-panel="right">
                         <span class="kkicon icon-star"></span>
@@ -720,51 +719,230 @@
         <div class="view another-view">
             <!-- Pages -->
             <div class="pages">
-                <div class="page no-toolbar" data-page="features">
+                <div class="page pages navbar-fixed toolbar-fixed" data-page="shop-home-1">
                     <div class="page-content">
+                        <div class="content-wew">
+                            <div class="content-block content-light">
 
-                        <div class="list-block media-list">
-                            <ul>
+                                <div class="featured-articles-slider featured-shop">
+                                    <div>
+                                        <div class="article-title">
+                                            <span class="badge badge-third">おすすめ</span>
+                                            <!--<span class="badge badge-primary">Sell</span>-->
+                                            <h2><a href="{% url 'ac_site:property_show' region_id=trg_region_sum_info.region.prefecture.id region_city_id=trg_region_sum_info.region_id property_id=000 %}">物件タイトル</a></h2>
+                                            <div class="shop-data">
+                                                <!--<span class="shop-price-discount">
+                                                    $250
+                                                </span>-->
+                                                <span class="shop-price">
+                                                    10万円／月
+                                                </span>
+                                                <span class="data">
+                                                    <span>300 likes</span>
+                                                    <span>23 reviews</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <img src="/assets/img/sample/bedroom_sample-0.jpg" alt="">
+                                    </div>
+                                    <!--<div>
+                                        <div class="article-title">
+                                            <span class="badge badge-third">Bestseller</span>
+                                            <h2><a href="shop-product-1.html">MAX Shirt</a></h2>
+                                            <div class="shop-data">
+                                                <span class="shop-price">
+                                                    $50
+                                                </span>
+                                                <span class="data">
+                                                    <span>450 likes</span>
+                                                    <span>34 reviews</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <img src="assets/img/tmp/shop/shop-11.jpg" alt="">
+                                    </div>-->
+                                </div>
 
-                                <!--<li>
-                                    <a href="#" data-popup=".popup-splash" class="open-popup item-link item-content">
-                                        <div class="item-media">
-                                            <div class="card-header no-border item-content-icon item-content-icon-slider"></div>
-                                        </div>
-                                        <div class="item-inner">
-                                            <div class="item-title-row">
-                                                <div class="item-title">
-                                                    App update info
-                                                </div>
-                                            </div>
-                                            <div class="item-subtitle">
-                                                Cool app update slider!
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>-->
-                                {% for p in latest_region_list %}
-                                    <li>
-                                        <a href="{% url 'ac_site:cities' region_id=p.id %}" class="item-link item-content">
-                                            <div class="item-media">
-                                                <div class="card-header no-border item-content-icon item-content-icon-gallery"></div>
-                                            </div>
-                                            <div class="item-inner">
-                                                <div class="item-title-row">
-                                                    <div class="item-title">
-                                                        {{ p.prefecture.prefecture_name }}
-                                                    </div>
-                                                </div>
-                                                <div class="item-subtitle">
-                                                    <!--3 columns layout-->
-                                                </div>
-                                            </div>
+                                <!--<div class="content-block-title mt-10">Selected for you:</div>-->
+                                <!--<div class="featured-category">
+                                    <div class="row no-gutter">
+                                        <a href="#" class="col-50">
+                                            <div class="name">jeans</div>
+                                            <img src="assets/img/tmp/shop/shop-2.jpg" alt="">
                                         </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
+                                        <a href="#" class="col-50">
+                                            <div class="name">shoes</div>
+                                            <img src="assets/img/tmp/shop/shop-6.jpg" alt="">
+                                        </a>
+                                    </div>
+                                </div>-->
 
+                                <div class="page-content padding-0">
+                                    <div class="content-wew">
+                                        <h2 class="header-2 mt-30 mb-30">
+                                            <span>新着物件</span>
+                                        </h2>
+                                    </div>
+                                </div>
+
+                                <div class="content-wew">
+                                    <div class="content-block mt-0">
+
+                                        <div class="row shop-items-list">
+
+                                            <a href="{% url 'ac_site:property_show' region_id=trg_region_sum_info.region.prefecture.id region_city_id=trg_region_sum_info.region_id property_id=000 %}"  class="col-100 tablet-90">
+                                                <img src="/assets/img/sample/bedroom_sample-1.jpg" alt="">
+
+                                                <span class="name">
+                                                    おしゃれな一人部屋<br />
+                                                    木造／新築／建物32.33平米<br />
+                                                    XXX県XXXX市XXX区１−２−３<br />
+                                                    期待利回り：4％<br />
+                                                </span>
+
+                                                <span class="price-data">
+                                                    <!--<span class="shop-price-discount">$25</span>-->
+                                                    <span class="shop-price">5,600,000円</span>
+                                                </span>
+
+                                                <span class="add-to-cart-button">詳細</span>
+                                            </a>
+
+                                            <a href="{% url 'ac_site:property_show' region_id=trg_region_sum_info.region.prefecture.id region_city_id=trg_region_sum_info.region_id property_id=000 %}" class="col-100 tablet-90">
+                                                <img src="/assets/img/sample/bedroom_sample-3.jpg" alt="">
+
+                                                <span class="name">
+                                                  綺麗なカントリーハウス<br />
+                                                  木造／新築／建物32.33平米<br />
+                                                  XXX県XXXX市XXX区１−２−３<br />
+                                                  期待利回り：4％<br />
+                                                </span>
+
+                                                <span class="price-data">
+                                                    <span class="shop-price-discount">7,000,000円</span>
+                                                    <span class="shop-price">5,000,000円</span>
+                                                </span>
+
+                                                <span class="add-to-cart-button">詳細</span>
+                                            </a>
+
+                                            <a href="{% url 'ac_site:property_show' region_id=trg_region_sum_info.region.prefecture.id region_city_id=trg_region_sum_info.region_id property_id=000 %}" class="col-100 tablet-90">
+                                                <img src="/assets/img/sample/bedroom_sample-2.jpg" alt="">
+
+                                                <span class="name">
+                                                    高級ログハウス<br />
+                                                    木造／新築／建物50.33平米<br />
+                                                    XXX県XXXX市XXX区１−２−３<br />
+                                                    期待利回り：7％<br />
+                                                </span>
+
+                                                <span class="price-data">
+                                                    <span class="shop-price-discount">3,000,000円</span>
+                                                    <span class="shop-price">2,500,000円</span>
+                                                </span>
+
+                                                <span class="add-to-cart-button">詳細</span>
+                                            </a>
+
+                                            <!--<a href="shop-product-1.html" class="col-50 tablet-33">
+                                                <img src="assets/img/tmp/shop/shop-6.jpg" alt="">
+
+                                                <span class="name">Shoes</span>
+
+                                                <span class="price-data">
+                                                    <span class="shop-price-discount">$25</span>
+                                                    <span class="shop-price">$20</span>
+                                                </span>
+
+                                                <span class="add-to-cart-button">Add to cart</span>
+                                            </a>
+
+                                            <a href="shop-product-1.html" class="col-50 tablet-33">
+                                                <img src="assets/img/tmp/shop/shop-7.jpg" alt="">
+
+                                                <span class="name">Jacket</span>
+
+                                                <span class="price-data">
+                                                    <span class="shop-price-discount">$25</span>
+                                                    <span class="shop-price">$20</span>
+                                                </span>
+
+                                                <span class="add-to-cart-button">Add to cart</span>
+                                            </a>
+
+                                            <a href="shop-product-1.html" class="col-50 tablet-33">
+                                                <img src="assets/img/tmp/shop/shop-8.jpg" alt="">
+
+                                                <span class="name">Tie</span>
+
+                                                <span class="price-data">
+                                                    <span class="shop-price-discount">$25</span>
+                                                    <span class="shop-price">$20</span>
+                                                </span>
+
+                                                <span class="add-to-cart-button">Add to cart</span>
+                                            </a>
+
+                                            <a href="shop-product-1.html" class="col-50 tablet-33">
+                                                <img src="assets/img/tmp/shop/shop-9.jpg" alt="">
+
+                                                <span class="name">Dress</span>
+
+                                                <span class="price-data">
+                                                    <span class="shop-price-discount">$25</span>
+                                                    <span class="shop-price">$20</span>
+                                                </span>
+
+                                                <span class="add-to-cart-button">Add to cart</span>
+                                            </a>
+
+                                            <a href="shop-product-1.html" class="col-50 tablet-33">
+                                                <img src="assets/img/tmp/shop/shop-10.jpg" alt="">
+
+                                                <span class="name">Jeans</span>
+
+                                                <span class="price-data">
+                                                    <span class="shop-price-discount">$25</span>
+                                                    <span class="shop-price">$20</span>
+                                                </span>
+
+                                                <span class="add-to-cart-button">Add to cart</span>
+                                            </a>
+
+                                            <a href="shop-product-1.html" class="col-50 tablet-33">
+                                                <img src="assets/img/tmp/shop/shop-11.jpg" alt="">
+
+                                                <span class="name">Shirt</span>
+
+                                                <span class="price-data">
+                                                    <span class="shop-price-discount">$25</span>
+                                                    <span class="shop-price">$20</span>
+                                                </span>
+
+                                                <span class="add-to-cart-button">Add to cart</span>
+                                            </a>
+
+                                            <a href="shop-product-1.html" class="col-50 tablet-33">
+                                                <img src="assets/img/tmp/shop/shop-12.jpg" alt="">
+
+                                                <span class="name">Jacket</span>
+
+                                                <span class="price-data">
+                                                    <span class="shop-price-discount">$25</span>
+                                                    <span class="shop-price">$20</span>
+                                                </span>
+
+                                                <span class="add-to-cart-button">Add to cart</span>
+                                            </a>-->
+
+                                        </div>
+
+                                        <!--<a href="#" class="button button-primary button-clear mt-10 mb-20">GET MORE</a>-->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -777,7 +955,7 @@
 <!--<script type="text/javascript" src="/bower_components/framework7/dist/js/framework7.min.js"></script>-->
 <script type="text/javascript" src="/bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/bower_components/Tweetie/tweetie.min.js"></script>
-<script type="text/javascript" src="/bower_components/chartjs/Chart.js"></script>
+<!--<script type="text/javascript" src="/bower_components/chartjs/Chart.js"></script>-->
 <script type="text/javascript" src="/bower_components/scrollAnimate/jquery.scrollAnimate.js"></script>
 <script type="text/javascript" src="/bower_components/owl-carousel/owl-carousel/owl.carousel.min.js"></script>
 <script type="text/javascript" src="/bower_components/vide/dist/jquery.vide.min.js"></script>
