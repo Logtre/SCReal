@@ -1,4 +1,7 @@
 # -*- coding:utf-8 -*-
+#for social login(これを指定すれば、相対パスで全てのファイルが読み込める)
+from allauth.account.views import LoginView, SignupView
+
 from django.views.generic import TemplateView
 
 from django.http import Http404
@@ -9,13 +12,38 @@ from django.db.models import Avg, Q, Sum
 
 import datetime
 
-
 #from .models import Company_table, Member_table
 from .models import Region, Prefecture, City, PriceofLand, TourResource, ForeignGuestCount, AnnualSummary, RegionSummary, SummaryArticleBreakdown, SummaryCapacityBreakdown, SummaryLanguageBreakdown, SummarySizeBreakdown, Cost, GuestNationality, Nationality, Ranking, Company_table, Member_table, MemberFlg_table
 from .rating import individual_rating, elemental_rating, cal_stdev, cal_beta, city_list
 
 
 today = datetime.date.today()
+
+
+class SigninView(LoginView):
+    '''サインイン(ログイン)'''
+    template_name = "login.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super(SigninView, self).dispatch(request, *args, **kwargs)
+        return response
+
+    def form_valid(self, form):
+        return super(SigninView, self).form_valid(form)
+
+signin_view = SigninView.as_view()
+
+
+class SignupView(SignupView):
+    '''サインアップ(会員登録)'''
+    template_name = "registration.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(SignupView, self).get_ocntext_data(**kwargs)
+        return context
+
+signup_view = SignupView.as_view()
+
 
 class TopView(TemplateView):
     template_name = "index.html"

@@ -64,6 +64,20 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'ac_site.apps.AcSiteConfig',
     'django.contrib.humanize',
+    # for social login
+    'django.contrib.sites',
+    #'django_extensions',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # SNS
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.twitter'
+)
+
+AUTHENTICATION_BACKENDS = (
+   'allauth.account.auth_backends.AuthenticationBackend'
 )
 
 MIDDLEWARE_CLASSES = (
