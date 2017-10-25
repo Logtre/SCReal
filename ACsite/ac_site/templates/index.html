@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
     <meta charset="utf-8">
@@ -7,51 +8,39 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-touch-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-touch-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-touch-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-touch-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon-180x180.png">
-    <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="/assets/img/favicons/android-chrome-192x192.png" sizes="192x192">
-    <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96">
-    <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-16x16.png" sizes="16x16">
-    <link rel="manifest" href="/assets/img/favicons/manifest.json">
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'ac_site/assets/img/favicons/apple-touch-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'ac_site/assets/img/favicons/apple-touch-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'ac_site/assets/img/favicons/apple-touch-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'ac_site/assets/img/favicons/apple-touch-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'ac_site/assets/img/favicons/apple-touch-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'ac_site/assets/img/favicons/apple-touch-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'ac_site/assets/img/favicons/apple-touch-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'ac_site/assets/img/favicons/apple-touch-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'ac_site/assets/img/favicons/apple-touch-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'ac_site/assets/img/favicons/favicon-32x32.png' %}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{% static 'ac_site/assets/img/favicons/android-chrome-192x192.png' %}" sizes="192x192">
+    <link rel="icon" type="image/png" href="{% static 'ac_site/assets/img/favicons/favicon-96x96.png' %}" sizes="96x96">
+    <link rel="icon" type="image/png" href="{% static 'ac_site/assets/img/favicons/favicon-16x16.png' %}" sizes="16x16">
+    <link rel="manifest" href="{% static 'ac_site/assets/img/favicons/manifest.json">
     <meta name="msapplication-TileColor" content="#2b5797">
-    <meta name="msapplication-TileImage" content="/assets/img/favicons/mstile-144x144.png">
+    <meta name="msapplication-TileImage" content="{% static 'ac_site/assets/img/favicons/mstile-144x144.png' %}">
     <meta name="theme-color" content="#ffffff">
 
     <title>SCReal</title>
-
-    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/bower_components/framework7/dist/css/framework7.ios.min.css">
-    <link rel="stylesheet" href="/bower_components/swipebox/src/css/swipebox.css">
-    <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.carousel.css">
-    <link rel="stylesheet" href="/bower_components/owl-carousel/owl-carousel/owl.theme.css">
-    <link rel="stylesheet" href="/assets/css/app.css">
-    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/assets/js/tab.js"></script>
+    <link rel="stylesheet" href="{% static 'ac_site/bower_components/font-awesome/css/font-awesome.min.css' %}" >
+    <link rel="stylesheet" href="{% static 'ac_site/bower_components/framework7/dist/css/framework7.ios.min.css' %}" >
+    <link rel="stylesheet" href="{% static 'ac_site/bower_components/swipebox/src/css/swipebox.css' %}" >
+    <link rel="stylesheet" href="{% static 'ac_site/bower_components/owl-carousel/owl-carousel/owl.carousel.css' %}" >
+    <link rel="stylesheet" href="{% static 'ac_site/bower_components/owl-carousel/owl-carousel/owl.theme.css' %}" >
+    <link rel="stylesheet" href="{% static 'ac_site/assets/css/app.css' %}" >
+    <script type="text/javascript" src="{% static 'ac_site/assets/js/jquery.min.js' %}" ></script>
+    <script type="text/javascript" src="{% static 'ac_site/assets/js/tab.js' %}" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-    <script type="text/javascript" src="/assets/js/chart.js"></script>
-    <script type="text/javascript" src="/assets/js/radar-chart-view.js"></script>
+    <script type="text/javascript" src="{% static 'ac_site/assets/js/chart.js' %}" ></script>
+    <!--動いていないしエラー履いてるので一旦コメントアウト-->
+    <!--<script type="text/javascript" src="{% static 'ac_site/assets/js/radar-chart-view.js' %}" ></script>-->
 
-    <!-- for LOCAL SETTING  START --
-    <link rel="stylesheet" href="/static/ac_site/bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/static/ac_site/bower_components/framework7/dist/css/framework7.ios.min.css">
-    <link rel="stylesheet" href="/static/ac_site/bower_components/swipebox/src/css/swipebox.css">
-    <link rel="stylesheet" href="/static/ac_site/bower_components/owl-carousel/owl-carousel/owl.carousel.css">
-    <link rel="stylesheet" href="/static/ac_site/bower_components/owl-carousel/owl-carousel/owl.theme.css">
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/bower_components/font-awesome/css/font-awesome.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/bower_components/framework7/dist/css/framework7.ios.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/bower_components/swipebox/src/css/swipebox.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/bower_components/owl-carousel/owl-carousel/owl.carousel.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/bower_components/owl-carousel/owl-carousel/owl.theme.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static '/ac_site/assets/css/app.css' %}" />
+    <!-- for LOCAL SETTING  START -->
     <!-- for LOCAL SETTING  END -->
     <!-- <link rel="stylesheet" href="assets/themes/green/style.css" id="theme-style">-->
 </head>
@@ -725,7 +714,7 @@
                 <div class="page-content navbar-fix">
                     <div class="full-page-image full-page-video play-bg-video">
                         <div class="logo">
-                            <img src="/assets/img/screal_logo_blk.svg" alt="" />
+                            <img src="{% static '/ac_site/assets/img/screal_logo_blk.svg' %}" alt="" />
                         </div>
                         <div class="desc content-padding">
                             <!--<strong class="text-bg text-bg-green">民泊の物件選びはAIにお任せ！！</strong>-->
@@ -963,7 +952,7 @@
                         <h2>Responsive</h2>
 
                         <h3>flexible layout</h3>
-                        <img src="assets/img/tmp/slide1.png" alt=""/>
+                        <img src="{% static '/ac_site/assets/img/tmp/slide1.png' %}" alt=""/>
                     </div>
                 </div>
                 <div class="swiper-slide text-center">
@@ -971,7 +960,7 @@
                         <h2>Very Detailed</h2>
 
                         <h3>20+ page templates</h3>
-                        <img src="assets/img/tmp/slide2.png" alt=""/>
+                        <img src="{% static '/ac_site/assets/img/tmp/slide2.png' %}" alt=""/>
                     </div>
                 </div>
                 <div class="swiper-slide text-center">
@@ -1059,7 +1048,7 @@
 
 <div class="page page-bg full-page-video page-preloader full-page-image">
     <div class="logo">
-        <img src="assets/img/logo-login.png" alt="">
+        <img src="{% static '/ac_site/assets/img/logo-login.png' %}" alt="">
     </div>
 
     <div class="text-center splash">
@@ -1074,19 +1063,19 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="/bower_components/swipebox/src/js/jquery.swipebox.min.js"></script>
+<script type="text/javascript" src="{% static '/ac_site/bower_components/jquery/dist/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static '/ac_site/bower_components/swipebox/src/js/jquery.swipebox.min.js' %}"></script>
 <!--<script type="text/javascript" src="/bower_components/framework7/dist/js/framework7.min.js"></script>-->
-<script type="text/javascript" src="/bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
-<script type="text/javascript" src="/bower_components/Tweetie/tweetie.min.js"></script>
-<script type="text/javascript" src="/bower_components/chartjs/Chart.js"></script>
-<script type="text/javascript" src="/bower_components/scrollAnimate/jquery.scrollAnimate.js"></script>
-<script type="text/javascript" src="/bower_components/owl-carousel/owl-carousel/owl.carousel.min.js"></script>
-<script type="text/javascript" src="/bower_components/vide/dist/jquery.vide.min.js"></script>
+<script type="text/javascript" src="{% static '/ac_site/bower_components/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+<script type="text/javascript" src="{% static '/ac_site/bower_components/Tweetie/tweetie.min.js' %}"></script>
+<script type="text/javascript" src="{% static '/ac_site/bower_components/chartjs/Chart.js' %}"></script>
+<script type="text/javascript" src="{% static '/ac_site/bower_components/scrollAnimate/jquery.scrollAnimate.js' %}"></script>
+<script type="text/javascript" src="{% static '/ac_site/bower_components/owl-carousel/owl-carousel/owl.carousel.min.js' %}"></script>
+<script type="text/javascript" src="{% static '/ac_site/bower_components/vide/dist/jquery.vide.min.js' %}"></script>
 
-<script type="text/javascript" src="/assets/js/jflickrfeed.min.js"></script>
-<script type="text/javascript" src="/assets/js/app2.js"></script>
-<script type="text/javascript" src="/assets/js/left-menu.js"></script>
+<script type="text/javascript" src="{% static '/ac_site/assets/js/jflickrfeed.min.js' %}"></script>
+<script type="text/javascript" src="{% static '/ac_site/assets/js/app2.js' %}"></script>
+<script type="text/javascript" src="{% static '/ac_site/assets/js/left-menu.js' %}"></script>
 <!--<script type="text/javascript" src="/assets/js/min/app.js"></script>-->
 <!--<script type="text/javascript" src="/assets/js/animations.js"></script>-->
 
