@@ -140,7 +140,7 @@ else:
     # See https://cloud.google.com/sql/docs/mysql-connect-proxy
 
     # アプリがローカルで実行されている場合は、ローカルMySQLに接続する
-
+    '''
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -162,7 +162,6 @@ else:
             'PASSWORD': '6Dtwoa6qb4y2Mpvx',
         }
     }
-    '''
 
 # [END db_setup]
 
