@@ -4,26 +4,27 @@ runtime: python27
 api_version: 1
 threadsafe: true
 
+
+
 handlers:
 #- url: /static
 #  static_dir: ACsite/static # /staticという文言があったらACsite/staticと読み換える
 - url: /assets
-  static_dir: ACsite/static/ac_site/assets
+  static_dir: static/ac_site/assets
 - url: /bower_components
-  static_dir: ACsite/static/ac_site/bower_components
+  static_dir: static/ac_site/bower_components
 - url: /php_mailer
-  static_dir: ACsite/static/ac_site/php_mailer
-#- url: /templates
-#  static_dir: ACsite/ac_site/templates/ac_site
+  static_dir: static/ac_site/php_mailer
+- url: /templates
+  static_dir: ac_site/templates/ac_site
 - url: .*
   script: ACsite.wsgi.application
 - url: /(.*\.(gif|png|jpg))$
   static_files: static/
   upload: static/ac_site/assets/img/.*\.(gif|png|jpg)$
 - url: /_ah/(mapreduce|queue|warmup).*
-  script: ACsite.ac_site.wsgi.application
+  script: ac_site.wsgi.application
   login: admin
-
 
 # Only pure Python libraries can be vendored
 # Python libraries that use C extensions can
@@ -59,3 +60,4 @@ env_variables:
   # Replace username and password if you aren't using the root user.
   CLOUDSQL_USER: logtre
   CLOUDSQL_PASSWORD: '6Dtwoa6qb4y2Mpvx'
+  DJANGO_SETTINGS_MODULE: 'ACsite.settings'
