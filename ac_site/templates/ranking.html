@@ -67,7 +67,7 @@
             メニュー
         </li>
         <li>
-            <a href="{% url 'ac_site:index' %}" class="item-link close-panel item-content">
+            <a href="{% url 'index' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-home"></i>
                 </div>
@@ -77,7 +77,7 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'ac_site:ranking' %}" class="item-link close-panel item-content">
+            <a href="{% url 'ranking' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-trophy"></i>
                 </div>
@@ -87,7 +87,7 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'ac_site:prefectures' %}" class="item-link close-panel item-content">
+            <a href="{% url 'prefectures' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-area-chart"></i>
                 </div>
@@ -107,7 +107,7 @@
             </a>
         </li>-->
         <li>
-            <a href="{% url 'ac_site:contact' %}" class="item-link close-panel item-content">
+            <a href="{% url 'contact' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-envelope-o"></i>
                 </div>
@@ -411,7 +411,7 @@
                         </ul>
                     </li>-->
                     <li>
-                        <a href="{% url 'ac_site:prefectures' %}" class="item-link close-panel item-content">
+                        <a href="{% url 'prefectures' %}" class="item-link close-panel item-content">
                             <div class="item-media">
                                 <i class="fa fa-area-chart"></i>
                             </div>
@@ -508,7 +508,7 @@
                         </a>
                     </li>-->
                     <li>
-                        <a href="{% url 'ac_site:contact' %}" class="item-link close-panel item-content">
+                        <a href="{% url 'contact' %}" class="item-link close-panel item-content">
                             <div class="item-media">
                                 <i class="fa fa-envelope-o"></i>
                             </div>
@@ -752,7 +752,7 @@
                                     <div class="toggle">
                                         {% for p in total_listing_ranking %}
                                             <li>
-                                                <a href="{% url 'ac_site:city_show' region_id=p.region.prefecture.id region_city_id=p.region_id %}" class="item-link item-content">
+                                                <a href="{% url 'city_show' region_id=p.region.prefecture.id region_city_id=p.region_id %}" class="item-link item-content">
                                                     <!--<div class="item-media">
                                                         <div class="card-header no-border item-content-icon item-content-icon-gallery"></div>
                                                     </div>-->
@@ -776,7 +776,7 @@
                                     <div class="toggle hide">
                                         {% for q in average_price_ranking %}
                                             <li>
-                                                <a href="{% url 'ac_site:city_show'  region_id=q.region.prefecture.id region_city_id=q.region_id %}" class="item-link item-content">
+                                                <a href="{% url 'city_show'  region_id=q.region.prefecture.id region_city_id=q.region_id %}" class="item-link item-content">
                                                     <div class="item-media">
                                                         <!--<div class="card-header no-border item-content-icon item-content-icon-gallery"></div>-->
                                                         {{ forloop.counter }}
@@ -798,7 +798,7 @@
                                     <div class="toggle hide">
                                         {% for r in monthly_sales_ranking %}
                                             <li>
-                                                <a href="{% url 'ac_site:city_show' region_id=r.region.prefecture.id region_city_id=r.region_id %}" class="item-link item-content">
+                                                <a href="{% url 'city_show' region_id=r.region.prefecture.id region_city_id=r.region_id %}" class="item-link item-content">
                                                     <div class="item-media">
                                                         <!--<div class="card-header no-border item-content-icon item-content-icon-gallery"></div>-->
                                                         {{ forloop.counter }}

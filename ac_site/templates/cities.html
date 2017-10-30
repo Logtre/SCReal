@@ -67,7 +67,7 @@
             メニュー
         </li>
         <li>
-            <a href="{% url 'ac_site:index' %}" class="item-link close-panel item-content">
+            <a href="{% url 'index' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-home"></i>
                 </div>
@@ -77,7 +77,7 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'ac_site:ranking' %}" class="item-link close-panel item-content">
+            <a href="{% url 'ranking' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-trophy"></i>
                 </div>
@@ -87,7 +87,7 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'ac_site:prefectures' %}" class="item-link close-panel item-content">
+            <a href="{% url 'prefectures' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-area-chart"></i>
                 </div>
@@ -107,7 +107,7 @@
             </a>
         </li>-->
         <li>
-            <a href="{% url 'ac_site:contact' %}" class="item-link close-panel item-content">
+            <a href="{% url 'contact' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-envelope-o"></i>
                 </div>
@@ -411,7 +411,7 @@
                         </ul>
                     </li>-->
                     <li>
-                        <a href="{% url 'ac_site:prefectures' %}" class="item-link close-panel item-content">
+                        <a href="{% url 'prefectures' %}" class="item-link close-panel item-content">
                             <div class="item-media">
                                 <i class="fa fa-area-chart"></i>
                             </div>
@@ -508,7 +508,7 @@
                         </a>
                     </li>-->
                     <li>
-                        <a href="{% url 'ac_site:contact' %}" class="item-link close-panel item-content">
+                        <a href="{% url 'contact' %}" class="item-link close-panel item-content">
                             <div class="item-media">
                                 <i class="fa fa-envelope-o"></i>
                             </div>
@@ -744,7 +744,7 @@
                                     </a>
                                 </li>-->
                                 <li>
-                                    <a href="{% url 'ac_site:prefecture_show' region_id=latest_prefecture.id %}" class="item-link item-content">
+                                    <a href="{% url 'prefecture_show' region_id=latest_prefecture.id %}" class="item-link item-content">
                                         <div class="item-media">
                                             <div class="card-header no-border item-content-icon item-content-icon-gallery"></div>
                                         </div>
@@ -762,7 +762,7 @@
                                 </li>
                                 {% for p in latest_region_list %}
                                     <li>
-                                        <a href="{% url 'ac_site:city_show' region_id=latest_prefecture.id region_city_id=p.id %}" class="item-link item-content">
+                                        <a href="{% url 'city_show' region_id=latest_prefecture.id region_city_id=p.id %}" class="item-link item-content">
                                             <div class="item-media">
                                                 <div class="card-header no-border item-content-icon item-content-icon-gallery"></div>
                                             </div>

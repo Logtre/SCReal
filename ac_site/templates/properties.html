@@ -67,7 +67,7 @@
             メニュー
         </li>
         <li>
-            <a href="{% url 'ac_site:index' %}" class="item-link close-panel item-content">
+            <a href="{% url 'index' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-home"></i>
                 </div>
@@ -77,7 +77,7 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'ac_site:ranking' %}" class="item-link close-panel item-content">
+            <a href="{% url 'ranking' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-trophy"></i>
                 </div>
@@ -87,7 +87,7 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'ac_site:prefectures' %}" class="item-link close-panel item-content">
+            <a href="{% url 'prefectures' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-area-chart"></i>
                 </div>
@@ -107,7 +107,7 @@
             </a>
         </li>-->
         <li>
-            <a href="{% url 'ac_site:contact' %}" class="item-link close-panel item-content">
+            <a href="{% url 'contact' %}" class="item-link close-panel item-content">
                 <div class="item-media">
                     <i class="fa fa-envelope-o"></i>
                 </div>
@@ -411,7 +411,7 @@
                         </ul>
                     </li>-->
                     <li>
-                        <a href="{% url 'ac_site:prefectures' %}" class="item-link close-panel item-content">
+                        <a href="{% url 'prefectures' %}" class="item-link close-panel item-content">
                             <div class="item-media">
                                 <i class="fa fa-area-chart"></i>
                             </div>
@@ -508,7 +508,7 @@
                         </a>
                     </li>-->
                     <li>
-                        <a href="{% url 'ac_site:contact' %}" class="item-link close-panel item-content">
+                        <a href="{% url 'contact' %}" class="item-link close-panel item-content">
                             <div class="item-media">
                                 <i class="fa fa-envelope-o"></i>
                             </div>
@@ -729,7 +729,7 @@
                                         <div class="article-title">
                                             <span class="badge badge-third">おすすめ</span>
                                             <!--<span class="badge badge-primary">Sell</span>-->
-                                            <h2><a href="{% url 'ac_site:property_show' region_id=trg_region_sum_info.region.prefecture.id region_city_id=trg_region_sum_info.region_id property_id=000 %}">物件タイトル</a></h2>
+                                            <h2><a href="{% url 'property_show' region_id=trg_region_sum_info.region.prefecture.id region_city_id=trg_region_sum_info.region_id property_id=000 %}">物件タイトル</a></h2>
                                             <div class="shop-data">
                                                 <!--<span class="shop-price-discount">
                                                     $250
@@ -790,7 +790,7 @@
 
                                         <div class="row shop-items-list">
 
-                                            <a href="{% url 'ac_site:property_show' region_id=trg_region_sum_info.region.prefecture.id region_city_id=trg_region_sum_info.region_id property_id=000 %}"  class="col-100 tablet-90">
+                                            <a href="{% url 'property_show' region_id=trg_region_sum_info.region.prefecture.id region_city_id=trg_region_sum_info.region_id property_id=000 %}"  class="col-100 tablet-90">
                                                 <img src="/assets/img/sample/bedroom_sample-1.jpg" alt="">
 
                                                 <span class="name">
@@ -808,7 +808,7 @@
                                                 <span class="add-to-cart-button">詳細</span>
                                             </a>
 
-                                            <a href="{% url 'ac_site:property_show' region_id=trg_region_sum_info.region.prefecture.id region_city_id=trg_region_sum_info.region_id property_id=000 %}" class="col-100 tablet-90">
+                                            <a href="{% url 'property_show' region_id=trg_region_sum_info.region.prefecture.id region_city_id=trg_region_sum_info.region_id property_id=000 %}" class="col-100 tablet-90">
                                                 <img src="/assets/img/sample/bedroom_sample-3.jpg" alt="">
 
                                                 <span class="name">
@@ -826,7 +826,7 @@
                                                 <span class="add-to-cart-button">詳細</span>
                                             </a>
 
-                                            <a href="{% url 'ac_site:property_show' region_id=trg_region_sum_info.region.prefecture.id region_city_id=trg_region_sum_info.region_id property_id=000 %}" class="col-100 tablet-90">
+                                            <a href="{% url 'property_show' region_id=trg_region_sum_info.region.prefecture.id region_city_id=trg_region_sum_info.region_id property_id=000 %}" class="col-100 tablet-90">
                                                 <img src="/assets/img/sample/bedroom_sample-2.jpg" alt="">
 
                                                 <span class="name">

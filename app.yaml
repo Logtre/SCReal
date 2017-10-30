@@ -18,7 +18,7 @@ handlers:
 - url: /templates
   static_dir: ac_site/templates/ac_site
 - url: .*
-  script: ACsite.wsgi.application
+  script: ac_site.wsgi.application
 - url: /(.*\.(gif|png|jpg))$
   static_files: static/
   upload: static/ac_site/assets/img/.*\.(gif|png|jpg)$
@@ -60,4 +60,4 @@ env_variables:
   # Replace username and password if you aren't using the root user.
   CLOUDSQL_USER: logtre
   CLOUDSQL_PASSWORD: '6Dtwoa6qb4y2Mpvx'
-  DJANGO_SETTINGS_MODULE: 'ACsite.settings'
+  DJANGO_SETTINGS_MODULE: 'ac_site.settings'

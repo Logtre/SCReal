@@ -17,7 +17,7 @@ import os
 import sys
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ACsite.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ac_site.settings")
 
     from django.core.management import execute_from_command_line
     # from djangae.core.management import execute_from_command_line
