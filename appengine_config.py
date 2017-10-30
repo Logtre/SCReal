@@ -21,7 +21,7 @@ from google.appengine.ext import vendor
 vendor.add('lib')       # 各種ライブラリ情報
 #vendor.add('ACsite')    # url_root
 #vendor.add('static')
-vendor.add('cred')
+#vendor.add('cred')
 # [END vendor]
 
 
