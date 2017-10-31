@@ -140,13 +140,12 @@ else:
     # See https://cloud.google.com/sql/docs/mysql-connect-proxy
 
     # アプリがローカルで実行されている場合は、ローカルMySQLに接続する
-    '''
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'HOST': '127.0.0.1',
             'PORT': '3306',
-            'NAME': 'Air_db',
+            'NAME': 'air_db',
             'USER': 'logtre',
             'PASSWORD': '6Dtwoa6qb4y2Mpvx',
         }
@@ -162,6 +161,7 @@ else:
             'PASSWORD': '6Dtwoa6qb4y2Mpvx',
         }
     }
+    '''
 
 # [END db_setup]
 
