@@ -17,6 +17,9 @@ from .views import (
     PropertyShowView
 )
 
+from django.contrib import admin
+admin.autodiscover()
+
 app_name = 'ac_site'
 urlpatterns = [
     url(r'^$', TopView.as_view(), name='index'),
@@ -42,4 +45,5 @@ urlpatterns = [
     # ex: /ac_site/5/vote/
     url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
 
+    url(r'^admin/', include(admin.site.urls))
 ]
