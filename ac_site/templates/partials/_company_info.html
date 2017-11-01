@@ -1,0 +1,20 @@
+{% for comp in company_info %}
+    <div class="content-block">
+        <div class="content-wew">
+            <h3 class="header-2"><span>アクセス</span></h3>
+            {{ comp.address }}
+        </div>
+    </div>
+    <div class="ggmap" >
+      <iframe src="{{ comp.gmap }}" width=100% height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+    <!--<iframe src="https://www.google.co.jp/maps/@35.6576512,139.7435944,17z/data=!3m1!4b1!4m2!7m1!2e1" width="100%" height="250" frameborder="0" style="border:0"></iframe>-->
+    <div class="content-block">
+        <div class="content-wew">
+            <p>
+                Quisque lorem tortor fringilla sed, vestibulum id, eleifend justo vel bibendum sapien massa ac turpis faucibus orci luctus non, consectetuer lobortis quis, varius in, purus. Integer ultrices posuere cubilia Curae.
+            </p>
+            <a href="{% url 'contact' %}" class="button button-primary button-fill">お問い合わせ</a>
+        </div>
+    </div>
+{% endfor %}

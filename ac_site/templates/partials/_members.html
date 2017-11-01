@@ -1,0 +1,92 @@
+{% load static %}
+<div class="content-block">
+    <div class="content-wew">
+
+        <h3 class="header-2"><span>メンバー</span></h3>
+
+        <div class="the-team-slider">
+            <a href="#" class="team-nav-left arrow-left">
+                <span class="kkicon icon-chevron-left"></span>
+            </a>
+            <a href="#" class="team-nav-right arrow-right">
+                <span class="kkicon icon-chevron-right"></span>
+            </a>
+            <div class="team">
+                {% for m in member_info %}
+                    <div class="text-center">
+                        <img src="{% static '/ac_site/assets/img/image1.JPG' %}" alt="Ava1" class="round-ava" />
+                        <h3>{{ m.name }}</h3>
+                        <p>{{ m.comment }}</p>
+                        <div class="mt-10">
+                            <span class="badge badge-third badge-square text-uppercase">
+                                {{ m.position }}
+                            </span>
+                        </div>
+                        <div class="mt-15">
+                            <a href="{{ m.twitter_url }}" class="button-team-twitter">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                            <a href="{{ m.facebook_url }}" class="button-team-facebook">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                            <a href="{{ m.linkedin_url }}" class="kkicon-linkedin">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                            <!--<a href="#" class="button-team-gplus">
+                                <i class="fa fa-google-plus"></i>
+                            </a>-->
+                        </div>
+                    </div>
+                {% endfor %}
+                <!--<div class="text-center">
+                    <img src="assets/img/tmp/ava2.jpg" alt="Ava1" class="round-ava">
+                    <h3>Julia Alan</h3>
+                    <p>Livesey, and the rest of these.</p>
+                    <div class="mt-10">
+                        <span class="badge badge-third badge-square text-uppercase">
+                            Developer
+                        </span>
+                    </div>
+                    <div class="mt-15">
+                        <a href="#" class="button-team-twitter">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#" class="button-team-facebook">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#" class="button-team-gplus">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </div>
+                </div>-->
+                <!--<div class="text-center">
+                    <img src="assets/img/tmp/ava5.jpg" alt="Ava1" class="round-ava">
+                    <h3>Kaya Max</h3>
+                    <p>Livesey, and the rest of these.</p>
+                    <div class="mt-10">
+                        <span class="badge badge-third badge-square text-uppercase">
+                            Developer
+                        </span>
+                    </div>
+                    <div class="mt-15">
+                        <a href="#" class="button-team-twitter">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#" class="button-team-facebook">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#" class="button-team-gplus">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+
+        <span class="hr-2 mt-20"></span>
+
+        <p>
+            協力者求む！！
+        </p>
+    </div>
+</div>

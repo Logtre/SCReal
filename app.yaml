@@ -7,12 +7,12 @@ threadsafe: true
 
 
 handlers:
-#- url: /static
-#  static_dir: ACsite/static # /staticという文言があったらACsite/staticと読み換える
-- url: /assets
-  static_dir: static/ac_site/assets
-- url: /bower_components
-  static_dir: static/ac_site/bower_components
+- url: /static
+  static_dir: static
+#- url: /assets
+#  static_dir: static/ac_site/assets
+#- url: /bower_components
+#  static_dir: static/ac_site/bower_components
 - url: /php_mailer
   static_dir: static/ac_site/php_mailer
 - url: /templates
