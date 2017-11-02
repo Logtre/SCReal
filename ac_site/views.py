@@ -114,9 +114,9 @@ class RankingView(TemplateView):
     template_name = "ranking.html"
 
     def get(self, request, **kwargs):
-        total_listing_ranking = Ranking.objects.select_related().all().filter(region__city_id__isnull=False).order_by('total_listing_rank')[0:10]
-        average_price_ranking = Ranking.objects.select_related().all().filter(region__city_id__isnull=False).order_by('average_price_rank')[0:10]
-        monthly_sales_ranking = Ranking.objects.select_related().all().filter(region__city_id__isnull=False).order_by('monthly_sales_rank')[0:10]
+        total_listing_ranking = Ranking.objects.select_related().all().filter(region__city_id__isnull=False).filter(created_at__month=today.month).order_by('total_listing_rank')[0:10]
+        average_price_ranking = Ranking.objects.select_related().all().filter(region__city_id__isnull=False).filter(created_at__month=today.month).order_by('average_price_rank')[0:10]
+        monthly_sales_ranking = Ranking.objects.select_related().all().filter(region__city_id__isnull=False).filter(created_at__month=today.month).order_by('monthly_sales_rank')[0:10]
 
         '''DEBUG用'''
         print(">>>>DEBUG>>>> total_listing_ranking is :")
@@ -1374,7 +1374,7 @@ class CityShowView(TemplateView):
         guest_legend = ForeignGuestCount.objects.all().filter(region_id=self.kwargs['region_id']).order_by('-year', '-month')[:12]
         # 11.付加価値情報（ランキング情報）
         try:
-            ranking_info = Ranking.objects.all().get(region_id=self.kwargs['region_city_id'])
+            ranking_info = Ranking.objects.all().filter(region_id=self.kwargs['region_city_id']).order_by('-created_at')
         except Ranking.DoesNotExist:
             raise Http404("No MyModel matches the given query.")
 
@@ -1464,7 +1464,7 @@ class CityShowView(TemplateView):
             'guest_legend_X': guest_legend[2],
             'guest_legend_XI': guest_legend[1],
             'guest_legend_XII': guest_legend[0],
-            'ranking_info': ranking_info,
+            'ranking_info': ranking_info[0],
             'trg_rent': round(trg_rent / 3.3 * int(trg_total_floor_area),0),
             'trg_restroom_facility_cost': round(trg_restroom_facility_cost,0),
             'trg_bathroom_facility_cost': round(trg_bathroom_facility_cost,0),
@@ -1478,7 +1478,7 @@ class CityShowView(TemplateView):
             'trg_capacity_info_II': trg_capacity_info[1],
             'trg_capacity_info_III': trg_capacity_info[2],
             'trg_capacity_info_IV': trg_capacity_info[3],
-            'ranking_last_month': int(ranking_info.created_at.month) - 1
+            'ranking_last_month': int(ranking_info[0].created_at.month) - 1
         }
         return self.render_to_response(context)
 

@@ -181,10 +181,10 @@ djangae/tests/test_transactional.py,sha256=leFoEDYNSV7QjLv1pGUmvII9NH_8wnAf3_xDe
 djangae/tests/test_urls.py,sha256=OU1gu4ezXHBpeHx1d_4o5NNdXlJNSh8sYhmIRULnZzg,1616
 djangae/tests/test_utils.py,sha256=b0vfgT-J7sCfy48TK2xy-vNg4t2kTY17k6zHH4YObKM,7115
 djangae-0.9.10.dist-info/DESCRIPTION.rst,sha256=W_dLwpP-Ggdt7KligeWz_HYiDXDzgv5A2OYjowaQhNg,5528
-djangae-0.9.10.dist-info/METADATA,sha256=0UKJRcpuyUzBtZMsrA0WEM6IWIPtyCXR1yYnvNGTlaY,6285
+djangae-0.9.10.dist-info/METADATA,sha256=yJphLv22WNdHCqcfsRXmrWrvL69wPnyX9e5VgoOAst0,6319
 djangae-0.9.10.dist-info/RECORD,,
 djangae-0.9.10.dist-info/WHEEL,sha256=BtVfdXUcEYLcFjOkbIrCFRyXU4qszVPt-E9o3RWkSNw,93
-djangae-0.9.10.dist-info/metadata.json,sha256=h7P8-11Vk6DHukTgrrCHJvN_x1lYWT5mLqwg7CrVmHk,914
+djangae-0.9.10.dist-info/metadata.json,sha256=3fTZlnIx991nvBMkzHhppqMD4QKG9SZuTexo2Uy2eRk,953
 djangae-0.9.10.dist-info/top_level.txt,sha256=RJUOZphlIat38eF1bSQyYIlxs6i3MpTXaOH4Qv2KVtc,8
 djangae-0.9.10.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
 djangae/db/constraints.pyc,,
