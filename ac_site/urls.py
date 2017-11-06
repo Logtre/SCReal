@@ -34,7 +34,7 @@ urlpatterns = [
     url(r'^ratings', RatingView.as_view(), name='rating'),
     url(r'^prefectures/(?P<region_id>[0-9]+)/cities/(?P<region_city_id>[0-9]+)/properties$', PropertiesView.as_view(), name='properties'),
     url(r'^prefectures/(?P<region_id>[0-9]+)/cities/(?P<region_city_id>[0-9]+)/properties/(?P<property_id>[0-9]+)$', PropertyShowView.as_view(), name='property_show'),
-    url(r'^accounts', include('allauth.urls')),
+    url(r'^accounts/', include('allauth.urls')),
     url(r'^signin/?$', views.signin_view),
     url(r'^signup/?$', views.signup_view),
 

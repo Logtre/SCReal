@@ -77,6 +77,7 @@ INSTALLED_APPS = (
 
 AUTHENTICATION_BACKENDS = (
    'allauth.account.auth_backends.AuthenticationBackend'
+   'django.contrib.auth.backends.ModelBackend',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -110,6 +111,35 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ac_site.wsgi.application'
+
+SOCIALACCOUNT_PROVIDERS = \
+    {'facebook':
+       {'METHOD': 'oauth2',
+        'SCOPE': ['email','public_profile', 'user_friends'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': lambda request: 'ja_JP',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v2.4'}}
+
+#facebook login
+SOCIAL_AUTH_FACEBOOK_KEY = '341138316329710'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET ='d69722b68caf5a3abaff52baa3f192fa' #app key
+LOGIN_REDIRECT_URL = "/"
+
+#site id
+SITE_ID = 1
+
+#little options for your page's signup.
+
+ACCOUNT_EMAIL_REQUIRED=True
+ACCOUNT_USERNAME_REQURIED=True
 
 
 # Database
