@@ -22,7 +22,7 @@ today = datetime.date.today()
 
 class SigninView(LoginView):
     '''サインイン(ログイン)'''
-    template_name = "login.html"
+    template_name = "signin/index.html"
 
     def dispatch(self, request, *args, **kwargs):
         response = super(SigninView, self).dispatch(request, *args, **kwargs)
@@ -36,7 +36,7 @@ signin_view = SigninView.as_view()
 
 class SignupView(SignupView):
     '''サインアップ(会員登録)'''
-    template_name = "registration.html"
+    template_name = "signup/index.html"
 
     def get_context_data(self, **kwargs):
         context = super(SignupView, self).get_ocntext_data(**kwargs)
