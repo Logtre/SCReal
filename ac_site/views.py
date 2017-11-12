@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 #for social login(これを指定すれば、相対パスで全てのファイルが読み込める)
-from allauth.account.views import LoginView, SignupView
+from allauth.account.views import LoginView, SignupView, LogoutView
 
 from django.views.generic import TemplateView
 
@@ -16,8 +16,18 @@ import datetime
 from .models import Region, Prefecture, City, PriceofLand, TourResource, ForeignGuestCount, AnnualSummary, RegionSummary, SummaryArticleBreakdown, SummaryCapacityBreakdown, SummaryLanguageBreakdown, SummarySizeBreakdown, Cost, GuestNationality, Nationality, Ranking, Company_table, Member_table, MemberFlg_table
 from .rating import individual_rating, elemental_rating, cal_stdev, cal_beta, city_list
 
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 
 today = datetime.date.today()
+
+
+'''非ログインユーザーをログイン画面にリダイレクトする関数'''
+def check_loginuser(request):
+    if not request.user.is_authenticated():
+        return HttpResponse('/signin/?next=%s' % request.path)
+    else:
+        pass
 
 
 class SigninView(LoginView):
@@ -39,10 +49,25 @@ class SignupView(SignupView):
     template_name = "signup/index.html"
 
     def get_context_data(self, **kwargs):
-        context = super(SignupView, self).get_ocntext_data(**kwargs)
+        context = super(SignupView, self).get_context_data(**kwargs)
         return context
 
 signup_view = SignupView.as_view()
+
+
+class SignoutView(LogoutView):
+    '''ログアウト'''
+    #template_name = "signout/index.html"
+
+    def get(self, *args, **kwargs):
+        return self.post(*args, **kwargs)
+
+    def post(self, *args, **kwargs):
+        if self.request.user.is_authenticated():
+            self.logout()
+        return redirect('/')
+
+signout_view = SignoutView.as_view()
 
 
 class TopView(TemplateView):
@@ -140,6 +165,9 @@ class PropertiesView(TemplateView):
     template_name="properties.html"
 
     def get(self, request, **kwargs):
+        # ログイン有無のチェック
+        check_loginuser(request)
+
         # ミクロ情報の取得2
         # RegionSummaryの対象レコード
         try:
@@ -158,6 +186,9 @@ class PropertyShowView(TemplateView):
     template_name="property.html"
 
     def get(self, request, **kwargs):
+        # ログイン有無の確認
+        check_loginuser(request)
+
         # ミクロ情報の取得2
         # RegionSummaryの対象レコード
         try:

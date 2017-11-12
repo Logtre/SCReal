@@ -37,6 +37,7 @@ urlpatterns = [
     url(r'^auth/', include('allauth.urls')),
     url(r'^signin/?$', views.signin_view),
     url(r'^signup/?$', views.signup_view),
+    url(r'^signout/?$', views.signout_view),
 
     # ex: /ac_site/5/
     url(r'^(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
