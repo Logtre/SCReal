@@ -35,6 +35,8 @@ libraries:
   version: 1.2.5
 - name: django
   version: "1.11"
+- name: ssl
+  version: latest
 
 builtins:
 - django_wsgi: on

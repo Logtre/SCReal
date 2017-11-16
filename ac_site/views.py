@@ -19,6 +19,9 @@ from .rating import individual_rating, elemental_rating, cal_stdev, cal_beta, ci
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
 today = datetime.date.today()
 
 
@@ -164,9 +167,10 @@ class PropertiesView(TemplateView):
     '''cityにひもづく物件一覧を取得する'''
     template_name="properties.html"
 
+    @method_decorator(login_required)
     def get(self, request, **kwargs):
         # ログイン有無のチェック
-        check_loginuser(request)
+        #check_loginuser(request)
 
         # ミクロ情報の取得2
         # RegionSummaryの対象レコード
