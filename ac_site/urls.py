@@ -35,9 +35,9 @@ urlpatterns = [
     url(r'^prefectures/(?P<region_id>[0-9]+)/cities/(?P<region_city_id>[0-9]+)/properties$', PropertiesView.as_view(), name='properties'),
     url(r'^prefectures/(?P<region_id>[0-9]+)/cities/(?P<region_city_id>[0-9]+)/properties/(?P<property_id>[0-9]+)$', PropertyShowView.as_view(), name='property_show'),
     url(r'^auth/', include('allauth.urls')),
-    url(r'^signin/?$', views.signin_view),
-    url(r'^signup/?$', views.signup_view),
-    url(r'^signout/?$', views.signout_view),
+    url(r'^signin/?$', views.signin_view, name='signin'),
+    url(r'^signup/?$', views.signup_view, name='signup'),
+    url(r'^signout/?$', views.signout_view, name='signout'),
 
     # ex: /ac_site/5/
     url(r'^(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
